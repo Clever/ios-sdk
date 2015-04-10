@@ -1,15 +1,63 @@
 # Clever iOS SDK 
 
-[![CI Status](http://img.shields.io/travis/Nikhil Pandit/CleverSDK.svg?style=flat)](https://travis-ci.org/Nikhil Pandit/CleverSDK)
 [![Version](https://img.shields.io/cocoapods/v/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
 [![License](https://img.shields.io/cocoapods/l/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
 [![Platform](https://img.shields.io/cocoapods/p/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
 
+CleverSDK is a simple iOS library that makes it easy for iOS developers to integrate the Clever Instant Login into their application.
+You can read more about integrating Clever Instant Login in your app [here](https://dev.clever.com/).
+
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+Configure your application to support the mobile redirect URL.
+You can find your mobile redirect URL by going to https://account.clever.com/partner/applications and clicking View / Edit on your application.
+Once you find the mobile redirect URL, you can add it to your application as a custom URL scheme.
+If you are not sure how to do so, check out this tutorial: https://dev.twitter.com/cards/mobile/url-schemes
 
-## Requirements
+Once you have the redirect URI setup, go to the AppDelegate file, and call `startWithClientId:` as follows:
+```obj-C
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    
+    // Start the CleverSDK with your clientID
+    // Replace CLIENT_ID with your client ID
+    [CLVOAuthManager startWithClientId:@"CLIENT_ID"];
+    ...
+```
+
+Besides the above change, you also need to add some code to handle the mobile redirect URI.
+This is done by implementing the `application:openURL:sourceApplication:annotation:` method of the AppDelegate:
+```obj-C
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // Clever's URL handler
+    return [CLVOAuthManager handleURL:url sourceApplication:sourceApplication annotation:annotation];
+}
+```
+
+Next step is to add the Clever Instant Login button.
+In the `UIViewController` where you plan to add the button, you can call the following code:
+```obj-C
+self.loginButton = [CLVLoginButton buttonInViewController:self successHander:^(NSString *accessToken) {
+// success handler
+} failureHandler:^(NSError *error) {
+// failure handler
+}];
+CGPoint origin = CGPointMake(10, 10);
+[self.loginButton setOrigin:origin];
+[self.view addSubview:self.loginButton];
+```
+In order to have the button render correctly, it is preferred to not set it's frame manually.
+The button is instantiated with a particular width and height.
+If you would like to change the size of the button, you can do so by calling the `scale:` method on the button.
+This will scale the width and height of the button.
+```obj-C
+[self.loginButton scale:0.8];
+```
+
+The `UIViewController` passed into this method is used to present another `UIViewController` that displays the login flow.
+
+
+To run the example project, clone the repo, and run `pod install` from the Example/SimpleLogin directory first.
 
 ## Installation
 
@@ -20,11 +68,6 @@ it, simply add the following line to your Podfile:
 pod "CleverSDK"
 ```
 
-## Author
-
-Nikhil Pandit, nikhil.pandit@clever.com
-
 ## License
 
 CleverSDK is available under the MIT license. See the LICENSE file for more info.
->>>>>>> Initial commit

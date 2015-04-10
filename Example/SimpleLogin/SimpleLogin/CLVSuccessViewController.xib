@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CLVSuccessViewController">
+            <connections>
+                <outlet property="accessTokenLabel" destination="Yzu-66-23h" id="17K-bg-16K"/>
+                <outlet property="detailLabel" destination="ON6-i5-65F" id="dEp-sS-AJ2"/>
+                <outlet property="readMoreLabel" destination="huL-YN-xsH" id="fRS-gK-yCO"/>
+                <outlet property="titleLabel" destination="nhp-Sp-CxQ" id="nZa-Vm-vNK"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhp-Sp-CxQ">
+                    <rect key="frame" x="258" y="72" width="84" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="84" id="CGv-ns-nPU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logged in successfully with accessToken:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ON6-i5-65F">
+                    <rect key="frame" x="178" y="104" width="245" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="245" id="RZJ-zF-p5g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzu-66-23h">
+                    <rect key="frame" x="150" y="160" width="300" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="Pla-hK-lQN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Go to https://dev.clever.com to learn more about Clever Instant Login" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huL-YN-xsH">
+                    <rect key="frame" x="150" y="302" width="300" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="300" id="Uuw-WP-vr7"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="k2t-Rp-6y4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="k2t-Rp-6y4"/>
+                        </mask>
+                    </variation>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="ON6-i5-65F" secondAttribute="centerX" id="0i1-66-ebj"/>
+                <constraint firstAttribute="centerX" secondItem="nhp-Sp-CxQ" secondAttribute="centerX" id="7kg-N7-cut"/>
+                <constraint firstItem="ON6-i5-65F" firstAttribute="top" secondItem="nhp-Sp-CxQ" secondAttribute="bottom" constant="8" id="C61-fR-BuB"/>
+                <constraint firstAttribute="centerX" secondItem="Yzu-66-23h" secondAttribute="centerX" id="TjV-Cr-dpQ"/>
+                <constraint firstAttribute="centerX" secondItem="huL-YN-xsH" secondAttribute="centerX" id="dT6-qg-3vA"/>
+                <constraint firstItem="huL-YN-xsH" firstAttribute="top" secondItem="Yzu-66-23h" secondAttribute="bottom" constant="94" id="l96-Nd-71t"/>
+                <constraint firstItem="nhp-Sp-CxQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="reR-og-w5r"/>
+                <constraint firstItem="Yzu-66-23h" firstAttribute="top" secondItem="ON6-i5-65F" secondAttribute="bottom" constant="15" id="yrT-NW-Xd5"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+        </view>
+    </objects>
+</document>
