@@ -38,11 +38,12 @@
                                     message:errorMessage
                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+    
     CGRect frame = self.loginButton.frame;
     CGSize size = [UIScreen mainScreen].bounds.size;
-    frame.origin = CGPointMake((size.width - frame.size.width) / 2,
-                               self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50);
-    self.loginButton.frame = frame;
+    [self.loginButton setOrigin:CGPointMake((size.width - frame.size.width) / 2,
+                                            self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50)];
+    
     [self.view addSubview:self.loginButton];
 }
 
