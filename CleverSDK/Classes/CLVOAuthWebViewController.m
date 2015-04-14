@@ -43,7 +43,7 @@
         return;
     }
     
-    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=token&client_id=%@&redirect_uri=%@&error_please=true",
+    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=token&client_id=%@&redirect_uri=%@",
                            [CLVOAuthManager clientId], [CLVOAuthManager redirectUri]];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 }
