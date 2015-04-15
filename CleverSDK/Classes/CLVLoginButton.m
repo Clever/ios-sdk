@@ -31,7 +31,7 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
                              successHander:(void (^)(NSString *))successHandler
                             failureHandler:(void (^)(NSString *))failureHandler {
     CLVLoginButton *button = [CLVLoginButton buttonWithType:UIButtonTypeCustom];
-    
+    button.districtId = districtId;
     button.frame = CGRectMake(0, 0, CLVLoginButtonBaseWidth, CLVLoginButtonBaseHeight);
     
     UIImage *bgImage = [CLVLoginButton backgroundImageForButton];
