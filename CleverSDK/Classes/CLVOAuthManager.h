@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *const CLVAccessTokenReceivedNotification;
+extern NSString *const CLVOAuthAuthorizeFailedNotification;
 
 /**
  CLVOAuthManager
@@ -71,6 +72,11 @@ extern NSString *const CLVAccessTokenReceivedNotification;
  Call the success handler
  */
 + (void)callSucessHandler;
+
+/**
+ Call the failure handler
+ */
++ (void)callFailureHandler;
 
 /**
  Allows setting the access token. Users of the SDK should not need to call this method directly.

@@ -8,7 +8,7 @@
 
 #import "CLVAppDelegate.h"
 #import "CLVLoginViewController.h"
-#import <CleverSDK/CLVOAuthManager.h>
+#import <CleverSDK/CLVCleverSDK.h>
 
 @interface CLVAppDelegate ()
 

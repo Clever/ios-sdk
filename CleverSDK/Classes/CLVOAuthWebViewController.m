@@ -13,15 +13,17 @@
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, weak) UIViewController *parent;
+@property (nonatomic, strong) NSString *districtId;
 
 @end
 
 @implementation CLVOAuthWebViewController
 
-- (id)initWithParent:(UIViewController *)viewController {
+- (id)initWithParent:(UIViewController *)viewController districtId:(NSString *)districtId {
     self = [super init];
     if (self) {
         self.parent = viewController;
+        self.districtId = districtId;
     }
     return self;
 }
@@ -30,7 +32,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessTokenReceived:) name:CLVAccessTokenReceivedNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oauthAuthorizeFailed:) name:CLVOAuthAuthorizeFailedNotification object:nil];
     self.webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:self.webView];
     
@@ -45,12 +47,21 @@
     
     NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=token&client_id=%@&redirect_uri=%@",
                            [CLVOAuthManager clientId], [CLVOAuthManager redirectUri]];
+    if (self.districtId) {
+        urlString = [NSString stringWithFormat:@"%@&district_id=%@", urlString, self.districtId];
+    }
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {
     [self dismissViewControllerAnimated:NO completion:^{
         [CLVOAuthManager callSucessHandler];
+    }];
+}
+
+- (void)oauthAuthorizeFailed:(NSNotification *)notification {
+    [self dismissViewControllerAnimated:NO completion:^{
+        [CLVOAuthManager callFailureHandler];
     }];
 }
 

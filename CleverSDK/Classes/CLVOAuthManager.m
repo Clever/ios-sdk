@@ -10,6 +10,7 @@
 #import <SSKeychain/SSKeychain.h>
 
 NSString *const CLVAccessTokenReceivedNotification = @"CLVAccessTokenReceivedNotification";
+NSString *const CLVOAuthAuthorizeFailedNotification = @"CLVOAuthAuthorizeFailedNotification";
 
 static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 
@@ -17,6 +18,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 
 @property (nonatomic, strong) NSString *clientId;
 @property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSString *errorMessage;
 
 @property (nonatomic, copy) void (^successHandler)(NSString *);
 @property (nonatomic, copy) void (^failureHandler)(NSString *);
@@ -77,8 +79,8 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [CLVOAuthManager setAccessToken:kvpairs[@"access_token"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
     } else {
-        NSString *errorMessage = [NSString stringWithFormat:@"%@: %@", kvpairs[@"error"], kvpairs[@"error_description"]];
-        [CLVOAuthManager sharedManager].failureHandler(errorMessage);
+        [CLVOAuthManager sharedManager].errorMessage = [NSString stringWithFormat:@"%@: %@", kvpairs[@"error"], kvpairs[@"error_description"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
     }
     return YES;
 }
@@ -91,6 +93,11 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 
 + (void)callSucessHandler {
     [CLVOAuthManager sharedManager].successHandler([CLVOAuthManager accessToken]);
+}
+
++ (void)callFailureHandler {
+    CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
+    manager.failureHandler(manager.errorMessage);
 }
 
 + (NSString *)accessToken {

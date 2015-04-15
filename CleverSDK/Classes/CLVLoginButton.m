@@ -20,14 +20,16 @@ const CGFloat CLVLoginButtonBaseHeight = 45.6;
 @property (nonatomic, weak) UIViewController *parent;
 @property (nonatomic, strong) UIImageView *textImage;
 
+@property (nonatomic, strong) NSString *districtId;
+
 @end
 
 @implementation CLVLoginButton
 
 + (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
-                             successHander:(void (^)(NSString *accessToken))successHandler
-                            failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    
+                            withDistrictId:(NSString *)districtId
+                             successHander:(void (^)(NSString *))successHandler
+                            failureHandler:(void (^)(NSString *))failureHandler {
     CLVLoginButton *button = [CLVLoginButton buttonWithType:UIButtonTypeCustom];
     
     button.frame = CGRectMake(0, 0, CLVLoginButtonBaseWidth, CLVLoginButtonBaseHeight);
@@ -48,6 +50,12 @@ const CGFloat CLVLoginButtonBaseHeight = 45.6;
     [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
     
     return button;
+}
+
++ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
+                             successHander:(void (^)(NSString *accessToken))successHandler
+                            failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+    return [CLVLoginButton buttonInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
 }
 
 - (void)setOrigin:(CGPoint)origin {
@@ -82,7 +90,7 @@ const CGFloat CLVLoginButtonBaseHeight = 45.6;
 }
 
 - (void)loginButtonPressed:(id)loginButton {
-    CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent];
+    CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent districtId:self.districtId];
     [self.parent presentViewController:vc animated:YES completion:nil];
 }
 

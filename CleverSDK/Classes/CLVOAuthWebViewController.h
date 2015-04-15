@@ -10,6 +10,6 @@
 
 @interface CLVOAuthWebViewController : UIViewController
 
-- (id)initWithParent:(UIViewController *)viewController;
+- (id)initWithParent:(UIViewController *)viewController districtId:(NSString *)districtId;
 
 @end
