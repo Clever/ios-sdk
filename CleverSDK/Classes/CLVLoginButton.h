@@ -38,18 +38,9 @@
 - (void)setOrigin:(CGPoint)origin;
 
 /**
- Scales the button by multiplying the width and height by the `scaleFactor`.
+ Set the button width. The button height is always.
+ The text will be always centered in the button, and the Clever C will be left aligned.
  */
-- (void)scale:(CGFloat)scaleFactor;
-
-/**
- Scales the button to the `width` and modifies the height to match the width.
- */
-- (void)scaleWithWidth:(CGFloat)width;
-
-/**
- Scales the button to the `height` and modifies the width to match the height.
- */
-- (void)scaleWithHeight:(CGFloat)height;
+- (void)setWidth:(CGFloat)width;
 
 @end

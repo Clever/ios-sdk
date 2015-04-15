@@ -29,30 +29,14 @@ describe(@"CLVLoginButton", ^{
         expect(button.frame.origin.y).to.beCloseTo(20);
     });
 
-    it(@"can scale using scaleFactor", ^{
+    it(@"can set width", ^{
         expect(button.frame.size.width).to.beCloseTo(248);
-        expect(button.frame.size.height).to.beCloseTo(45.6);
-        [button scale:0.8];
-        expect(button.frame.size.width).to.beCloseTo(198.4);
-        expect(button.frame.size.height).to.beCloseTo(36.48);
+        expect(button.frame.size.height).to.beCloseTo(44);
+        [button setWidth:300];
+        expect(button.frame.size.width).to.beCloseTo(300);
+        expect(button.frame.size.height).to.beCloseTo(44);
     });
-    
-    it(@"can scale using width", ^{
-        expect(button.frame.size.width).to.beCloseTo(248);
-        expect(button.frame.size.height).to.beCloseTo(45.6);
-        [button scaleWithWidth:310];
-        expect(button.frame.size.width).to.beCloseTo(310);
-        expect(button.frame.size.height).to.beCloseTo(57);
-    });
-    
-    it (@"can scale using height", ^{
-        expect(button.frame.size.width).to.beCloseTo(248);
-        expect(button.frame.size.height).to.beCloseTo(45.6);
-        [button scaleWithHeight:57];
-        expect(button.frame.size.width).to.beCloseTo(310);
-        expect(button.frame.size.height).to.beCloseTo(57);
-    });
-    
+
 });
 
 describe(@"CLVOAuthManager", ^{
