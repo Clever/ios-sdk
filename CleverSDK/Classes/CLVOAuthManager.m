@@ -8,6 +8,8 @@
 
 #import "CLVOAuthManager.h"
 #import <SSKeychain/SSKeychain.h>
+#import "AFHTTPSessionManager.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 NSString *const CLVAccessTokenReceivedNotification = @"CLVAccessTokenReceivedNotification";
 NSString *const CLVOAuthAuthorizeFailedNotification = @"CLVOAuthAuthorizeFailedNotification";
@@ -77,7 +79,25 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     NSString *accessToken = kvpairs[@"access_token"];
     if (accessToken) {
         [CLVOAuthManager setAccessToken:kvpairs[@"access_token"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
+        // make a request to tokeninfo to verify that this token belongs to the right app
+        AFHTTPSessionManager *tokenInfo = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://clever.com/oauth/tokeninfo"]];
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        tokenInfo.requestSerializer = [AFJSONRequestSerializer serializer];
+        tokenInfo.responseSerializer = [AFJSONResponseSerializer serializer];
+        [tokenInfo.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", accessToken] forHTTPHeaderField:@"Authorization"];
+        [tokenInfo GET:@"https://clever.com/oauth/tokeninfo" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            // verify that the client id is what we expect
+            if ([responseObject[@"client_id"] isEqualToString:[CLVOAuthManager clientId]]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
+            } else {
+                // if the client IDs don't match, consider this a failure
+                [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            // if the tokeninfo endpoint returns a failure, take the safe option and assume AuthorizationFailed
+            [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+        }];
+        
     } else {
         [CLVOAuthManager sharedManager].errorMessage = [NSString stringWithFormat:@"%@: %@", kvpairs[@"error"], kvpairs[@"error_description"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
