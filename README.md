@@ -1,10 +1,6 @@
 # Clever iOS SDK 
 
-[![Version](https://img.shields.io/cocoapods/v/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
-[![License](https://img.shields.io/cocoapods/l/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
-[![Platform](https://img.shields.io/cocoapods/p/CleverSDK.svg?style=flat)](http://cocoapods.org/pods/CleverSDK)
-
-CleverSDK is a simple iOS library that makes it easy for iOS developers to integrate the Clever Instant Login into their application.
+CleverSDK is a simple iOS library that makes it easy for iOS developers to integrate Clever Instant Login into their application.
 You can read more about integrating Clever Instant Login in your app [here](https://dev.clever.com/).
 
 ## Usage
@@ -46,15 +42,14 @@ CGPoint origin = CGPointMake(10, 10);
 [self.loginButton setOrigin:origin];
 [self.view addSubview:self.loginButton];
 ```
-In order to have the button render correctly, it is preferred to not set it's frame manually.
 The button is instantiated with a particular width and height.
-If you would like to change the size of the button, you can do so by calling the `scale:` method on the button.
-This will scale the width and height of the button.
+You can update the width of the button by calling `setWidth:` method on the button.
+For example:
 ```obj-C
-[self.loginButton scale:0.8];
+[self.loginButton setWidth:300.0];
 ```
 
-The `UIViewController` passed into this method is used to present another `UIViewController` that displays the login flow.
+The `UIViewController` passed to the button is used to present another `UIViewController` that displays the login flow.
 
 
 To run the example project, clone the repo, and run `pod install` from the Example/SimpleLogin directory first.
@@ -64,7 +59,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 CleverSDK is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-```ruby
+```
 pod "CleverSDK"
 ```
 
