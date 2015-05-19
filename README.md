@@ -63,6 +63,3 @@ it, simply add the following line to your Podfile:
 pod "CleverSDK"
 ```
 
-## License
-
-CleverSDK is available under the MIT license. See the LICENSE file for more info.
