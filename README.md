@@ -63,3 +63,6 @@ it, simply add the following line to your Podfile:
 pod "CleverSDK"
 ```
 
+## License
+
+Apache 2.0
