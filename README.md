@@ -6,7 +6,7 @@ You can read more about integrating Clever Instant Login in your app [here](http
 ## Usage
 
 Configure your application to support the mobile redirect URL.
-You can find your mobile redirect URL by going to https://account.clever.com/partner/applications and clicking View / Edit on your application.
+You can find your mobile redirect URL by going to https://apps.clever.com/partner/applications and clicking View / Edit on your application.
 Once you find the mobile redirect URL, you can add it to your application as a custom URL scheme.
 If you are not sure how to do so, check out this tutorial: https://dev.twitter.com/cards/mobile/url-schemes
 
