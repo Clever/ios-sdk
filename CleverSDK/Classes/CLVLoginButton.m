@@ -11,6 +11,11 @@
 #import "CLVOAuthManager.h"
 #import <PocketSVG/PocketSVG.h>
 
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 const CGFloat CLVLoginButtonBaseWidth = 248.0;
 const CGFloat CLVLoginButtonBaseHeight = 44.0;
@@ -75,8 +80,36 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 }
 
 - (void)loginButtonPressed:(id)loginButton {
-    CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent districtId:self.districtId];
-    [self.parent presentViewController:vc animated:YES completion:nil];
+    // Use SFSVC if iOS version >= 9.0
+    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
+        CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent districtId:self.districtId];
+        [self.parent presentViewController:vc animated:YES completion:nil];
+        return;
+    }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessTokenReceived:) name:CLVAccessTokenReceivedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oauthAuthorizeFailed:) name:CLVOAuthAuthorizeFailedNotification object:nil];
+    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
+        [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
+
+    if (self.districtId) {
+        urlString = [NSString stringWithFormat:@"%@&district_id=%@", urlString, self.districtId];
+    }
+
+    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlString] entersReaderIfAvailable:NO];
+    [self.parent presentViewController:svc animated:YES completion:nil];
+}
+
+- (void)accessTokenReceived:(NSNotification *)notification {
+    [self.parent dismissViewControllerAnimated:NO completion:^{
+        [CLVOAuthManager callSucessHandler];
+    }];
+}
+
+- (void)oauthAuthorizeFailed:(NSNotification *)notification {
+    [self.parent dismissViewControllerAnimated:NO completion:^{
+        [CLVOAuthManager callFailureHandler];
+    }];
 }
 
 + (UIImage *)backgroundImageForButton {

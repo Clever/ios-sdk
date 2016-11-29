@@ -44,6 +44,11 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
  */
 + (NSString *)accessToken;
 
+/**
+ Return the state
+*/
++ (NSString *)state;
+
 
 ///----------------------------------------
 /// Methods used by other classes of the SDK

@@ -20,9 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    // Start the CleverSDK with your clientID
+    // Start the CleverSDK with your client
     // Do not forget to replace CLIENT_ID with your client_id
-    [CLVOAuthManager startWithClientId:@"CLIENT_ID"];
+    [CLVOAuthManager startWithClientId: @"CLIENT_ID"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     CLVLoginViewController *vc = [[CLVLoginViewController alloc] initWithNibName:nil bundle:nil];

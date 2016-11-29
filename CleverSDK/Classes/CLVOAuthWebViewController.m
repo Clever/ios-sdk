@@ -44,9 +44,9 @@
         [self dismissViewControllerAnimated:NO completion:nil];
         return;
     }
-    
-    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=token&client_id=%@&redirect_uri=%@",
-                           [CLVOAuthManager clientId], [CLVOAuthManager redirectUri]];
+    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
+                           [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
+
     if (self.districtId) {
         urlString = [NSString stringWithFormat:@"%@&district_id=%@", urlString, self.districtId];
     }
