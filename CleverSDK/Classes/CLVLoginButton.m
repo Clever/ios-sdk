@@ -15,7 +15,6 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 
 @interface CLVLoginButton ()
 
-@property (nonatomic, weak) UIViewController *parent;
 @property (nonatomic, strong) UIImageView *textImage;
 
 @property (nonatomic, strong) NSString *districtId;
@@ -24,7 +23,7 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 
 @implementation CLVLoginButton
 
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController {
++ (CLVLoginButton *)createLoginButton {
     CLVLoginButton *button = [CLVLoginButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0, 0, CLVLoginButtonBaseWidth, CLVLoginButtonBaseHeight);
     
@@ -36,8 +35,6 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
     button.textImage = [[UIImageView alloc] initWithImage:[CLVLoginButton textForButton:button.frame.size]];
     button.textImage.frame = button.bounds;
     [button addSubview:button.textImage];
-    
-    button.parent = viewController;
     
     [button addTarget:button action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 

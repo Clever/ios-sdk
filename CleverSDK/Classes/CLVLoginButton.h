@@ -12,10 +12,9 @@
 @interface CLVLoginButton : UIButton
 
 /**
- Create a `CLVLoginButton` with a `UIViewController`
- @param viewController The base viewController on which the Login screen is presented modally.
+ Create a `CLVLoginButton`
  */
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController;
++ (CLVLoginButton *)createLoginButton;
 
 /**
  Set the origin of the button. This is the preferred method of manipulating the button frame.

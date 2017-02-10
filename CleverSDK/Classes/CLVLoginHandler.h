@@ -23,7 +23,7 @@
 
 /**
  Create a `CLVLoginHandler` with a `UIViewController`, districtID, successHandler, and failureHandler.
- @param viewController The base viewController on which teh Login screen is presented modally.
+ @param viewController The base viewController on which the Login screen is presented modally.
  @param districtId Sent as a GET param to the `oauth/authorize` call.
  @param successHandler Called with the `accessToken` after dismissing the Login screen on success.
  @param failureHandler Called with the `errorMessage` after dismissing the Login screen on failure.

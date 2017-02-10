@@ -33,6 +33,8 @@
     login.districtId = districtId;
     login.parent = viewController;
     [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
+    [[NSNotificationCenter defaultCenter] addObserver:login selector:@selector(accessTokenReceived:) name:CLVAccessTokenReceivedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:login selector:@selector(oauthAuthorizeFailed:) name:CLVOAuthAuthorizeFailedNotification object:nil];
     return login;
 }
 
@@ -43,13 +45,8 @@
 }
 
 - (void)login {
-    // Use SFSVC if iOS version >= 9.0
-    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
-        return;
-    }
+    [CLVOAuthManager generateRandomState];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessTokenReceived:) name:CLVAccessTokenReceivedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oauthAuthorizeFailed:) name:CLVOAuthAuthorizeFailedNotification object:nil];
     NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
                            [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
 
@@ -57,14 +54,24 @@
         urlString = [NSString stringWithFormat:@"%@&district_id=%@", urlString, self.districtId];
     }
 
+    // Use SFSVC if iOS version >= 9.0
+    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:urlString]];
+        return;
+    }
+
     SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlString] entersReaderIfAvailable:NO];
     [self.parent presentViewController:svc animated:YES completion:nil];
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {
-    [self.parent dismissViewControllerAnimated:NO completion:^{
+    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
         [CLVOAuthManager callSucessHandler];
-    }];
+    } else {
+        [self.parent dismissViewControllerAnimated:NO completion:^{
+            [CLVOAuthManager callSucessHandler];
+        }];
+    }
 }
 
 - (void)oauthAuthorizeFailed:(NSNotification *)notification {

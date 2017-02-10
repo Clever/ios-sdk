@@ -66,7 +66,6 @@
 		5032FBDA45A05AA7C0C026D6 /* UIRefreshControl+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CEA4E1B64D354E3A6BDF0DC /* UIRefreshControl+AFNetworking.h */; };
 		511F81180527381BFD828CFA /* EXPMatchers+contain.h in Headers */ = {isa = PBXBuildFile; fileRef = 148197F2AD97E382F2A19A27 /* EXPMatchers+contain.h */; };
 		54696A82F896E706DE5DC562 /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D48AEB28119568A474AAF5F /* UIKit+AFNetworking.h */; };
-		55C4DA2869396FE1276D1703 /* CLVOAuthWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B480AF860571CB9DDBE0439 /* CLVOAuthWebViewController.m */; };
 		56F8ADC4716452AD82819C38 /* XCTestCase+Specta.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953541AC9F2A77EE057437E /* XCTestCase+Specta.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		59DD723D61FB1F49F1FA05EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721191D3C5F63276DE99C73C /* Foundation.framework */; };
 		5C1B9309AEC11B66A8E22F72 /* AFHTTPRequestOperationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B778945B3F03FC563F8A995C /* AFHTTPRequestOperationManager.h */; };
@@ -107,7 +106,6 @@
 		90AC94C23077BE3DFA7DF829 /* NSValue+Expecta.m in Sources */ = {isa = PBXBuildFile; fileRef = E11443D78318284095706385 /* NSValue+Expecta.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		93C5F127FAC6031E2556CAFB /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 6396217CAD9D70D2A962C1E3 /* UIActivityIndicatorView+AFNetworking.h */; };
 		95B4CDF1D6938650E869925E /* EXPMatchers+beTruthy.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AD50583578012D4FD80C63A /* EXPMatchers+beTruthy.h */; };
-		966C3F33750937C70E6A27BA /* CLVOAuthWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EBD8E1CA3AE4D573DBB7352D /* CLVOAuthWebViewController.h */; };
 		98CF3074BC131A2F3EE05B06 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 365A7AF9D2503EA8BE78EF8E /* AFHTTPRequestOperation.h */; };
 		99F004789A1756EE13DCCDD4 /* SPTCompiledExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C391C96F1612C8A8A2A6309 /* SPTCompiledExample.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		9A7C25B350B9DCA910EDA560 /* Expecta.h in Headers */ = {isa = PBXBuildFile; fileRef = D1B77BBABDFCC54632ABFB4B /* Expecta.h */; };
@@ -366,7 +364,6 @@
 		545F0F5B403B630C9D7A5416 /* Pods-SimpleLogin-CleverSDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SimpleLogin-CleverSDK-dummy.m"; sourceTree = "<group>"; };
 		57653D428A4B1BF4AA3F2C0C /* EXPMatcherHelpers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXPMatcherHelpers.h; path = Expecta/Matchers/EXPMatcherHelpers.h; sourceTree = "<group>"; };
 		597CF23D516F282A277447EC /* EXPMatchers+haveCountOf.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "EXPMatchers+haveCountOf.m"; path = "Expecta/Matchers/EXPMatchers+haveCountOf.m"; sourceTree = "<group>"; };
-		5B480AF860571CB9DDBE0439 /* CLVOAuthWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = CLVOAuthWebViewController.m; sourceTree = "<group>"; };
 		5D255F046989B9F6E285BC66 /* CLVApiRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLVApiRequest.h; sourceTree = "<group>"; };
 		5D3275CE5AEE7C420DF00DA0 /* SPTSpec.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPTSpec.m; path = Specta/Specta/SPTSpec.m; sourceTree = "<group>"; };
 		5D5DC6FF18D53AB2A332554F /* SpectaUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SpectaUtility.h; path = Specta/Specta/SpectaUtility.h; sourceTree = "<group>"; };
@@ -494,7 +491,6 @@
 		E8B9920465A376988E9E8D46 /* EXPMatchers+beFalsy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beFalsy.h"; path = "Expecta/Matchers/EXPMatchers+beFalsy.h"; sourceTree = "<group>"; };
 		EB083929B039378F2A6973D5 /* EXPMatchers+beKindOf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beKindOf.h"; path = "Expecta/Matchers/EXPMatchers+beKindOf.h"; sourceTree = "<group>"; };
 		EB739B562D6848AB18051F03 /* SSKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SSKeychain.h; path = SSKeychain/SSKeychain.h; sourceTree = "<group>"; };
-		EBD8E1CA3AE4D573DBB7352D /* CLVOAuthWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = CLVOAuthWebViewController.h; sourceTree = "<group>"; };
 		ECEA0678DEA1C36DD6E2BC6D /* XCTest+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "XCTest+Private.h"; path = "Specta/Specta/XCTest+Private.h"; sourceTree = "<group>"; };
 		EF6FEC18F362515883F904FE /* EXPMatchers+beLessThanOrEqualTo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EXPMatchers+beLessThanOrEqualTo.h"; path = "Expecta/Matchers/EXPMatchers+beLessThanOrEqualTo.h"; sourceTree = "<group>"; };
 		F01FD9880821F2F43EC78345 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLConnectionOperation.m; path = AFNetworking/AFURLConnectionOperation.m; sourceTree = "<group>"; };
@@ -1000,8 +996,6 @@
 				FA72CDC81E4D27A9007FF67B /* CLVLoginHandler.h */,
 				9C3D8DB0074427C3B26C1D9C /* CLVOAuthManager.h */,
 				883CD9E1F05203BAE024179B /* CLVOAuthManager.m */,
-				EBD8E1CA3AE4D573DBB7352D /* CLVOAuthWebViewController.h */,
-				5B480AF860571CB9DDBE0439 /* CLVOAuthWebViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1146,7 +1140,6 @@
 				F4D435C96C688A2CDF602E70 /* CLVCleverSDK.h in Headers */,
 				BBDEE972ADFC3985048859B6 /* CLVLoginButton.h in Headers */,
 				0029268FC4A886A4E7809080 /* CLVOAuthManager.h in Headers */,
-				966C3F33750937C70E6A27BA /* CLVOAuthWebViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,7 +1507,6 @@
 				EED6A6DFE4505DC0EAA77ABD /* CLVApiRequest.m in Sources */,
 				047F6900D7AA251C07D718D2 /* CLVLoginButton.m in Sources */,
 				A66C33E27665F98BB50E57C3 /* CLVOAuthManager.m in Sources */,
-				55C4DA2869396FE1276D1703 /* CLVOAuthWebViewController.m in Sources */,
 				2AABDC21C8F91663A90BCC15 /* Pods-SimpleLogin-CleverSDK-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

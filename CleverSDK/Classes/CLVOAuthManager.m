@@ -43,23 +43,19 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return _sharedManager;
 }
 
-+ (void)startWithClientId:(NSString *)clientId {
++ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler {
     CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
-    manager.state = [self generateRandomString:(32)];
     manager.clientId = clientId;
+    manager.clvLogin = clvLoginHandler;
 }
 
-+ (void)setLogin:(CLVLoginHandler *)clvLogin {
-    CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
-    manager.clvLogin = clvLogin;
-}
-
-+(NSString*)generateRandomString:(int)num {
-    NSMutableString* string = [NSMutableString stringWithCapacity:num];
-    for (int i = 0; i < num; i++) {
++(NSString*)generateRandomState {
+    NSMutableString* string = [NSMutableString stringWithCapacity:32];
+    for (int i = 0; i < 32; i++) {
         [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
     }
-    return string;
+    CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
+    manager.state = string;
 }
 
 + (BOOL)clientIdIsNotSet {
@@ -95,9 +91,9 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         // not a Clever redirect URL, so exit
         return NO;
     }
-    NSString *fragment = url.query;
+    NSString *query = url.query;
     NSMutableDictionary *kvpairs = [NSMutableDictionary dictionaryWithCapacity:1];
-    NSArray *components = [fragment componentsSeparatedByString:@"&"];
+    NSArray *components = [query componentsSeparatedByString:@"&"];
     for (NSString *component in components) {
         NSArray *kv = [component componentsSeparatedByString:@"="];
         kvpairs[kv[0]] = kv[1];

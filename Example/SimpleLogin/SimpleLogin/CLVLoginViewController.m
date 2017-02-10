@@ -8,7 +8,6 @@
 
 #import "CLVLoginViewController.h"
 #import <CleverSDK/CLVCleverSDK.h>
-#import <CleverSDK/CLVOAuthWebViewController.h>
 #import "CLVSuccessViewController.h"
 
 @interface CLVLoginViewController ()
@@ -41,9 +40,12 @@
                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
 
-    [CLVOAuthManager setLogin:login];
+    // Start the CleverSDK with your client
+    // Do not forget to replace CLIENT_ID with your client_id
+    [CLVOAuthManager startWithClientId:@"CLIENT_ID" clvLoginHandler:login];
 
-    self.loginButton = [CLVLoginButton buttonInViewController:self];
+    // Create a "Log in with Clever" button (optional)
+    self.loginButton = [CLVLoginButton createLoginButton];
     
     CGRect frame = self.loginButton.frame;
     CGSize size = [UIScreen mainScreen].bounds.size;

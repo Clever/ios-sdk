@@ -18,16 +18,16 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 @interface CLVOAuthManager : NSObject
 
 /**
- Call this method under `application:didFinishLaunchingWithOptions:` method in the AppDelegate
- This method sets the clientId which is used for constructing the OAuth URL and logging in.
+ Call this method after you have initialized the CLVLoginHandler with your success/failure handlers.
+ This method also sets the clientId which is used for constructing the OAuth URL and logging in.
  */
-+ (void)startWithClientId:(NSString *)clientId;
++ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
 
 /**
- Call this method under `application:didFinishLaunchingWithOptions:` method in the AppDelegate
- This method sets the clientId which is used for constructing the OAuth URL and logging in.
+ This methods generates a random state variable. It should be called before every login attempt
+ to ensure a unique, random state value is used.
  */
-+ (void)setLogin:(CLVLoginHandler *)clvLogin;
++ (void)generateRandomState;
 
 /**
  This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
