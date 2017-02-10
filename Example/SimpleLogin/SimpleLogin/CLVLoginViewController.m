@@ -8,6 +8,7 @@
 
 #import "CLVLoginViewController.h"
 #import <CleverSDK/CLVCleverSDK.h>
+#import <CleverSDK/CLVOAuthWebViewController.h>
 #import "CLVSuccessViewController.h"
 
 @interface CLVLoginViewController ()
@@ -27,7 +28,8 @@
     self.navigationController.navigationBar.translucent = NO;
     
     __weak typeof(self) weakSelf = self;
-    self.loginButton = [CLVLoginButton buttonInViewController:self successHander:^(NSString *accessToken) {
+
+    CLVLoginHandler *login = [CLVLoginHandler loginInViewController:self successHander:^(NSString *accessToken) {
         // success handler
         __strong typeof(self) strongSelf = weakSelf;
         CLVSuccessViewController *vc = [[CLVSuccessViewController alloc] initWithAccessToken:accessToken];
@@ -38,6 +40,10 @@
                                     message:errorMessage
                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+
+    [CLVOAuthManager setLogin:login];
+
+    self.loginButton = [CLVLoginButton buttonInViewController:self];
     
     CGRect frame = self.loginButton.frame;
     CGSize size = [UIScreen mainScreen].bounds.size;

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CLVLoginHandler.h"
 
 extern NSString *const CLVAccessTokenReceivedNotification;
 extern NSString *const CLVOAuthAuthorizeFailedNotification;
@@ -21,6 +22,12 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
  This method sets the clientId which is used for constructing the OAuth URL and logging in.
  */
 + (void)startWithClientId:(NSString *)clientId;
+
+/**
+ Call this method under `application:didFinishLaunchingWithOptions:` method in the AppDelegate
+ This method sets the clientId which is used for constructing the OAuth URL and logging in.
+ */
++ (void)setLogin:(CLVLoginHandler *)clvLogin;
 
 /**
  This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
@@ -87,5 +94,10 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
  Allows setting the access token. Users of the SDK should not need to call this method directly.
  */
 + (void)setAccessToken:(NSString *)accessToken;
+
+/**
+ Start the login flow
+ */
++ (void)login;
 
 @end

@@ -7,15 +7,8 @@
 //
 
 #import "CLVLoginButton.h"
-#import "CLVOAuthWebViewController.h"
 #import "CLVOAuthManager.h"
 #import <PocketSVG/PocketSVG.h>
-
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 const CGFloat CLVLoginButtonBaseWidth = 248.0;
 const CGFloat CLVLoginButtonBaseHeight = 44.0;
@@ -31,12 +24,8 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 
 @implementation CLVLoginButton
 
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
-                            withDistrictId:(NSString *)districtId
-                             successHander:(void (^)(NSString *))successHandler
-                            failureHandler:(void (^)(NSString *))failureHandler {
++ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController {
     CLVLoginButton *button = [CLVLoginButton buttonWithType:UIButtonTypeCustom];
-    button.districtId = districtId;
     button.frame = CGRectMake(0, 0, CLVLoginButtonBaseWidth, CLVLoginButtonBaseHeight);
     
     UIImage *bgImage = [CLVLoginButton backgroundImageForButton];
@@ -51,16 +40,8 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
     button.parent = viewController;
     
     [button addTarget:button action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
-    
-    return button;
-}
 
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
-                             successHander:(void (^)(NSString *accessToken))successHandler
-                            failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    return [CLVLoginButton buttonInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
+    return button;
 }
 
 - (void)setOrigin:(CGPoint)origin {
@@ -80,36 +61,7 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 }
 
 - (void)loginButtonPressed:(id)loginButton {
-    // Use SFSVC if iOS version >= 9.0
-    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
-        CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent districtId:self.districtId];
-        [self.parent presentViewController:vc animated:YES completion:nil];
-        return;
-    }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessTokenReceived:) name:CLVAccessTokenReceivedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(oauthAuthorizeFailed:) name:CLVOAuthAuthorizeFailedNotification object:nil];
-    NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
-        [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
-
-    if (self.districtId) {
-        urlString = [NSString stringWithFormat:@"%@&district_id=%@", urlString, self.districtId];
-    }
-
-    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlString] entersReaderIfAvailable:NO];
-    [self.parent presentViewController:svc animated:YES completion:nil];
-}
-
-- (void)accessTokenReceived:(NSNotification *)notification {
-    [self.parent dismissViewControllerAnimated:NO completion:^{
-        [CLVOAuthManager callSucessHandler];
-    }];
-}
-
-- (void)oauthAuthorizeFailed:(NSNotification *)notification {
-    [self.parent dismissViewControllerAnimated:NO completion:^{
-        [CLVOAuthManager callFailureHandler];
-    }];
+    [CLVOAuthManager login];
 }
 
 + (UIImage *)backgroundImageForButton {
