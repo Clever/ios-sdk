@@ -49,13 +49,17 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     manager.clvLogin = clvLoginHandler;
 }
 
-+(NSString*)generateRandomState {
++(NSString*)generateRandomString:(int)num {
     NSMutableString* string = [NSMutableString stringWithCapacity:32];
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < num; i++) {
         [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
     }
+    return string;
+}
+
++ (void)setState:(NSString *)state {
     CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
-    manager.state = string;
+    manager.state = state;
 }
 
 + (BOOL)clientIdIsNotSet {

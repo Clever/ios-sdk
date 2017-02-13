@@ -24,10 +24,15 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 + (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
 
 /**
- This methods generates a random state variable. It should be called before every login attempt
- to ensure a unique, random state value is used.
+ This methods generates a random string.
  */
-+ (void)generateRandomState;
++ (NSString *)generateRandomString:(int)num;
+
+/**
+ This method sets the state value used in the OAuth fow.
+ It should be called before every login attempt to ensure a unique, random state value is used.
+*/
++ (void)setState:(NSString *)state;
 
 /**
  This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate

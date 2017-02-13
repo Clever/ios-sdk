@@ -49,8 +49,8 @@ You can optionally add the Clever Instant Login button.
 In the `UIViewController` where you set the login success/failure handlers, add the button:
 ```obj-C
 // Create a "Log in with Clever" button
-self.loginButton = [CLVLoginButton createLoginButton];
-[self.view addSubview:self.loginButton];
+loginButton = [CLVLoginButton createLoginButton];
+[self.view addSubview:loginButton];
 ```
 
 The button is instantiated with a particular width and height.

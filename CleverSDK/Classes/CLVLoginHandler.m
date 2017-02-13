@@ -45,7 +45,8 @@
 }
 
 - (void)login {
-    [CLVOAuthManager generateRandomState];
+    NSString *state = [CLVOAuthManager generateRandomString:32];
+    [CLVOAuthManager setState:state];
 
     NSString *urlString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
                            [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
