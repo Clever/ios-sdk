@@ -6,7 +6,7 @@
 //
 //
 
-#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFHTTPSessionManager.h>
 
 @interface CLVApiRequest : AFHTTPSessionManager
 
