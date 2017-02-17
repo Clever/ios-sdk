@@ -12,7 +12,6 @@
 
 @interface CLVLoginViewController ()
 
-@property (nonatomic, strong) CLVLoginButton *loginButton;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailLabel;
 
@@ -27,24 +26,33 @@
     self.navigationController.navigationBar.translucent = NO;
     
     __weak typeof(self) weakSelf = self;
-    self.loginButton = [CLVLoginButton buttonInViewController:self successHander:^(NSString *accessToken) {
+
+    CLVLoginHandler *login = [CLVLoginHandler loginInViewController:self successHander:^(NSString *accessToken) {
         // success handler
         __strong typeof(self) strongSelf = weakSelf;
         CLVSuccessViewController *vc = [[CLVSuccessViewController alloc] initWithAccessToken:accessToken];
-        [strongSelf.navigationController pushViewController:vc animated:YES];
+        UINavigationController *navigationController = strongSelf.navigationController;
+        [navigationController popToRootViewControllerAnimated:NO];
+        [navigationController pushViewController:vc animated:YES];
     } failureHandler:^(NSString *errorMessage) {
         // failure handler
         [[[UIAlertView alloc] initWithTitle:@"Error"
                                     message:errorMessage
                                    delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }];
+
+    // Start the CleverSDK with your client
+    // Do not forget to replace CLIENT_ID with your client_id
+    [CLVOAuthManager startWithClientId:@"CLIENT_ID" clvLoginHandler:login];
+
+    // Create a "Log in with Clever" button (optional)
+    CLVLoginButton *loginButton = [CLVLoginButton createLoginButton];
     
-    CGRect frame = self.loginButton.frame;
+    CGRect frame = loginButton.frame;
     CGSize size = [UIScreen mainScreen].bounds.size;
-    [self.loginButton setOrigin:CGPointMake((size.width - frame.size.width) / 2,
+    [loginButton setOrigin:CGPointMake((size.width - frame.size.width) / 2,
                                             self.detailLabel.frame.origin.y + self.detailLabel.frame.size.height + 50)];
-    
-    [self.view addSubview:self.loginButton];
+    [self.view addSubview:loginButton];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CLVLoginHandler.h"
 
 extern NSString *const CLVAccessTokenReceivedNotification;
 extern NSString *const CLVOAuthAuthorizeFailedNotification;
@@ -17,10 +18,21 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 @interface CLVOAuthManager : NSObject
 
 /**
- Call this method under `application:didFinishLaunchingWithOptions:` method in the AppDelegate
- This method sets the clientId which is used for constructing the OAuth URL and logging in.
+ Call this method after you have initialized the CLVLoginHandler with your success/failure handlers.
+ This method also sets the clientId which is used for constructing the OAuth URL and logging in.
  */
-+ (void)startWithClientId:(NSString *)clientId;
++ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
+
+/**
+ This methods generates a random string.
+ */
++ (NSString *)generateRandomString:(int)num;
+
+/**
+ This method sets the state value used in the OAuth fow.
+ It should be called before every login attempt to ensure a unique, random state value is used.
+*/
++ (void)setState:(NSString *)state;
 
 /**
  This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
@@ -43,6 +55,11 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
  Alternatively, use the CLVApiRequest class to make requests.
  */
 + (NSString *)accessToken;
+
+/**
+ Return the state
+*/
++ (NSString *)state;
 
 
 ///----------------------------------------
@@ -82,5 +99,10 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
  Allows setting the access token. Users of the SDK should not need to call this method directly.
  */
 + (void)setAccessToken:(NSString *)accessToken;
+
+/**
+ Start the login flow
+ */
++ (void)login;
 
 @end

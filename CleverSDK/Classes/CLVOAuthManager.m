@@ -10,6 +10,7 @@
 #import <SSKeychain/SSKeychain.h>
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "CLVLoginHandler.h"
 
 NSString *const CLVAccessTokenReceivedNotification = @"CLVAccessTokenReceivedNotification";
 NSString *const CLVOAuthAuthorizeFailedNotification = @"CLVOAuthAuthorizeFailedNotification";
@@ -19,8 +20,10 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 @interface CLVOAuthManager ()
 
 @property (nonatomic, strong) NSString *clientId;
+@property (nonatomic, strong) NSString *state;
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSString *errorMessage;
+@property (nonatomic, strong) CLVLoginHandler *clvLogin;
 
 @property (nonatomic, copy) void (^successHandler)(NSString *);
 @property (nonatomic, copy) void (^failureHandler)(NSString *);
@@ -40,9 +43,23 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return _sharedManager;
 }
 
-+ (void)startWithClientId:(NSString *)clientId {
++ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler {
     CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
     manager.clientId = clientId;
+    manager.clvLogin = clvLoginHandler;
+}
+
++(NSString*)generateRandomString:(int)num {
+    NSMutableString* string = [NSMutableString stringWithCapacity:32];
+    for (int i = 0; i < num; i++) {
+        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
+    }
+    return string;
+}
+
++ (void)setState:(NSString *)state {
+    CLVOAuthManager *manager = [CLVOAuthManager sharedManager];
+    manager.state = state;
 }
 
 + (BOOL)clientIdIsNotSet {
@@ -63,45 +80,66 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return [NSString stringWithFormat:@"clever-%@://oauth", [CLVOAuthManager clientId]];
 }
 
++ (NSString *)state {
+    return [[CLVOAuthManager sharedManager] state];
+}
+
++ (void)login {
+    CLVLoginHandler *clvLogin = [[CLVOAuthManager sharedManager] clvLogin];
+    [clvLogin login];
+}
+
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // check if it's the Clever redirect URI first
     if (![url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", [CLVOAuthManager clientId]]]) {
         // not a Clever redirect URL, so exit
         return NO;
     }
-    NSString *fragment = url.fragment;
+    NSString *query = url.query;
     NSMutableDictionary *kvpairs = [NSMutableDictionary dictionaryWithCapacity:1];
-    NSArray *components = [fragment componentsSeparatedByString:@"&"];
+    NSArray *components = [query componentsSeparatedByString:@"&"];
     for (NSString *component in components) {
         NSArray *kv = [component componentsSeparatedByString:@"="];
         kvpairs[kv[0]] = kv[1];
     }
-    NSString *accessToken = kvpairs[@"access_token"];
-    if (accessToken) {
-        [CLVOAuthManager setAccessToken:kvpairs[@"access_token"]];
-        // make a request to tokeninfo to verify that this token belongs to the right app
-        AFHTTPSessionManager *tokenInfo = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://clever.com/oauth/tokeninfo"]];
-        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        tokenInfo.requestSerializer = [AFJSONRequestSerializer serializer];
-        tokenInfo.responseSerializer = [AFJSONResponseSerializer serializer];
-        [tokenInfo.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", accessToken] forHTTPHeaderField:@"Authorization"];
-        [tokenInfo GET:@"https://clever.com/oauth/tokeninfo" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-            // verify that the client id is what we expect
-            if ([responseObject[@"client_id"] isEqualToString:[CLVOAuthManager clientId]]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
-            } else {
-                // if the client IDs don't match, consider this a failure
-                [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
-            }
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-            // if the tokeninfo endpoint returns a failure, take the safe option and assume AuthorizationFailed
-            [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
-        }];
-        
-    } else {
-        [CLVOAuthManager sharedManager].errorMessage = [NSString stringWithFormat:@"%@: %@", kvpairs[@"error"], kvpairs[@"error_description"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+
+    NSString *code = kvpairs[@"code"];
+
+    if (!code) {
+        [self login];
+        return YES;
     }
+    NSString *state = kvpairs[@"state"];
+    if (![state isEqualToString:[self state]]) {
+        // If state doesn't match, return failure
+        [CLVOAuthManager sharedManager].errorMessage = @"Authorization failed. Please try logging in again.";
+        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+        return YES;
+    }
+
+    AFHTTPSessionManager *tokens = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://clever.com"]];
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    tokens.requestSerializer = [AFJSONRequestSerializer serializer];
+    tokens.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSString *encodedClientID = [[[NSString stringWithFormat:@"%@:", [CLVOAuthManager clientId]] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+
+    [tokens.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", encodedClientID] forHTTPHeaderField:@"Authorization"];
+    NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
+
+    [tokens POST:@"oauth/tokens" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        // verify that the client id is what we expect
+        if ([responseObject objectForKey:@"access_token"]) {
+            [CLVOAuthManager setAccessToken:responseObject[@"access_token"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
+        } else {
+            // if no access token was received, consider this a failure
+            [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [CLVOAuthManager sharedManager].errorMessage = [NSString stringWithFormat:@"%@",  [error localizedDescription]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+    }];
     return YES;
 }
 

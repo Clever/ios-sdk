@@ -12,5 +12,6 @@
 #import "CLVLoginButton.h"
 #import "CLVOAuthManager.h"
 #import "CLVApiRequest.h"
+#import "CLVLoginHandler.h"
 
 #endif

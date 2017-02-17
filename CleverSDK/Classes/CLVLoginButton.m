@@ -7,17 +7,14 @@
 //
 
 #import "CLVLoginButton.h"
-#import "CLVOAuthWebViewController.h"
 #import "CLVOAuthManager.h"
 #import <PocketSVG/PocketSVG.h>
-
 
 const CGFloat CLVLoginButtonBaseWidth = 248.0;
 const CGFloat CLVLoginButtonBaseHeight = 44.0;
 
 @interface CLVLoginButton ()
 
-@property (nonatomic, weak) UIViewController *parent;
 @property (nonatomic, strong) UIImageView *textImage;
 
 @property (nonatomic, strong) NSString *districtId;
@@ -26,12 +23,8 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 
 @implementation CLVLoginButton
 
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
-                            withDistrictId:(NSString *)districtId
-                             successHander:(void (^)(NSString *))successHandler
-                            failureHandler:(void (^)(NSString *))failureHandler {
++ (CLVLoginButton *)createLoginButton {
     CLVLoginButton *button = [CLVLoginButton buttonWithType:UIButtonTypeCustom];
-    button.districtId = districtId;
     button.frame = CGRectMake(0, 0, CLVLoginButtonBaseWidth, CLVLoginButtonBaseHeight);
     
     UIImage *bgImage = [CLVLoginButton backgroundImageForButton];
@@ -43,19 +36,9 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
     button.textImage.frame = button.bounds;
     [button addSubview:button.textImage];
     
-    button.parent = viewController;
-    
     [button addTarget:button action:@selector(loginButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
-    
-    return button;
-}
 
-+ (CLVLoginButton *)buttonInViewController:(UIViewController *)viewController
-                             successHander:(void (^)(NSString *accessToken))successHandler
-                            failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    return [CLVLoginButton buttonInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
+    return button;
 }
 
 - (void)setOrigin:(CGPoint)origin {
@@ -75,8 +58,7 @@ const CGFloat CLVLoginButtonBaseHeight = 44.0;
 }
 
 - (void)loginButtonPressed:(id)loginButton {
-    CLVOAuthWebViewController *vc = [[CLVOAuthWebViewController alloc] initWithParent:self.parent districtId:self.districtId];
-    [self.parent presentViewController:vc animated:YES completion:nil];
+    [CLVOAuthManager login];
 }
 
 + (UIImage *)backgroundImageForButton {
