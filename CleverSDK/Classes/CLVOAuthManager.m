@@ -126,8 +126,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     [tokens.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", encodedClientID] forHTTPHeaderField:@"Authorization"];
     NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
 
-    [tokens POST:@"oauth/tokens" parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
+    [tokens POST:@"oauth/tokens" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         // verify that the client id is what we expect
         if ([responseObject objectForKey:@"access_token"]) {
             [CLVOAuthManager setAccessToken:responseObject[@"access_token"]];
