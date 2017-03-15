@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 //
 
+#import "TargetConditionals.h"
+
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #else
@@ -38,12 +40,20 @@
 #endif
 	CGPoint			lastPoint;
 	CGPoint			lastControlPoint;
-	BOOL			validLastControlPoint;
 	NSCharacterSet  *separatorSet;
 	NSCharacterSet  *commandSet;
     
     NSMutableArray  *tokens;
 }
+
+typedef NS_ENUM(NSInteger, PocketSVGControlPoint) {
+    PocketSVGControlPointInvalid,
+    PocketSVGControlPointS,
+    PocketSVGControlPointQ
+};
+
+@property(nonatomic) PocketSVGControlPoint controlPointType;
+
 #if TARGET_OS_IPHONE
 @property(nonatomic, readonly) UIBezierPath *bezier;
 #else

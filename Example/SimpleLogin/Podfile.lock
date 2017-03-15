@@ -20,17 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.5.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CleverSDK (0.0.1):
+  - CleverSDK (0.1.1):
     - AFNetworking (~> 2.5)
     - PocketSVG
     - SSKeychain
-  - Expecta (0.4.0)
-  - Expecta+Snapshots (1.3.2):
+  - Expecta (0.4.2)
+  - Expecta+Snapshots (1.3.3):
     - Expecta (~> 0.3)
     - FBSnapshotTestCase (= 1.6)
   - FBSnapshotTestCase (1.6)
-  - PocketSVG (0.6)
-  - Specta (0.5.0)
+  - PocketSVG (0.7)
+  - Specta (1.0.6)
   - SSKeychain (1.2.3)
 
 DEPENDENCIES:
@@ -42,16 +42,18 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   CleverSDK:
-    :path: ../../
+    :path: "../../"
 
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
-  CleverSDK: 06d3f7fb52e303629b3ce2380a56573919b3bd69
-  Expecta: 392a6b5bfb9f4097e47dd8064d9b732079490332
-  Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b
+  CleverSDK: 3e9ec291304212a3e070e4dcaca32c6fddec4f8e
+  Expecta: 78b4e8b0c8291fa4524d7f74016b6065c2e391ec
+  Expecta+Snapshots: dcf32672f1bbc23e86e7eeb7f30aa6884894e2ec
   FBSnapshotTestCase: 9d5fe43b29ae3a0ed8fc829477971b281038f748
-  PocketSVG: cf122986a895bf81e8e2349e81350df51a9c6970
-  Specta: eb90708ed77569bbda089f8ead10bb99b8e9489e
+  PocketSVG: e05e6b008c6232d7b6410bb1ff34db71957b776d
+  Specta: f506f3a8361de16bc0dcf3b17b75e269072ba465
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
 
-COCOAPODS: 0.36.3
+PODFILE CHECKSUM: 9515ea3a72f7983f83cf8aaf0a4ebea89b63da04
+
+COCOAPODS: 1.2.0
