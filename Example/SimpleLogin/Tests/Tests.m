@@ -15,10 +15,7 @@ describe(@"CLVLoginButton", ^{
     __block CLVLoginButton *button;
     
     before(^{
-        UIViewController *vc = [[UIViewController alloc] init];
-        button = [CLVLoginButton buttonInViewController:vc successHander:^(NSString *accessToken) {
-        } failureHandler:^(NSString *errorMessage) {
-        }];
+        button = [CLVLoginButton createLoginButton];
     });
 
     it(@"can set origin", ^{
@@ -41,8 +38,13 @@ describe(@"CLVLoginButton", ^{
 
 describe(@"CLVOAuthManager", ^{
     
+    __block CLVLoginHandler *loginHandler;
+    
     before(^{
-        [CLVOAuthManager startWithClientId:@"1234"];
+        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
+        } failureHandler:^(NSString *errorMessage) {
+        }];
+        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
     });
     
     it(@"sets clientId on start", ^{
@@ -50,9 +52,32 @@ describe(@"CLVOAuthManager", ^{
         expect([CLVOAuthManager clientId]).to.equal(@"1234");
     });
     
-    it (@"handles URL", ^{
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth#access_token=abcd"] sourceApplication:nil annotation:nil];
-        expect([CLVOAuthManager accessToken]).to.equal(@"abcd");
+    // We don't set accessToken until after we post
+    it(@"generates a state of length 32 if no code passed in", ^{
+        [CLVOAuthManager setState:@"abcd"];
+        expect([CLVOAuthManager state]).to.equal(@"abcd");
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth"] sourceApplication:nil annotation:nil];
+        expect([CLVOAuthManager state]).notTo.equal(@"abcd");
+        expect([CLVOAuthManager state]).to.haveCountOf(32);
+    });
+
+    it(@"does not generate a state if code is passed in", ^{
+        [CLVOAuthManager setState:@"abcd"];
+        expect([CLVOAuthManager state]).to.equal(@"abcd");
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:nil annotation:nil];
+        expect([CLVOAuthManager state]).to.equal(@"abcd");
+    });
+    
+    it(@"errors if passed in state does not match stored state", ^{
+        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
+        } failureHandler:^(NSString *errorMessage) {
+            expect(errorMessage).to.equal(@"Authorization failed. Please try logging in again.");
+        }];
+        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
+        [CLVOAuthManager setState:@"abcd"];
+        expect([CLVOAuthManager state]).to.equal(@"abcd");
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcD"] sourceApplication:nil annotation:nil];
+        [CLVOAuthManager callFailureHandler];
     });
     
     it(@"clears accessToken on logout", ^{
@@ -61,24 +86,18 @@ describe(@"CLVOAuthManager", ^{
         [CLVOAuthManager logout];
         expect([CLVOAuthManager accessToken]).to.beNil;
     });
-    
+
+    // Update this test when we can mock out AFHTTPSessionManager
+    // We want to check the access token in success handler after token
     it(@"returns access token in success handler", ^{
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth#access_token=qwerty"] sourceApplication:nil annotation:nil];
-        [CLVLoginButton buttonInViewController:nil successHander:^(NSString *accessToken) {
-            expect(accessToken).to.equal(@"qwerty");
+        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
+            expect(accessToken).notTo.equal(nil);
+            expect(accessToken).to.equal(@"access_token");
         } failureHandler:^(NSString *errorMessage) {
         }];
-        [CLVOAuthManager callSucessHandler];
+        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:nil annotation:nil];
     });
-    
-    it(@"displays error if oauth returns error to redirect URL", ^{
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth#error=Error&error_description=This is an error message"] sourceApplication:nil annotation:nil];
-        [CLVLoginButton buttonInViewController:nil successHander:^(NSString *accessToken) {
-        } failureHandler:^(NSString *errorMessage) {
-            expect(errorMessage).to.equal(@"Error: This is an error message");
-        }];
-    });
-    
 });
 
 describe(@"CLVApiRequest", ^{

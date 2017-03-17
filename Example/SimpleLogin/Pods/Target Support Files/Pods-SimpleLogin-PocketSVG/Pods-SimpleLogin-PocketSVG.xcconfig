@@ -1,1 +1,0 @@
-PODS_SIMPLELOGIN_POCKETSVG_OTHER_LDFLAGS = -framework "QuartzCore"
