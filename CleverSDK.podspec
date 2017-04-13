@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
   
   s.public_header_files = 'CleverSDK/Classes/**/*.h'
   s.dependency 'AFNetworking', '~> 2.5'
-  s.dependency "PocketSVG"
-  s.dependency "SSKeychain"
+  s.dependency "PocketSVG", "~> 0.7"
+  s.dependency "SSKeychain", "~> 1.2.3"
 end
