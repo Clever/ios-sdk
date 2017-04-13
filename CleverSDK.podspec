@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name              = "CleverSDK"
-  s.version           = "0.1.1"
+  s.version           = "0.1.2"
   s.summary           = "A simple iOS library to access Clever Instant Login"
   s.description       = <<-DESC
   CleverSDK provides developers with a simple library to access Clever Instant Login.
@@ -30,6 +30,6 @@ Pod::Spec.new do |s|
   
   s.public_header_files = 'CleverSDK/Classes/**/*.h'
   s.dependency 'AFNetworking', '~> 2.5'
-  s.dependency "PocketSVG"
-  s.dependency "SSKeychain"
+  s.dependency "PocketSVG", "~> 0.7"
+  s.dependency "SSKeychain", "~> 1.2.3"
 end
