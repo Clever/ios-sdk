@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <SafariServices/SafariServices.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CLVLoginHandler : NSObject
 
 /**
@@ -29,10 +31,12 @@
  @param failureHandler Called with the `errorMessage` after dismissing the Login screen on failure.
  */
 + (CLVLoginHandler *)loginInViewController:(UIViewController *)viewController
-                            withDistrictId:(NSString *)districtId
+                            withDistrictId:(nullable NSString *)districtId
                              successHander:(void (^)(NSString *))successHandler
                             failureHandler:(void (^)(NSString *))failureHandler;
 
 - (void)login;
 
 @end
+
+NS_ASSUME_NONNULL_END

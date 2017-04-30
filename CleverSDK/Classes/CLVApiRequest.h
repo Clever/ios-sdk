@@ -8,6 +8,8 @@
 
 #import <AFNetworking/AFHTTPSessionManager.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CLVApiRequest : AFHTTPSessionManager
 
 + (instancetype)sharedManager;
@@ -17,3 +19,5 @@
          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failureHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
