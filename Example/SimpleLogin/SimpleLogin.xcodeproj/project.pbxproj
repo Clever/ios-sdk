@@ -27,7 +27,6 @@
 		ECB1FE3F1AD7492800013CAA /* CLVSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECB1FE3B1AD7492800013CAA /* CLVSuccessViewController.xib */; };
 		ECB1FE4A1AD75DF800013CAA /* CleverSDK.podspec in Resources */ = {isa = PBXBuildFile; fileRef = ECB1FE491AD75DF800013CAA /* CleverSDK.podspec */; };
 		ECB1FE4D1AD75E0500013CAA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = ECB1FE4B1AD75E0500013CAA /* LICENSE */; };
-		ECB1FE4E1AD75E0500013CAA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = ECB1FE4C1AD75E0500013CAA /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -405,7 +404,6 @@
 			files = (
 				6003F59E195388D20070C39A /* CLVAppDelegate.m in Sources */,
 				ECB1FE3C1AD7492800013CAA /* CLVLoginViewController.m in Sources */,
-				ECB1FE4E1AD75E0500013CAA /* README.md in Sources */,
 				ECB1FE3E1AD7492800013CAA /* CLVSuccessViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
