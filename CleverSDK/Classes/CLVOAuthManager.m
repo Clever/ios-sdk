@@ -7,7 +7,7 @@
 //
 
 #import "CLVOAuthManager.h"
-#import <SSKeychain/SSKeychain.h>
+#import <SAMKeychain/SAMKeychain.h>
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "CLVLoginHandler.h"
@@ -126,7 +126,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     [tokens.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", encodedClientID] forHTTPHeaderField:@"Authorization"];
     NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
 
-    [tokens POST:@"oauth/tokens" parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [tokens POST:@"oauth/tokens" parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         // verify that the client id is what we expect
         if ([responseObject objectForKey:@"access_token"]) {
             [CLVOAuthManager setAccessToken:responseObject[@"access_token"]];
@@ -162,7 +162,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     if (!manager.accessToken) {
         // accessToken property is not set, so get it from Keychain
         NSString *appIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-        manager.accessToken = [SSKeychain passwordForService:CLVServiceName account:appIdentifier];
+        manager.accessToken = [SAMKeychain passwordForService:CLVServiceName account:appIdentifier];
     }
     return manager.accessToken;
 }
@@ -171,12 +171,12 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     // any time accessToken property is changed, the value in the Keychain should also be updated
     [CLVOAuthManager sharedManager].accessToken = accessToken;
     NSString *appIdentifer = [[NSBundle mainBundle] bundleIdentifier];
-    [SSKeychain setPassword:accessToken forService:CLVServiceName account:appIdentifer];
+    [SAMKeychain setPassword:accessToken forService:CLVServiceName account:appIdentifer];
 }
 
 + (void)clearAccessToken {
     [CLVOAuthManager sharedManager].accessToken = nil;
-    [SSKeychain deletePasswordForService:CLVServiceName account:[[NSBundle mainBundle] bundleIdentifier]];
+    [SAMKeychain deletePasswordForService:CLVServiceName account:[[NSBundle mainBundle] bundleIdentifier]];
 }
 
 + (void)clearBrowserCookies {

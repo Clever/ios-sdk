@@ -25,11 +25,11 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
-  
+
   s.source_files = 'CleverSDK/Classes/**/*'
-  
+
   s.public_header_files = 'CleverSDK/Classes/**/*.h'
-  s.dependency 'AFNetworking', '~> 2.5'
+  s.dependency 'AFNetworking', '~> 3.1'
   s.dependency "PocketSVG", "~> 0.7"
-  s.dependency "SSKeychain", "~> 1.2.3"
+  s.dependency "SAMKeychain", "~> 1.5"
 end

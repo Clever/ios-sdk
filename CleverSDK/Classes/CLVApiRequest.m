@@ -29,7 +29,7 @@
          success:(void (^)(NSURLSessionDataTask *task, id responseObject))successHandler
          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failureHandler {
     
-    [[CLVApiRequest sharedManager] GET:endpoint parameters:params success:successHandler failure:failureHandler];
+    [[CLVApiRequest sharedManager] GET:endpoint parameters:params progress:nil success:successHandler failure:failureHandler];
 }
 
 @end
