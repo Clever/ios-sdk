@@ -62,7 +62,13 @@
     }
 
     SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlString] entersReaderIfAvailable:NO];
-    [self.parent presentViewController:svc animated:YES completion:nil];
+    if (self.parent.presentedViewController) {
+        [self.parent dismissViewControllerAnimated:YES completion:^{
+            [self.parent presentViewController:svc animated:YES completion:nil];
+        }];
+    } else {
+        [self.parent presentViewController:svc animated:YES completion:nil];
+    }
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {
