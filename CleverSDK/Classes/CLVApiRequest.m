@@ -17,7 +17,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        _sharedManager = [[CLVApiRequest alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.clever.com/"]];
+        _sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.clever.com/"]];
         _sharedManager.requestSerializer = [AFJSONRequestSerializer serializer];
         _sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
     });
@@ -28,8 +28,8 @@
 + (void)endpoint:(NSString *)endpoint params:(NSDictionary *)params
          success:(void (^)(NSURLSessionDataTask *task, id responseObject))successHandler
          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failureHandler {
-    
-    [[CLVApiRequest sharedManager] GET:endpoint parameters:params progress:nil success:successHandler failure:failureHandler];
+
+    [[self sharedManager] GET:endpoint parameters:params progress:nil success:successHandler failure:failureHandler];
 }
 
 @end
