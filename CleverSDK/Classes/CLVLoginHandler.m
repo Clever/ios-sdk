@@ -29,7 +29,7 @@
                             withDistrictId:(NSString *)districtId
                              successHander:(void (^)(NSString *))successHandler
                             failureHandler:(void (^)(NSString *))failureHandler {
-    CLVLoginHandler *login = [[CLVLoginHandler alloc] init];
+    CLVLoginHandler *login = [[self alloc] init];
     login.districtId = districtId;
     login.parent = viewController;
     [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
@@ -41,7 +41,7 @@
 + (CLVLoginHandler *)loginInViewController:(UIViewController *)viewController
                              successHander:(void (^)(NSString *accessToken))successHandler
                             failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    return [CLVLoginHandler loginInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
+    return [self loginInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
 }
 
 - (void)login {
