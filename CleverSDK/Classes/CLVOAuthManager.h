@@ -24,9 +24,9 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 + (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
 
 /**
- This methods generates a random string.
+ This methods generates a random hex string with a given length.
  */
-+ (NSString *)generateRandomString:(int)num;
++ (NSString *)generateRandomString:(int)length;
 
 /**
  This method sets the state value used in the OAuth fow.
