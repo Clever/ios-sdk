@@ -49,12 +49,19 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     manager.clvLogin = clvLoginHandler;
 }
 
-+(NSString*)generateRandomString:(int)num {
-    NSMutableString* string = [NSMutableString stringWithCapacity:32];
-    for (int i = 0; i < num; i++) {
-        [string appendFormat:@"%C", (unichar)('a' + arc4random_uniform(25))];
+
++ (NSString *)generateRandomString:(int)length {
+    NSAssert(length % 2 == 0, @"Must generate random string with even length");
+    NSMutableData *data = [NSMutableData dataWithLength:length / 2];
+    NSAssert(SecRandomCopyBytes(kSecRandomDefault, length, [data mutableBytes]) == 0, @"Failure in SecRandomCopyBytes: %d", errno);
+    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(length)];
+    const unsigned char *dataBytes = [data bytes];
+    for (int i = 0; i < length / 2; ++i)
+    {
+        [hexString appendFormat:@"%02x", (unsigned int)dataBytes[i]];
     }
-    return string;
+    return [NSString stringWithString:hexString];
+
 }
 
 + (void)setState:(NSString *)state {
