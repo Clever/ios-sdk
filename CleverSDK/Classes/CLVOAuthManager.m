@@ -61,7 +61,6 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [hexString appendFormat:@"%02x", (unsigned int)dataBytes[i]];
     }
     return [NSString stringWithString:hexString];
-
 }
 
 + (void)setState:(NSString *)state {
@@ -111,12 +110,13 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         kvpairs[kv[0]] = kv[1];
     }
 
+    // if code is missing, then this is a Clever Portal initiated login, and we should kick off the Oauth flow
     NSString *code = kvpairs[@"code"];
-
     if (!code) {
         [self login];
         return YES;
     }
+
     NSString *state = kvpairs[@"state"];
     if (![state isEqualToString:[self state]]) {
         // If state doesn't match, return failure
