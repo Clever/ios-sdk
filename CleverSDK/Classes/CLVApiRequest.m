@@ -22,6 +22,7 @@
         _sharedManager.responseSerializer = [AFJSONResponseSerializer serializer];
     });
     [_sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@", [CLVOAuthManager accessToken]] forHTTPHeaderField:@"Authorization"];
+    [_sharedManager.requestSerializer setValue:[NSString stringWithFormat:@"0.1.3"] forHTTPHeaderField:@"X-Clever-IOS-SDK-Version"];
     return _sharedManager;
 }
 
