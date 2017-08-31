@@ -63,7 +63,7 @@
     }
 
     // Switch to native Clever app if possible
-    NSURL *cleverAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"com.clever://oauth?client_id=%@&redirect_uri=%@&state=%@",
+    NSURL *cleverAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"com.clever://oauth?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
                                                 [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]]];
     if ([[UIApplication sharedApplication] canOpenURL:cleverAppURL]) {
         [[UIApplication sharedApplication] openURL:cleverAppURL];
