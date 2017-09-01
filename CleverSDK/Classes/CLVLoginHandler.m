@@ -57,19 +57,11 @@
         districtID = @"";
     }
 
-    NSArray *targetDataList = @[
-                               districtID,
-                               [CLVOAuthManager clientId],
-                               [CLVOAuthManager redirectUri],
-                               [CLVOAuthManager state],
-                               @"code", // response_type
-                               SDK_VERSION
-                           ];
-    NSString *target = [self createTargetFromArray:targetDataList];
-    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth?target=%@", target];
+    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state], SDK_VERSION];
 
     if (self.districtId) {
         safariURLString = [NSString stringWithFormat:@"%@&district_id=%@", safariURLString, self.districtId];
+        cleverAppURLString = [NSString stringWithFormat:@"%@&district_id=%@", safariURLString, self.districtId];
     }
 
     // iOS 8 - always use Safari. Clever App not supported
@@ -100,16 +92,6 @@
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString]];
     return;
-}
-
-- (NSString*)createTargetFromArray:(NSArray*)array {
-    NSMutableArray* encodedArray = [[NSMutableArray alloc] init];
-    for (NSString* item in array) {
-        NSData* data = [item dataUsingEncoding:NSUTF8StringEncoding];
-        NSString* base64Endoded = [data base64EncodedStringWithOptions:0];
-        [encodedArray addObject:base64Endoded];
-    }
-    return [encodedArray componentsJoinedByString:@";"];
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {
