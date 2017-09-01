@@ -6,6 +6,7 @@
 //  Copyright (c) 2017 Clever, Inc. All rights reserved.
 //
 
+#import "CLVCleverSDK.h"
 #import "CLVLoginHandler.h"
 #import "CLVOAuthManager.h"
 
@@ -51,6 +52,20 @@
 
     NSString *safariURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
                            [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]];
+    NSString *districtID = [self districtId];
+    if (districtID == nil) {
+        districtID = @"";
+    }
+
+    NSArray *targetDataList = @[
+                               districtID,
+                               [CLVOAuthManager clientId],
+                               [CLVOAuthManager redirectUri],
+                               [CLVOAuthManager state],
+                               @"code", // response_type
+                           ];
+    NSString *target = [self createTargetFromArray:targetDataList];
+    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth?target=%@", target];
 
     if (self.districtId) {
         safariURLString = [NSString stringWithFormat:@"%@&district_id=%@", safariURLString, self.districtId];
@@ -63,10 +78,8 @@
     }
 
     // Switch to native Clever app if possible
-    NSURL *cleverAppURL = [NSURL URLWithString:[NSString stringWithFormat:@"com.clever://oauth?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
-                                                [CLVOAuthManager clientId], [CLVOAuthManager redirectUri], [CLVOAuthManager state]]];
-    if ([[UIApplication sharedApplication] canOpenURL:cleverAppURL]) {
-        [[UIApplication sharedApplication] openURL:cleverAppURL];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:cleverAppURLString]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cleverAppURLString]];
         return;
     }
 
@@ -86,6 +99,16 @@
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString]];
     return;
+}
+
+- (NSString*)createTargetFromArray:(NSArray*)array {
+    NSMutableArray* encodedArray = [[NSMutableArray alloc] init];
+    for (NSString* item in array) {
+        NSData* data = [item dataUsingEncoding:NSUTF8StringEncoding];
+        NSString* base64Endoded = [data base64EncodedStringWithOptions:0];
+        [encodedArray addObject:base64Endoded];
+    }
+    return [encodedArray componentsJoinedByString:@";"];
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {
