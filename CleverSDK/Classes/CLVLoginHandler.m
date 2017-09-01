@@ -63,6 +63,7 @@
                                [CLVOAuthManager redirectUri],
                                [CLVOAuthManager state],
                                @"code", // response_type
+                               SDK_VERSION
                            ];
     NSString *target = [self createTargetFromArray:targetDataList];
     NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth?target=%@", target];
