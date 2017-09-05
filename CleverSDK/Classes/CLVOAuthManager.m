@@ -24,6 +24,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSString *errorMessage;
 @property (nonatomic, strong) CLVLoginHandler *clvLogin;
+@property (atomic, assign) BOOL alreadyMissedCode;
 
 @property (nonatomic, copy) void (^successHandler)(NSString *);
 @property (nonatomic, copy) void (^failureHandler)(NSString *);
@@ -46,7 +47,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 + (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler {
     CLVOAuthManager *manager = [self sharedManager];
     manager.clientId = clientId;
-    manager.clvLogin = clvLoginHandler;
+    manager.alreadyMissedCode = false;
 }
 
 
@@ -91,6 +92,10 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return [manager state];
 }
 
++ (BOOL)alreadyMissedCode {
+    return [[CLVOAuthManager sharedManager] alreadyMissedCode];
+}
+
 + (void)login {
     CLVOAuthManager *manager = [self sharedManager];
     [[manager clvLogin] login];
@@ -113,6 +118,14 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     // if code is missing, then this is a Clever Portal initiated login, and we should kick off the Oauth flow
     NSString *code = kvpairs[@"code"];
     if (!code) {
+        CLVOAuthManager* manager = [CLVOAuthManager sharedManager];
+        if ([CLVOAuthManager alreadyMissedCode]) {
+            manager.alreadyMissedCode = NO;
+            manager.errorMessage = [NSString localizedStringWithFormat:@"Authorization failed. Please try logging in again."];
+            [CLVOAuthManager callFailureHandler];
+            return YES;
+        }
+        manager.alreadyMissedCode = YES;
         [self login];
         return YES;
     }
@@ -136,6 +149,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
 
     [tokens POST:@"oauth/tokens" parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [CLVOAuthManager sharedManager].alreadyMissedCode = NO;
         // verify that the client id is what we expect
         if ([responseObject objectForKey:@"access_token"]) {
             [self setAccessToken:responseObject[@"access_token"]];
@@ -146,6 +160,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         CLVOAuthManager *manager = [self sharedManager];
+        [CLVOAuthManager sharedManager].alreadyMissedCode = NO;
         manager.errorMessage = [NSString stringWithFormat:@"%@",  [error localizedDescription]];
         [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
     }];
