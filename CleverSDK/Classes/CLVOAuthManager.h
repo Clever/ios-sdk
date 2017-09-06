@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CLVLoginHandler.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const CLVAccessTokenReceivedNotification;
-extern NSString *const CLVOAuthAuthorizeFailedNotification;
+@protocol CLVOauthDelegate
+- (void) signIn:(NSString*)accessToken withError:(NSString*)error;
+@end
+
+@protocol CLVOAuthUIDelegate
+- (void) presentViewController:(UIViewController*)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion;
+- (void) dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion;
+@end
 
 /**
  CLVOAuthManager
@@ -20,15 +25,19 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 @interface CLVOAuthManager : NSObject
 
 /**
- Call this method after you have initialized the CLVLoginHandler with your success/failure handlers.
- This method also sets the clientId which is used for constructing the OAuth URL and logging in.
+ delegate is the receiver of successful signIn completions
  */
-+ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
+@property (weak) id<CLVOauthDelegate> delegate;
+@property (weak) id<CLVOAuthUIDelegate> uiDelegate;
 
 /**
- This methods generates a random hex string with a given length.
+ * Initializes the CLVOauthManager. Sets the clientId which is used for constructing the OAuth URL and logging in.
  */
-+ (NSString *)generateRandomString:(int)length;
++ (void)startWithClientId:(NSString *)clientId;
+
++ (void)setDelegate:(id<CLVOauthDelegate>) delegate;
+
++ (void)setUIDelegate:(id<CLVOAuthUIDelegate>) uiDelegate;
 
 /**
  This method sets the state value used in the OAuth fow.
@@ -67,6 +76,7 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 ///----------------------------------------
 /// Methods used by other classes of the SDK
 ///----------------------------------------
+
 /**
  Simple helper method to determine whether or not the clientId was set
  */
