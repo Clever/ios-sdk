@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1753296046F247DA4A641BC8 /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEAD108B2E2CA469067A40C /* Pods_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -20,6 +19,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		7AD0A88F2FCB7969592F2802 /* libPods-SimpleLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80D6D48E35056155DA0E3D07 /* libPods-SimpleLogin.a */; };
+		AB027E66FC4B9C23F498DCAB /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242A665EFA31CAF15CCD0274 /* Pods_Tests.framework */; };
 		EC93C20D1ADC72D200D3C1CD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC93C20C1ADC72D200D3C1CD /* Security.framework */; };
 		ECB1FE3C1AD7492800013CAA /* CLVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1FE371AD7492800013CAA /* CLVLoginViewController.m */; };
 		ECB1FE3D1AD7492800013CAA /* CLVLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECB1FE381AD7492800013CAA /* CLVLoginViewController.xib */; };
@@ -40,9 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		242A665EFA31CAF15CCD0274 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F7BE63D48D477289B1A0ED /* Pods-SimpleLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLogin.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleLogin/Pods-SimpleLogin.release.xcconfig"; sourceTree = "<group>"; };
 		47A7A3923336C9A1D553C1CE /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
-		4DEAD108B2E2CA469067A40C /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E98052C88C2B8BEC0AB9DF7 /* Pods-SimpleLogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleLogin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleLogin/Pods-SimpleLogin.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SimpleLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -94,7 +94,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				1753296046F247DA4A641BC8 /* Pods_Tests.framework in Frameworks */,
+				AB027E66FC4B9C23F498DCAB /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +131,7 @@
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				80D6D48E35056155DA0E3D07 /* libPods-SimpleLogin.a */,
-				4DEAD108B2E2CA469067A40C /* Pods_Tests.framework */,
+				242A665EFA31CAF15CCD0274 /* Pods_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -504,7 +504,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
