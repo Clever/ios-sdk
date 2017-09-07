@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CleverSDK/CLVCleverSDK.h>
 
 @interface CLVLoginViewController : UIViewController
 
