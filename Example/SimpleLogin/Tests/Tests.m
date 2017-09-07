@@ -69,8 +69,8 @@ describe(@"CLVOAuthManager", ^{
     });
     
     it(@"errors if passed in state does not match stored state", ^{
-        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
-        } failureHandler:^(NSString *errorMessage) {
+        [CLVOAuthManager startWithClientId:@"1234" successHandler:^(NSString * _Nonnull accessToken) {
+        } failureHandler:^(NSString * _Nonnull errorMessage) {
             expect(errorMessage).to.equal(@"Authorization failed. Please try logging in again.");
         }];
         [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
@@ -90,7 +90,7 @@ describe(@"CLVOAuthManager", ^{
     // Update this test when we can mock out AFHTTPSessionManager
     // We want to check the access token in success handler after token
     it(@"returns access token in success handler", ^{
-        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
+        [CLVOAuthManager startWithClientId:@"1234" successHandler:^(NSString * _Nonnull accessToken) {
             expect(accessToken).notTo.equal(nil);
             expect(accessToken).to.equal(@"access_token");
         } failureHandler:^(NSString *errorMessage) {
