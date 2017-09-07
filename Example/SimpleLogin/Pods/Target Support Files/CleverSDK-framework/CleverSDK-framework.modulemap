@@ -1,0 +1,6 @@
+framework module CleverSDK {
+  umbrella header "CleverSDK-framework-umbrella.h"
+
+  export *
+  module * { export * }
+}
