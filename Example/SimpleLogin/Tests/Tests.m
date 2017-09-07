@@ -38,13 +38,8 @@ describe(@"CLVLoginButton", ^{
 
 describe(@"CLVOAuthManager", ^{
     
-    __block CLVLoginHandler *loginHandler;
-    
     before(^{
-        loginHandler = [CLVLoginHandler loginInViewController:nil successHander:^(NSString *accessToken) {
-        } failureHandler:^(NSString *errorMessage) {
-        }];
-        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
+        [CLVOAuthManager startWithClientId:@"1234"];
     });
     
     it(@"sets clientId on start", ^{
@@ -56,7 +51,7 @@ describe(@"CLVOAuthManager", ^{
     it(@"generates a state of length 32 if no code passed in", ^{
         [CLVOAuthManager setState:@"abcd"];
         expect([CLVOAuthManager state]).to.equal(@"abcd");
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth"] sourceApplication:nil annotation:nil];
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth"] sourceApplication:@"" annotation:@{}];
         expect([CLVOAuthManager state]).notTo.equal(@"abcd");
         expect([CLVOAuthManager state]).to.haveCountOf(32);
     });
@@ -64,7 +59,7 @@ describe(@"CLVOAuthManager", ^{
     it(@"does not generate a state if code is passed in", ^{
         [CLVOAuthManager setState:@"abcd"];
         expect([CLVOAuthManager state]).to.equal(@"abcd");
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:nil annotation:nil];
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:@"" annotation:@{}];
         expect([CLVOAuthManager state]).to.equal(@"abcd");
     });
     
@@ -73,10 +68,9 @@ describe(@"CLVOAuthManager", ^{
         } failureHandler:^(NSString * _Nonnull errorMessage) {
             expect(errorMessage).to.equal(@"Authorization failed. Please try logging in again.");
         }];
-        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
         [CLVOAuthManager setState:@"abcd"];
         expect([CLVOAuthManager state]).to.equal(@"abcd");
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcD"] sourceApplication:nil annotation:nil];
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcD"] sourceApplication:@"" annotation:@{}];
         [CLVOAuthManager callFailureHandler];
     });
     
@@ -93,10 +87,10 @@ describe(@"CLVOAuthManager", ^{
         [CLVOAuthManager startWithClientId:@"1234" successHandler:^(NSString * _Nonnull accessToken) {
             expect(accessToken).notTo.equal(nil);
             expect(accessToken).to.equal(@"access_token");
-        } failureHandler:^(NSString *errorMessage) {
+        } failureHandler:^(NSString * _Nonnull errorMessage) {
         }];
-        [CLVOAuthManager startWithClientId:@"1234" clvLoginHandler:loginHandler];
-        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:nil annotation:nil];
+        [CLVOAuthManager startWithClientId:@"1234"];
+        [CLVOAuthManager handleURL:[NSURL URLWithString:@"clever-1234://oauth?code=somecode&state=abcd"] sourceApplication:@"" annotation:@{}];
     });
 });
 
