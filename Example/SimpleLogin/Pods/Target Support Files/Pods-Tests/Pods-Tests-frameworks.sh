@@ -102,10 +102,18 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking-framework/AFNetworking.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CleverSDK-framework/CleverSDK.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PocketSVG-framework/PocketSVG.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SAMKeychain-framework/SAMKeychain.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Expecta/Expecta.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Specta/Specta.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking-framework/AFNetworking.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CleverSDK-framework/CleverSDK.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PocketSVG-framework/PocketSVG.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SAMKeychain-framework/SAMKeychain.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Expecta/Expecta.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Specta/Specta.framework"
 fi
