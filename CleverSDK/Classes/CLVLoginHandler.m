@@ -29,7 +29,7 @@
                             withDistrictId:(NSString *)districtId
                              successHander:(void (^)(NSString *))successHandler
                             failureHandler:(void (^)(NSString *))failureHandler {
-    CLVLoginHandler *login = [[CLVLoginHandler alloc] init];
+    CLVLoginHandler *login = [[self alloc] init];
     login.districtId = districtId;
     login.parent = viewController;
     [CLVOAuthManager successHandler:successHandler failureHandler:failureHandler];
@@ -41,7 +41,7 @@
 + (CLVLoginHandler *)loginInViewController:(UIViewController *)viewController
                              successHander:(void (^)(NSString *accessToken))successHandler
                             failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    return [CLVLoginHandler loginInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
+    return [self loginInViewController:viewController withDistrictId:nil successHander:successHandler failureHandler:failureHandler];
 }
 
 - (void)login {
@@ -62,7 +62,13 @@
     }
 
     SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlString] entersReaderIfAvailable:NO];
-    [self.parent presentViewController:svc animated:YES completion:nil];
+    if (self.parent.presentedViewController) {
+        [self.parent dismissViewControllerAnimated:YES completion:^{
+            [self.parent presentViewController:svc animated:YES completion:nil];
+        }];
+    } else {
+        [self.parent presentViewController:svc animated:YES completion:nil];
+    }
 }
 
 - (void)accessTokenReceived:(NSNotification *)notification {

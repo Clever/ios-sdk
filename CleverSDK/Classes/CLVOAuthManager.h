@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CLVLoginHandler.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *const CLVAccessTokenReceivedNotification;
 extern NSString *const CLVOAuthAuthorizeFailedNotification;
 
@@ -106,3 +108,5 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 + (void)login;
 
 @end
+
+NS_ASSUME_NONNULL_END

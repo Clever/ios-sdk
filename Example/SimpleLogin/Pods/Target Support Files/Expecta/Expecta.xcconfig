@@ -1,7 +1,8 @@
 CONFIGURATION_BUILD_DIR = $PODS_CONFIGURATION_BUILD_DIR/Expecta
-FRAMEWORK_SEARCH_PATHS = $(inherited)  "$(PLATFORM_DIR)/Developer/Library/Frameworks" $(inherited) $(DEVELOPER_FRAMEWORKS_DIR) "$(PLATFORM_DIR)/Developer/Library/Frameworks" "$(DEVELOPER_DIR)/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks"
+ENABLE_BITCODE = NO
+FRAMEWORK_SEARCH_PATHS = $(inherited)  "$(PLATFORM_DIR)/Developer/Library/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Expecta" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CleverSDK" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/Expecta+Snapshots" "${PODS_ROOT}/Headers/Public/FBSnapshotTestCase" "${PODS_ROOT}/Headers/Public/PocketSVG" "${PODS_ROOT}/Headers/Public/SSKeychain" "${PODS_ROOT}/Headers/Public/Specta"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CleverSDK" "${PODS_ROOT}/Headers/Public/PocketSVG" "${PODS_ROOT}/Headers/Public/SAMKeychain"
 OTHER_LDFLAGS = -framework "Foundation" -framework "XCTest"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
