@@ -10,6 +10,7 @@ target 'Tests' do
   platform :ios, '8.0'
 
   use_frameworks!
+  pod "CleverSDK", :path => "../../"
 
   pod 'Specta'
   pod 'Expecta'

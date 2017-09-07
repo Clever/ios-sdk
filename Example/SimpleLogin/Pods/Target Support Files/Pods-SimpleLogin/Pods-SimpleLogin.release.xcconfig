@@ -1,8 +1,8 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/CleverSDK" "${PODS_ROOT}/Headers/Public/PocketSVG" "${PODS_ROOT}/Headers/Public/SAMKeychain"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking" "$PODS_CONFIGURATION_BUILD_DIR/CleverSDK" "$PODS_CONFIGURATION_BUILD_DIR/PocketSVG" "$PODS_CONFIGURATION_BUILD_DIR/SAMKeychain"
+LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/AFNetworking-library" "$PODS_CONFIGURATION_BUILD_DIR/CleverSDK-library" "$PODS_CONFIGURATION_BUILD_DIR/PocketSVG-library" "$PODS_CONFIGURATION_BUILD_DIR/SAMKeychain-library"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/CleverSDK" -isystem "${PODS_ROOT}/Headers/Public/PocketSVG" -isystem "${PODS_ROOT}/Headers/Public/SAMKeychain"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"CleverSDK" -l"PocketSVG" -l"SAMKeychain" -framework "CoreGraphics" -framework "Foundation" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking-library" -l"CleverSDK-library" -l"PocketSVG-library" -l"SAMKeychain-library" -framework "CoreGraphics" -framework "Foundation" -framework "MobileCoreServices" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
