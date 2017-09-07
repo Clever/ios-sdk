@@ -7,66 +7,71 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CLVLoginHandler.h"
 
+@protocol CLVOauthDelegate
+- (void) signInToClever:( NSString* _Nullable )accessToken withError:( NSString* _Nullable )error;
+@end
 NS_ASSUME_NONNULL_BEGIN
-
-extern NSString *const CLVAccessTokenReceivedNotification;
-extern NSString *const CLVOAuthAuthorizeFailedNotification;
 
 /**
  CLVOAuthManager
  */
 @interface CLVOAuthManager : NSObject
 
+@property (weak) id<CLVOauthDelegate> delegate; // receiver of successful signInToClever completions
+@property (weak) UIViewController *uiDelegate; // on iOS 9/10, receiver of calls to present/dismiss SFSafariViewController for sign in
+
 /**
- Call this method after you have initialized the CLVLoginHandler with your success/failure handlers.
- This method also sets the clientId which is used for constructing the OAuth URL and logging in.
+ * Initializes the CLVOauthManager. Sets the clientId which is used for constructing the OAuth URL and logging in.
  */
-+ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler;
++ (void)startWithClientId:(NSString *)clientId;
 
 /**
- This methods generates a random hex string with a given length.
+ * Initializes the CLVOAuthManager with successHandler and failureHandler. If this method is used, the delegate will not called.
+ * uiDelegate still needs to be set on iOS even if you use this method.
  */
-+ (NSString *)generateRandomString:(int)length;
++ (void)startWithClientId:(NSString *)clientId successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler;
 
 /**
- This method sets the state value used in the OAuth fow.
- It should be called before every login attempt to ensure a unique, random state value is used.
-*/
-+ (void)setState:(NSString *)state;
+ * setDelegate sets the CLVOAuthDelegate implementer to be called upon completion
+ */
++ (void)setDelegate:(id<CLVOauthDelegate>) delegate;
 
 /**
- This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
- 
- This method parses the `access_token` from the URL and returns it to the user in the success handler specified on the `CLVLoginButton`.
- This will also store the `access_token` and attach it automatically for requests made using `CLVApiRequest`
+ * setUIDelegate sets the UIViewController to be called to present/dismiss the SFSafariViewController.
+ * This is only used on iOS 9/10
+ */
++ (void)setUIDelegate:(UIViewController *) uiDelegate;
+
+/**
+ * This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
+ * This will also retrieve the `access_token` and attach it automatically for requests made using `CLVApiRequest`
  */
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
 /**
- It is important to call this method when the user tries to logout. This clears the `access_token` locally, and invalidates any stored state on the device.
- It also makes a call to the server to logout the user from the app.
+ * Start the login flow
+ */
++ (void)login;
+
+/**
+ * It is important to call this method when the user tries to logout. This clears the `access_token` locally, and invalidates any stored state on the device.
+ * It also makes a call to the server to logout the user from the app.
  */
 + (void)logout;
 
 /**
- Return the access token.
- Use this as the bearer token when constructing network requests to the Clever API.
- See https://dev.clever.com/ for more information on using the accessToken.
- Alternatively, use the CLVApiRequest class to make requests.
+ * Return the access token.
+ * Use this as the bearer token when constructing network requests to the Clever API.
+ * See https://dev.clever.com/ for more information on using the accessToken.
+ * Alternatively, use the CLVApiRequest class to make requests.
  */
 + (NSString *)accessToken;
 
-/**
- Return the state
-*/
-+ (NSString *)state;
-
-
 ///----------------------------------------
-/// Methods used by other classes of the SDK
+/// Methods used by other classes of the SDK or internally
 ///----------------------------------------
+
 /**
  Simple helper method to determine whether or not the clientId was set
  */
@@ -83,9 +88,9 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 + (NSString *)redirectUri;
 
 /**
- Set the success hander and failure handler sent to the `CLVLoginButton`
+ Return the uiDelegate
  */
-+ (void)successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler;
++ (UIViewController *)uiDelegate;
 
 /**
  Call the success handler
@@ -103,9 +108,16 @@ extern NSString *const CLVOAuthAuthorizeFailedNotification;
 + (void)setAccessToken:(NSString *)accessToken;
 
 /**
- Start the login flow
+ This method sets the state value used in the OAuth fow.
+ It should be called before every login attempt to ensure a unique, random state value is used.
  */
-+ (void)login;
++ (void)setState:(NSString *)state;
+
+/**
+ Return the state
+ */
++ (NSString *)state;
+
 
 @end
 

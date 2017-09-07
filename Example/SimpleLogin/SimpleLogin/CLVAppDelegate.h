@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CleverSDK/CLVCleverSDK.h>
 
-@interface CLVAppDelegate : UIResponder <UIApplicationDelegate>
+@interface CLVAppDelegate : UIResponder <UIApplicationDelegate,CLVOauthDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -8,22 +8,27 @@
 
 #import "CLVOAuthManager.h"
 #import <SAMKeychain/SAMKeychain.h>
+#import <SafariServices/SafariServices.h>
 #import "AFHTTPSessionManager.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "CLVLoginHandler.h"
+#import "CLVCleverSDK.h"
 
-NSString *const CLVAccessTokenReceivedNotification = @"CLVAccessTokenReceivedNotification";
-NSString *const CLVOAuthAuthorizeFailedNotification = @"CLVOAuthAuthorizeFailedNotification";
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 
 @interface CLVOAuthManager ()
 
-@property (nonatomic, strong) NSString *clientId;
-@property (nonatomic, strong) NSString *state;
+@property (nonatomic, strong) NSString *clientId; // The partner app's clientID
+@property (nonatomic, strong) NSString *districtId; // optional districtID
+@property (nonatomic, strong) NSString *state; // used for oauthflow
 @property (nonatomic, strong) NSString *accessToken;
 @property (nonatomic, strong) NSString *errorMessage;
-@property (nonatomic, strong) CLVLoginHandler *clvLogin;
+@property (atomic, assign) BOOL alreadyMissedCode; // used to track if a flow has already been called without a code
 
 @property (nonatomic, copy) void (^successHandler)(NSString *);
 @property (nonatomic, copy) void (^failureHandler)(NSString *);
@@ -43,12 +48,32 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return _sharedManager;
 }
 
-+ (void)startWithClientId:(NSString *)clientId clvLoginHandler:(CLVLoginHandler *)clvLoginHandler {
++ (void)startWithClientId:(NSString *)clientId {
     CLVOAuthManager *manager = [self sharedManager];
     manager.clientId = clientId;
-    manager.clvLogin = clvLoginHandler;
+    manager.alreadyMissedCode = false;
 }
 
++ (void)startWithClientId:(NSString *)clientId successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+    [self startWithClientId:clientId];
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.successHandler = successHandler;
+    manager.failureHandler = failureHandler;
+}
+
++ (void)setDelegate:(id<CLVOauthDelegate>) delegate {
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.delegate = delegate;
+}
+
++ (UIViewController *)uiDelegate {
+    return [[self sharedManager] uiDelegate];
+}
+
++ (void)setUIDelegate:(UIViewController *) uiDelegate {
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.uiDelegate = uiDelegate;
+}
 
 + (NSString *)generateRandomString:(int)length {
     NSAssert(length % 2 == 0, @"Must generate random string with even length");
@@ -61,7 +86,6 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [hexString appendFormat:@"%02x", (unsigned int)dataBytes[i]];
     }
     return [NSString stringWithString:hexString];
-
 }
 
 + (void)setState:(NSString *)state {
@@ -93,8 +117,52 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 }
 
 + (void)login {
+    NSString *state = [self generateRandomString:32];
+    [self setState:state];
+    
+    NSString *safariURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
+                                 [self clientId], [self redirectUri], [self state]];
+    
+    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", [self clientId], [self redirectUri], [self state], SDK_VERSION];
+    
     CLVOAuthManager *manager = [self sharedManager];
-    [[manager clvLogin] login];
+    if (manager.districtId) {
+        NSString *districtId = manager.districtId;
+        if (districtId == nil) {
+            districtId = @"";
+        }
+        safariURLString = [NSString stringWithFormat:@"%@&district_id=%@", safariURLString, districtId];
+        cleverAppURLString = [NSString stringWithFormat:@"%@&district_id=%@", safariURLString, districtId];
+    }
+    
+    // iOS 8 - always use Safari. Clever App not supported
+    if (SYSTEM_VERSION_LESS_THAN(@"9.0")) {
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:safariURLString]];
+        return;
+    }
+    
+    // Switch to native Clever app if possible
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:cleverAppURLString]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cleverAppURLString] options:@{} completionHandler:nil];
+        return;
+    }
+    
+    // Fallbacks:
+    // iOS 9/10 - use SFSafariViewController
+    // iOS 11+ - use Safari
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:safariURLString] entersReaderIfAvailable:NO];
+        if ([[self uiDelegate] presentedViewController]) {
+            [[self uiDelegate] dismissViewControllerAnimated:YES completion:^{
+                [[self uiDelegate] presentViewController:svc animated:YES completion:nil];
+            }];
+        } else {
+            [manager.uiDelegate presentViewController:svc animated:YES completion:nil];
+        }
+        return;
+    }
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString] options:@{} completionHandler:nil];
 }
 
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -111,18 +179,27 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         kvpairs[kv[0]] = kv[1];
     }
 
+    // if code is missing, then this is a Clever Portal initiated login, and we should kick off the Oauth flow
     NSString *code = kvpairs[@"code"];
-
     if (!code) {
+        CLVOAuthManager* manager = [self sharedManager];
+        if (manager.alreadyMissedCode) {
+            manager.alreadyMissedCode = NO;
+            manager.errorMessage = [NSString localizedStringWithFormat:@"Authorization failed. Please try logging in again."];
+            [self callFailureHandler];
+            return YES;
+        }
+        manager.alreadyMissedCode = YES;
         [self login];
         return YES;
     }
+
     NSString *state = kvpairs[@"state"];
     if (![state isEqualToString:[self state]]) {
         // If state doesn't match, return failure
         CLVOAuthManager *manager = [self sharedManager];
         manager.errorMessage = @"Authorization failed. Please try logging in again.";
-        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+        [self callFailureHandler];
         return YES;
     }
 
@@ -136,39 +213,77 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
 
     [tokens POST:@"oauth/tokens" parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        CLVOAuthManager *manager = [self sharedManager];
+        manager.alreadyMissedCode = NO;
         // verify that the client id is what we expect
         if ([responseObject objectForKey:@"access_token"]) {
             [self setAccessToken:responseObject[@"access_token"]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:CLVAccessTokenReceivedNotification object:self];
+            [self callSucessHandler];
         } else {
             // if no access token was received, consider this a failure
-            [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+            [self callFailureHandler];
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         CLVOAuthManager *manager = [self sharedManager];
+        manager.alreadyMissedCode = NO;
         manager.errorMessage = [NSString stringWithFormat:@"%@",  [error localizedDescription]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:CLVOAuthAuthorizeFailedNotification object:self];
+        [self callFailureHandler];
     }];
     return YES;
 }
 
-+ (void)successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    CLVOAuthManager *manager = [self sharedManager];
-    manager.successHandler = successHandler;
-    manager.failureHandler = failureHandler;
-}
-
 + (void)callSucessHandler {
     CLVOAuthManager *manager = [self sharedManager];
+    // iOS 8 - call success handler
+    // iOS 9/10 w/o native app - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/ native app - call success handler
+    // iOS 11+ - call success handler
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")
+        && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
+        && manager.uiDelegate
+        && [manager.uiDelegate presentedViewController]) {
+        // Must dismiss SFSafariViewController
+        [manager.uiDelegate dismissViewControllerAnimated:NO completion:^{
+            if (manager.successHandler) {
+                manager.successHandler(self.accessToken);
+            } else if (manager.delegate) {
+                [manager.delegate signInToClever:[self accessToken] withError:nil];
+            }
+        }];
+        return;
+    }
     if (manager.successHandler) {
-        manager.successHandler([self accessToken]);
+        manager.successHandler(self.accessToken);
+    } else if (manager.delegate) {
+        [manager.delegate signInToClever:[self accessToken] withError:nil];
     }
 }
 
 + (void)callFailureHandler {
+    [self logout];
     CLVOAuthManager *manager = [self sharedManager];
+    // iOS 8 - call success handler
+    // iOS 9/10 w/o native app - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/ native app - call success handler
+    // iOS 11+ - call success handler
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")
+        && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
+        && manager.uiDelegate
+        && [manager.uiDelegate presentedViewController]) {
+        // Must dismiss SFSafariViewController
+        [manager.uiDelegate dismissViewControllerAnimated:NO completion:^{
+            if (manager.failureHandler) {
+                manager.failureHandler(manager.errorMessage);
+            } else if (manager.delegate) {
+                [manager.delegate signInToClever:nil withError:[manager errorMessage]];
+            }
+        }];
+        return;
+    }
     if (manager.failureHandler) {
         manager.failureHandler(manager.errorMessage);
+    } else if (manager.delegate) {
+        [manager.delegate signInToClever:nil withError:[manager errorMessage]];
     }
 }
 
