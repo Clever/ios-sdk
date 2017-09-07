@@ -162,7 +162,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         return;
     }
     
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString] options:@{} completionHandler:nil];
 }
 
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -235,9 +235,13 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 + (void)callSucessHandler {
     CLVOAuthManager *manager = [self sharedManager];
     // iOS 8 - call success handler
-    // iOS 9/10 - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/o native app - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/ native app - call success handler
     // iOS 11+ - call success handler
-    if (SYSTEM_VERSION_LESS_THAN(@"11.0") && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")
+        && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
+        && manager.uiDelegate
+        && [manager.uiDelegate presentedViewController]) {
         // Must dismiss SFSafariViewController
         [manager.uiDelegate dismissViewControllerAnimated:NO completion:^{
             if (manager.successHandler) {
@@ -259,9 +263,13 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     [self logout];
     CLVOAuthManager *manager = [self sharedManager];
     // iOS 8 - call success handler
-    // iOS 9/10 - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/o native app - dismiss SFSafariViewController before calling success handler
+    // iOS 9/10 w/ native app - call success handler
     // iOS 11+ - call success handler
-    if (SYSTEM_VERSION_LESS_THAN(@"11.0") && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")) {
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0")
+        && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")
+        && manager.uiDelegate
+        && [manager.uiDelegate presentedViewController]) {
         // Must dismiss SFSafariViewController
         [manager.uiDelegate dismissViewControllerAnimated:NO completion:^{
             if (manager.failureHandler) {
