@@ -14,19 +14,11 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - CleverSDK (0.1.2):
+  - CleverSDK (0.1.3):
     - AFNetworking (~> 3.1)
     - PocketSVG (~> 0.7)
     - SAMKeychain (~> 1.5)
   - Expecta (1.0.5)
-  - Expecta+Snapshots (2.0.0):
-    - Expecta (~> 1.0)
-    - FBSnapshotTestCase/Core (~> 2.0.3)
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
-    - FBSnapshotTestCase/Core
   - PocketSVG (0.7)
   - SAMKeychain (1.5.2)
   - Specta (1.0.6)
@@ -34,24 +26,20 @@ PODS:
 DEPENDENCIES:
   - CleverSDK (from `../../`)
   - Expecta
-  - Expecta+Snapshots
-  - FBSnapshotTestCase
   - Specta
 
 EXTERNAL SOURCES:
   CleverSDK:
-    :path: "../../"
+    :path: ../../
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  CleverSDK: b21d0caf011c28ef7b1c09475c5976a90e2a14fb
+  CleverSDK: d523e8c32de6e3691bcf1c7ace7f67d9fb52069a
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
-  Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
   PocketSVG: e05e6b008c6232d7b6410bb1ff34db71957b776d
   SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   Specta: f506f3a8361de16bc0dcf3b17b75e269072ba465
 
-PODFILE CHECKSUM: 0a4471876e40737838dfcc22675967bcd428f742
+PODFILE CHECKSUM: 0db13faf2e8a1cfd8ba7c2b9f31a3d9a68135ab5
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1
