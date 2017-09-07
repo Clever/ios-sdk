@@ -1,18 +1,16 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'SimpleLogin' do
-  platform :ios, '7.0'
+  platform :ios, '8.0'
 
   pod "CleverSDK", :path => "../../"
 end
 
 target 'Tests' do
-  platform :ios, '7.0'
+  platform :ios, '8.0'
 
   use_frameworks!
 
   pod 'Specta'
   pod 'Expecta'
-  pod 'FBSnapshotTestCase'
-  pod 'Expecta+Snapshots'
 end
