@@ -25,26 +25,6 @@
     
     self.navigationController.navigationBar.translucent = NO;
     
-    __weak typeof(self) weakSelf = self;
-
-    CLVLoginHandler *login = [CLVLoginHandler loginInViewController:self successHander:^(NSString *accessToken) {
-        // success handler
-        __strong typeof(self) strongSelf = weakSelf;
-        CLVSuccessViewController *vc = [[CLVSuccessViewController alloc] initWithAccessToken:accessToken];
-        UINavigationController *navigationController = strongSelf.navigationController;
-        [navigationController popToRootViewControllerAnimated:NO];
-        [navigationController pushViewController:vc animated:YES];
-    } failureHandler:^(NSString *errorMessage) {
-        // failure handler
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:errorMessage
-                                   delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }];
-
-    // Start the CleverSDK with your client
-    // Do not forget to replace CLIENT_ID with your client_id
-    [CLVOAuthManager startWithClientId:@"CLIENT_ID" clvLoginHandler:login];
-
     // Create a "Log in with Clever" button (optional)
     CLVLoginButton *loginButton = [CLVLoginButton createLoginButton];
     

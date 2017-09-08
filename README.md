@@ -1,11 +1,11 @@
-# Clever iOS SDK 
+# Clever iOS SDK
 
 CleverSDK is a simple iOS library that makes it easy for iOS developers to integrate Clever Instant Login into their application.
 You can read more about integrating Clever Instant Login in your app [here](https://dev.clever.com/).
 
 ## Usage
 
-Configure your application to support the iOS redirect URL.
+### Configure your Clever application to support the iOS redirect URL.
 
 You can create an iOS redirect URL by going to https://apps.clever.com/partner/applications and clicking View / Edit on your application.
 
@@ -15,25 +15,39 @@ You will then get access to a client ID and redirect URI you can use for your iO
 
 You can also set a "fallback URL" where users will be redirected if they don't have your app installed.
 
-Once you have the custom redirect URL, you can add it to your application as a custom URL scheme.
-If you are not sure how to do so, check out this tutorial: https://dev.twitter.com/cards/mobile/url-schemes
+### Configure your iOS app
+Once you have the custom redirect URL, add it to your application as a custom URL scheme.
+If you are not sure how to do so, you can read this [tutorial](https://dev.twitter.com/cards/mobile/url-schemes) for help.
 
-Once you have the redirect URI setup, go the `UIViewController` where you plan to handle login success/failure, and call `startWithClientId:` as follows:
+Finally, add `com.clever` to your LSApplicationQueriesSchemes in your Info.plist, so you can redirect directly to the Clever app.
+More information on LSApplicationQueriesSchemes can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14).
+
+### Sign in with Clever
+Once the app configuration has been updated, add the following code to the `application:didFinishLaunchingWithOptions:` method in AppDelegate.m:
 ```obj-C
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    ...
-    CLVLoginHandler *login = [CLVLoginHandler loginInViewController:self successHander:^(NSString *accessToken) {
-        // success handler
-        ...
-    } failureHandler:^(NSString *errorMessage) {
-        // failure handler
-        ...
-    }];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // Start the CleverSDK with your client
     // Do not forget to replace CLIENT_ID with your client_id
-    [CLVOAuthManager startWithClientId:@"CLIENT_ID" clvLoginHandler:login];
+    [CLVOAuthManager startWithClientId:@"CLIENT_ID" successHandler:^(NSString * _Nonnull accessToken) {
+        NSLog(@"success");
+    } failureHandler:^(NSString * _Nonnull errorMessage) {
+        NSLog(@"failure");
+    }];
+    
+    // To support iOS 9/10, you must set the UIDelegate to the UIViewController 
+    // that will be displayed when the user is logging in.
+    MyLoginViewController *vc = [[MyLoginViewController alloc] initWithNibName:nil bundle:nil];
+    self.window.rootViewController = vc;
+    [CLVOAuthManager setUIDelegate:vc]
+
+    // Alternatively, you can initialize CLVOAuthManager without success/failure blocks and instead use the delegate pattern.
+    // See "Delegate Pattern" below for handling completion when using the delegate pattern
+    // [CLVOAuthManager startWithClientId:@"CLIENT_ID"];
+    // [CLVOAuthManager setDelegate:self];
+}]
 ```
 
 Besides the above change, you also need to add some code to handle the iOS redirect URI.
@@ -45,8 +59,8 @@ This is done by implementing the `application:openURL:sourceApplication:annotati
 }
 ```
 
-You can optionally add the Clever Instant Login button.
-In the `UIViewController` where you set the login success/failure handlers, add the button:
+### Log in with Clever Button
+You can also set up a Log in with Clever Button. In the `UIViewController` set as the UIDelegate, add the following code to the `viewDidLoad` method:
 ```obj-C
 // Create a "Log in with Clever" button
 loginButton = [CLVLoginButton createLoginButton];
@@ -54,10 +68,21 @@ loginButton = [CLVLoginButton createLoginButton];
 ```
 
 The button is instantiated with a particular width and height.
-You can update the width of the button by calling `setWidth:` method on the button.
-For example:
+You can update the width of the button by calling `setWidth:` method on the button:
 ```obj-C
 [self.loginButton setWidth:300.0];
+```
+
+#### Delegate Pattern
+If you are using the delegate pattern instead of completion blocks, add the following method to your AppDelegate.m:
+```obj-C
+// If non-null blocks are provided, signInToClever:withError: will not be called
+- (void)signInToClever:(NSString *)accessToken withError:(NSString *)error {
+    if (error) {
+        // error
+    }
+    // success
+}
 ```
 
 To run the example project, clone the repo, and run `pod install` from the Example/SimpleLogin directory first.

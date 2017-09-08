@@ -1,6 +1,6 @@
 {
   "name": "CleverSDK",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "summary": "A simple iOS library to access Clever Instant Login",
   "description": "CleverSDK provides developers with a simple library to access Clever Instant Login.\nThe SDK includes a Login handler (the `CLVLoginHandler`) and a Login Button (the 'CLVLoginButton') that can be added to any `UIView`.\nThe SDK returns an `access_token` to the user that can be used to make calls to the Clever API.",
   "homepage": "https://github.com/Clever/ios-sdk",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Clever/ios-sdk.git",
-    "tag": "0.1.2"
+    "tag": "0.1.3"
   },
   "social_media_url": "https://twitter.com/clever",
   "documentation_url": "https://dev.clever.com/",
