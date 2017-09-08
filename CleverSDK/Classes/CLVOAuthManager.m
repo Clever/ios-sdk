@@ -51,7 +51,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 + (void)startWithClientId:(NSString *)clientId {
     CLVOAuthManager *manager = [self sharedManager];
     manager.clientId = clientId;
-    manager.alreadyMissedCode = false;
+    manager.alreadyMissedCode = NO;
 }
 
 + (void)startWithClientId:(NSString *)clientId successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
@@ -143,6 +143,11 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     
     // Switch to native Clever app if possible
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:cleverAppURLString]]) {
+        // Use old openURL method if on iOS 9-
+        if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cleverAppURLString]];
+            return;
+        }
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:cleverAppURLString] options:@{} completionHandler:nil];
         return;
     }
@@ -150,11 +155,11 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     // Fallbacks:
     // iOS 9/10 - use SFSafariViewController
     // iOS 11+ - use Safari
-    if (SYSTEM_VERSION_LESS_THAN(@"11.0")) {
+    if (SYSTEM_VERSION_LESS_THAN(@"11.0") && manager.uiDelegate) {
         SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:safariURLString] entersReaderIfAvailable:NO];
-        if ([[self uiDelegate] presentedViewController]) {
-            [[self uiDelegate] dismissViewControllerAnimated:YES completion:^{
-                [[self uiDelegate] presentViewController:svc animated:YES completion:nil];
+        if ([manager.uiDelegate presentedViewController]) {
+            [manager.uiDelegate dismissViewControllerAnimated:YES completion:^{
+                [manager.uiDelegate presentViewController:svc animated:YES completion:nil];
             }];
         } else {
             [manager.uiDelegate presentViewController:svc animated:YES completion:nil];
@@ -162,6 +167,11 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         return;
     }
     
+    // Use old openURL method if on iOS 9-
+    if (SYSTEM_VERSION_LESS_THAN(@"10.0")) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString]];
+        return;
+    }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString] options:@{} completionHandler:nil];
 }
 

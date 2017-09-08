@@ -9,7 +9,7 @@
 #ifndef SimpleLogin_CLVCleverSDK_h
 #define SimpleLogin_CLVCleverSDK_h
 
-#define SDK_VERSION @"iOS-0.1.3"
+#define SDK_VERSION @"iOS-1.0.0"
 
 #import "CLVLoginButton.h"
 #import "CLVOAuthManager.h"

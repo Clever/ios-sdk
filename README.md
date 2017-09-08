@@ -16,10 +16,10 @@ You will then get access to a client ID and redirect URI you can use for your iO
 You can also set a "fallback URL" where users will be redirected if they don't have your app installed.
 
 ### Configure your iOS app
-Once you have the custom redirect URL, you can add it to your application as a custom URL scheme.
-If you are not sure how to do so, check out this [tutorial](https://dev.twitter.com/cards/mobile/url-schemes).
+Once you have the custom redirect URL, add it to your application as a custom URL scheme.
+If you are not sure how to do so, you can read this [tutorial](https://dev.twitter.com/cards/mobile/url-schemes) for help.
 
-To redirect directly to the Clever app, you need to add `com.clever` to your LSApplicationQueriesSchemes in your Info.plist.
+Finally, add `com.clever` to your LSApplicationQueriesSchemes in your Info.plist, so you can redirect directly to the Clever app.
 More information on LSApplicationQueriesSchemes can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14).
 
 ### Sign in with Clever
@@ -43,8 +43,8 @@ Once the app configuration has been updated, add the following code to the `appl
     self.window.rootViewController = vc;
     [CLVOAuthManager setUIDelegate:vc]
 
-    // Alternatively, you can initialize the CLVOAuthManager without success/failure blocks and instead use the delegate pattern.
-    // See "Delegate Pattern" below for handling completion when using the delgate pattern
+    // Alternatively, you can initialize CLVOAuthManager without success/failure blocks and instead use the delegate pattern.
+    // See "Delegate Pattern" below for handling completion when using the delegate pattern
     // [CLVOAuthManager startWithClientId:@"CLIENT_ID"];
     // [CLVOAuthManager setDelegate:self];
 }]
@@ -60,8 +60,7 @@ This is done by implementing the `application:openURL:sourceApplication:annotati
 ```
 
 ### Log in with Clever Button
-You can optionally add the Clever Instant Login button.
-In the `UIViewController` where you set the login success/failure handlers, add the button:
+You can also set up a Log in with Clever Button. In the `UIViewController` set as the UIDelegate, add the following code to the `viewDidLoad` method:
 ```obj-C
 // Create a "Log in with Clever" button
 loginButton = [CLVLoginButton createLoginButton];
@@ -69,14 +68,13 @@ loginButton = [CLVLoginButton createLoginButton];
 ```
 
 The button is instantiated with a particular width and height.
-You can update the width of the button by calling `setWidth:` method on the button.
-For example:
+You can update the width of the button by calling `setWidth:` method on the button:
 ```obj-C
 [self.loginButton setWidth:300.0];
 ```
 
 #### Delegate Pattern
-If you are using the delegate pattern, add the following method to your AppDelegate.m:
+If you are using the delegate pattern instead of completion blocks, add the following method to your AppDelegate.m:
 ```obj-C
 // If non-null blocks are provided, signInToClever:withError: will not be called
 - (void)signInToClever:(NSString *)accessToken withError:(NSString *)error {
