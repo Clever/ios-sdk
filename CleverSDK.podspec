@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   DESC
   s.homepage          = "https://github.com/Clever/ios-sdk"
   s.license           = 'Apache 2.0'
-  s.authors           = { "Nikhil Pandit" => "nikhil.pandit@clever.com", "Alex Smolen" => "alex.smolen@clever.com", "Peter Nga" => "peter.nga@clever.com", "Dylan Hurd" => "dylan.hurd@clever.com" "Clever Support" => "tech-support@clever.com" }
+  s.authors           = { "Nikhil Pandit" => "nikhil.pandit@clever.com", "Alex Smolen" => "alex.smolen@clever.com", "Peter Nga" => "peter.nga@clever.com", "Dylan Hurd" => "dylan.hurd@clever.com", "Clever Support" => "tech-support@clever.com" }
   s.source            = { :git => "https://github.com/Clever/ios-sdk.git", :tag => s.version.to_s }
   s.social_media_url  = 'https://twitter.com/clever'
   s.documentation_url = "https://dev.clever.com/"
