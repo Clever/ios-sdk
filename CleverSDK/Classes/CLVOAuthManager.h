@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Call the success handler
  */
-+ (void)callSucessHandler;
++ (void)callSuccessHandler;
 
 /**
  Call the failure handler

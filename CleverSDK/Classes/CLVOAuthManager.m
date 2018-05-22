@@ -228,7 +228,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         // verify that the client id is what we expect
         if ([responseObject objectForKey:@"access_token"]) {
             [self setAccessToken:responseObject[@"access_token"]];
-            [self callSucessHandler];
+            [self callSuccessHandler];
         } else {
             // if no access token was received, consider this a failure
             [self callFailureHandler];
@@ -242,7 +242,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return YES;
 }
 
-+ (void)callSucessHandler {
++ (void)callSuccessHandler {
     CLVOAuthManager *manager = [self sharedManager];
     // iOS 8 - call success handler
     // iOS 9/10 w/o native app - dismiss SFSafariViewController before calling success handler
