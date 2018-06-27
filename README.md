@@ -17,7 +17,14 @@ You can also set a "fallback URL" where users will be redirected if they don't h
 
 ### Configure your iOS app
 Once you have the custom redirect URL, add it to your application as a custom URL scheme.
-If you are not sure how to do so, you can read this [tutorial](https://dev.twitter.com/cards/mobile/url-schemes) for help.
+If you are not sure how to do so, follow the steps below:
+1. Open your app's `Info.plist` file.
+2. Look for a key named "URL types". If you don't see one, then add the key to `Info.plist`.
+3. Expand "URL types" and add a row called "URL Schemes" under "URL types".
+4. Expand "URL Schemes" and you will see a key called "Item 0" (if it doesn't exist, add a key named "Item 0"). Put the custom redirect URL as the value to this Key.
+
+For example, if your custom redirect URL is `clever-1234`, then the structure should look something like this:
+<img src="https://user-images.githubusercontent.com/59177/42003240-5071d51c-7a1f-11e8-83a0-88892c4e0c87.png" width=600 />
 
 Finally, add `com.clever` to your LSApplicationQueriesSchemes in your Info.plist, so you can redirect directly to the Clever app.
 More information on LSApplicationQueriesSchemes can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14).
