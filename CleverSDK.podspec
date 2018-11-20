@@ -10,7 +10,7 @@
 Pod::Spec.new do |s|
   s.name              = "CleverSDK"
   # Version is also set in CLVCleverSDK.h, please keep them in sync
-  s.version           = "1.0.0"
+  s.version           = "1.0.1"
   s.summary           = "A simple iOS library to access Clever Instant Login"
   s.description       = <<-DESC
   CleverSDK provides developers with a simple library to access Clever Instant Login.
