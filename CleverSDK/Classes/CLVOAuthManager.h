@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol CLVOauthDelegate
-- (void) signInToClever:( NSString* _Nullable )accessToken withError:( NSString* _Nullable )error;
+- (void) signInToClever:( NSString* _Nullable )code withError:( NSString* _Nullable )error;
 @end
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,15 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) UIViewController *uiDelegate; // on iOS 9/10, receiver of calls to present/dismiss SFSafariViewController for sign in
 
 /**
- * Initializes the CLVOauthManager. Sets the clientId which is used for constructing the OAuth URL and logging in.
- */
-+ (void)startWithClientId:(NSString *)clientId;
-
-/**
  * Initializes the CLVOAuthManager with successHandler and failureHandler. If this method is used, the delegate will not called.
  * uiDelegate still needs to be set on iOS even if you use this method.
  */
-+ (void)startWithClientId:(NSString *)clientId successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler;
++ (void)startWithClientId:(NSString *)clientId IosClientId:(NSString *)iosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler;
 
 /**
  * setDelegate sets the CLVOAuthDelegate implementer to be called upon completion
@@ -47,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  * This method should be called under `application:openURL:sourceApplication:annotation:` method in the AppDelegate
  * This will also retrieve the `access_token` and attach it automatically for requests made using `CLVApiRequest`
  */
-+ (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
++ (BOOL)handleURL:(NSURL *)url;
 
 /**
  * Start the login flow
@@ -61,12 +56,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)logout;
 
 /**
- * Return the access token.
- * Use this as the bearer token when constructing network requests to the Clever API.
- * See https://dev.clever.com/ for more information on using the accessToken.
- * Alternatively, use the CLVApiRequest class to make requests.
+ * Return the code to be used to exchange for a token server side.
+ * See https://dev.clever.com/ for more information on using the code.
  */
-+ (NSString *)accessToken;
++ (NSString *)code;
+
+/**
+ * Returns whether the user is logging in via universal links or the old iOS SDK flow.
+ */
++ (BOOL)isUniversalLinkLogin;
 
 ///----------------------------------------
 /// Methods used by other classes of the SDK or internally
@@ -103,9 +101,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)callFailureHandler;
 
 /**
- Allows setting the access token. Users of the SDK should not need to call this method directly.
+ Allows setting the code. Users of the SDK should not need to call this method directly.
  */
-+ (void)setAccessToken:(NSString *)accessToken;
++ (void)setCode:(NSString *)code;
 
 /**
  This method sets the state value used in the OAuth fow.

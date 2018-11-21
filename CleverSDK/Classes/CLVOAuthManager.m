@@ -26,7 +26,10 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 @property (nonatomic, strong) NSString *clientId; // The partner app's clientID
 @property (nonatomic, strong) NSString *districtId; // optional districtID
 @property (nonatomic, strong) NSString *state; // used for oauthflow
-@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSString *redirectUri; // The partner app's redirectURI
+@property (nonatomic, strong) NSString *iosClientId; // The partner app's redirectURI
+@property (atomic, assign) BOOL isUniversalLinkLogin; // universal link flow vs old ios flow
+@property (nonatomic, strong) NSString *code;
 @property (nonatomic, strong) NSString *errorMessage;
 @property (atomic, assign) BOOL alreadyMissedCode; // used to track if a flow has already been called without a code
 
@@ -48,17 +51,20 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return _sharedManager;
 }
 
-+ (void)startWithClientId:(NSString *)clientId {
-    CLVOAuthManager *manager = [self sharedManager];
-    manager.clientId = clientId;
-    manager.alreadyMissedCode = NO;
-}
-
-+ (void)startWithClientId:(NSString *)clientId successHandler:(void (^)(NSString *accessToken))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    [self startWithClientId:clientId];
++ (void) startWithClientId:(NSString *)clientId IosClientId:(NSString *)iosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+    [self startWithClientId:clientId IosClientId: iosClientId RedirectURI: redirectUri];
     CLVOAuthManager *manager = [self sharedManager];
     manager.successHandler = successHandler;
     manager.failureHandler = failureHandler;
+    manager.isUniversalLinkLogin = true;
+}
+
++ (void) startWithClientId:(NSString *)clientId IosClientId:(NSString *)iosClientId RedirectURI:(NSString *)redirectUri {
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.clientId = clientId;
+    manager.alreadyMissedCode = NO;
+    manager.iosClientId = iosClientId;
+    manager.redirectUri = redirectUri;
 }
 
 + (void)setDelegate:(id<CLVOauthDelegate>) delegate {
@@ -107,8 +113,16 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     return [[self sharedManager] clientId];
 }
 
++ (NSString *)iosClientId {
+    return [[self sharedManager] iosClientId];
+}
+
 + (NSString *)redirectUri {
-    return [NSString stringWithFormat:@"clever-%@://oauth", [self clientId]];
+    return [[self sharedManager] redirectUri];
+}
+
++ (NSString *)iosRedirectUri {
+    return [NSString stringWithFormat:@"clever-%@://oauth", [self iosClientId]];
 }
 
 + (NSString *)state {
@@ -120,10 +134,24 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     NSString *state = [self generateRandomString:32];
     [self setState:state];
     
-    NSString *safariURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
-                                 [self clientId], [self redirectUri], [self state]];
     
-    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", [self clientId], [self redirectUri], [self state], SDK_VERSION];
+    NSString *safariURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
+                                 [self iosClientId], [self iosRedirectUri], [self state]];
+
+    NSString *universalLinkURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@",
+                                 [self clientId], [self redirectUri], [self state]];
+
+    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", [self iosClientId], [self iosRedirectUri], [self state], SDK_VERSION];
+    
+    // Temporary, this is how we will check if we are using the better app
+    NSString *newCleverAppURLString = @"com.cleverv2://";
+    
+    // Checking for the new app here
+    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:newCleverAppURLString]]) {
+        // We want to redirect to Safari here to trigger the universal link flow (May have to do things with the state here, unclear atm
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:universalLinkURLString]];
+        return;
+    }
     
     CLVOAuthManager *manager = [self sharedManager];
     if (manager.districtId) {
@@ -172,15 +200,16 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString]];
         return;
     }
+
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:safariURLString] options:@{} completionHandler:nil];
 }
 
-+ (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // check if it's the Clever redirect URI first
-    if (![url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", [self clientId]]]) {
-        // not a Clever redirect URL, so exit
-        return NO;
++ (BOOL)handleURL:(NSURL *)url {
+    if ([url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", [self iosClientId]]]) {
+        // uses clever redirect so it is the old iOS flow
+        [self isOldIosFlow];
     }
+
     NSString *query = url.query;
     NSMutableDictionary *kvpairs = [NSMutableDictionary dictionaryWithCapacity:1];
     NSArray *components = [query componentsSeparatedByString:@"&"];
@@ -203,7 +232,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [self login];
         return YES;
     }
-
+    
     NSString *state = kvpairs[@"state"];
     if (![state isEqualToString:[self state]]) {
         // If state doesn't match, return failure
@@ -212,33 +241,9 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         [self callFailureHandler];
         return YES;
     }
-
-    AFHTTPSessionManager *tokens = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@"https://clever.com"]];
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-    tokens.requestSerializer = [AFJSONRequestSerializer serializer];
-    tokens.responseSerializer = [AFJSONResponseSerializer serializer];
-    NSString *encodedClientID = [[[NSString stringWithFormat:@"%@:", [self clientId]] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-
-    [tokens.requestSerializer setValue:[NSString stringWithFormat:@"Basic %@", encodedClientID] forHTTPHeaderField:@"Authorization"];
-    NSDictionary *parameters = @{@"code": code, @"grant_type": @"authorization_code", @"redirect_uri": [self redirectUri]};
-
-    [tokens POST:@"oauth/tokens" parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        CLVOAuthManager *manager = [self sharedManager];
-        manager.alreadyMissedCode = NO;
-        // verify that the client id is what we expect
-        if ([responseObject objectForKey:@"access_token"]) {
-            [self setAccessToken:responseObject[@"access_token"]];
-            [self callSucessHandler];
-        } else {
-            // if no access token was received, consider this a failure
-            [self callFailureHandler];
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        CLVOAuthManager *manager = [self sharedManager];
-        manager.alreadyMissedCode = NO;
-        manager.errorMessage = [NSString stringWithFormat:@"%@",  [error localizedDescription]];
-        [self callFailureHandler];
-    }];
+    
+    [self setCode:code];
+    [self callSucessHandler];
     return YES;
 }
 
@@ -255,17 +260,17 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
         // Must dismiss SFSafariViewController
         [manager.uiDelegate dismissViewControllerAnimated:NO completion:^{
             if (manager.successHandler) {
-                manager.successHandler(self.accessToken);
+                manager.successHandler(self.code);
             } else if (manager.delegate) {
-                [manager.delegate signInToClever:[self accessToken] withError:nil];
+                [manager.delegate signInToClever:[self code] withError:nil];
             }
         }];
         return;
     }
     if (manager.successHandler) {
-        manager.successHandler(self.accessToken);
+        manager.successHandler(self.code);
     } else if (manager.delegate) {
-        [manager.delegate signInToClever:[self accessToken] withError:nil];
+        [manager.delegate signInToClever:[self code] withError:nil];
     }
 }
 
@@ -297,27 +302,38 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     }
 }
 
-+ (NSString *)accessToken {
++ (NSString *)code {
     CLVOAuthManager *manager = [self sharedManager];
-    if (!manager.accessToken) {
+    if (!manager.code) {
         // accessToken property is not set, so get it from Keychain
         NSString *appIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-        manager.accessToken = [SAMKeychain passwordForService:CLVServiceName account:appIdentifier];
+        manager.code = [SAMKeychain passwordForService:CLVServiceName account:appIdentifier];
     }
-    return manager.accessToken;
+    return manager.code;
 }
 
-+ (void)setAccessToken:(NSString *)accessToken {
++ (void)setCode:(NSString *)code {
     // any time accessToken property is changed, the value in the Keychain should also be updated
     CLVOAuthManager *manager = [self sharedManager];
-    manager.accessToken = accessToken;
+    manager.code = code;
     NSString *appIdentifer = [[NSBundle mainBundle] bundleIdentifier];
-    [SAMKeychain setPassword:accessToken forService:CLVServiceName account:appIdentifer];
+    [SAMKeychain setPassword:code forService:CLVServiceName account:appIdentifer];
 }
 
-+ (void)clearAccessToken {
+
++ (BOOL)isUniversalLinkLogin {
     CLVOAuthManager *manager = [self sharedManager];
-    manager.accessToken = nil;
+    return manager.isUniversalLinkLogin;
+}
+
++ (void)isOldIosFlow {
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.isUniversalLinkLogin = false;
+}
+
++ (void)clearCode {
+    CLVOAuthManager *manager = [self sharedManager];
+    manager.code = nil;
     [SAMKeychain deletePasswordForService:CLVServiceName account:[[NSBundle mainBundle] bundleIdentifier]];
 }
 
@@ -331,7 +347,7 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
 
 + (void)logout {
     [self clearBrowserCookies];
-    [self clearAccessToken];
+    [self clearCode];
 }
 
 @end

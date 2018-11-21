@@ -13,6 +13,5 @@
 
 #import "CLVLoginButton.h"
 #import "CLVOAuthManager.h"
-#import "CLVApiRequest.h"
 
 #endif
