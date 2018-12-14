@@ -144,11 +144,11 @@ static NSString *const CLVServiceName = @"com.clever.CleverSDK";
     NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", [self iosClientId], [self iosRedirectUri], [self state], SDK_VERSION];
     
     // Temporary, this is how we will check if we are using the better app
-    NSString *newCleverAppURLString = @"com.cleverv2://";
+    NSString *newCleverAppURLString = @"com.clever.v2://";
     
     // Checking for the new app here
     if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:newCleverAppURLString]]) {
-        // We want to redirect to Safari here to trigger the universal link flow (May have to do things with the state here, unclear atm
+        // We want to redirect to Safari here to trigger the universal link flow
         [[UIApplication sharedApplication] openURL: [NSURL URLWithString:universalLinkURLString]];
         return;
     }
