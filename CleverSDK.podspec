@@ -20,18 +20,16 @@ Pod::Spec.new do |s|
   DESC
   s.homepage          = "https://github.com/Clever/ios-sdk"
   s.license           = 'Apache 2.0'
-  s.authors           = { "Nikhil Pandit" => "nikhil.pandit@clever.com", "Alex Smolen" => "alex.smolen@clever.com", "Peter Nga" => "peter.nga@clever.com", "Luther Banner III" => "luther.banner@clever.com", "Clever Support" => "tech-support@clever.com" }
+  s.authors           = { "Clever Support" => "tech-support@clever.com" }
   s.source            = { :git => "https://github.com/Clever/ios-sdk.git", :tag => s.version.to_s }
   s.social_media_url  = 'https://twitter.com/clever'
   s.documentation_url = "https://dev.clever.com/"
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
 
   s.source_files = 'CleverSDK/Classes/**/*'
 
   s.public_header_files = 'CleverSDK/Classes/**/*.h'
-  s.dependency 'AFNetworking', '~> 3.1'
   s.dependency "PocketSVG", "~> 0.7"
-  s.dependency "SAMKeychain", "~> 1.5"
 end

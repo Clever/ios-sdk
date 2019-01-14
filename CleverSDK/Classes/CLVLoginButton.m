@@ -1,11 +1,3 @@
-//
-//  CLVLoginButton.m
-//  CleverSDK
-//
-//  Created by Nikhil Pandit on 4/3/15.
-//  Copyright (c) 2015 Clever, Inc. All rights reserved.
-//
-
 #import "CLVLoginButton.h"
 #import "CLVOAuthManager.h"
 #import <PocketSVG/PocketSVG.h>
