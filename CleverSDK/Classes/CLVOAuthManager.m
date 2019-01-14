@@ -30,7 +30,6 @@
 }
 
 + (void) startWithClientId:(NSString *)clientId IosClientId:(NSString *)iosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-//    [self startWithClientId:clientId IosClientId: iosClientId RedirectURI: redirectUri];
     CLVOAuthManager *manager = [self sharedManager];
     manager.clientId = clientId;
     manager.alreadyMissedCode = NO;
@@ -54,16 +53,23 @@
 }
 
 + (void)login {
+  [self loginWithDistrictId:nil]
+}
+
++ (void)loginWithDistrictId(NSString *)districtId {
     CLVOAuthManager *manager = [self sharedManager];
     manager.state = [self generateRandomString:32];
-    
-    
+
     NSString *iosRedirectURI = [NSString stringWithFormat:@"clever-%@://oauth", manager.iosClientId];
 
-    NSString *universalLinkURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@", manager.clientId, manager.redirectUri, manager.state];
-    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@", manager.iosClientId, iosRedirectURI, manager.state, SDK_VERSION];
+    NSString *districtIdString = districtId;
+    if (districtId == nil) {
+      districtIdString = @"";
+    }
 
-    
+    NSString *universalLinkURLString = [NSString stringWithFormat:@"https://clever.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&district_id=%@", manager.clientId, manager.redirectUri, manager.state, districtIdString];
+    NSString *cleverAppURLString = [NSString stringWithFormat:@"com.clever://oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@&state=%@&sdk_version=%@&district_id=%@", manager.iosClientId, iosRedirectURI, manager.state, SDK_VERSION, districtIdString];
+
     // Switch to native Clever app if possible
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:cleverAppURLString]]) {
         if (@available(iOS 10, *)) {
@@ -74,7 +80,7 @@
         
         return;
     }
-    
+
     if (@available(iOS 10, *)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:universalLinkURLString] options:@{} completionHandler:nil];
     } else {

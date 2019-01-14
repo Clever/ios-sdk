@@ -10,6 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)login;
 
++ (void)loginWithDistrictId:(NSString *);
+
 @end
 
 NS_ASSUME_NONNULL_END
