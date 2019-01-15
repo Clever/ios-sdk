@@ -5,7 +5,7 @@
 @interface CLVOAuthManager ()
 
 @property (nonatomic, strong) NSString *clientId;
-@property (nonatomic, strong) NSString *iosClientId;
+@property (nonatomic, strong) NSString *legacyIosClientId;
 @property (nonatomic, strong) NSString *redirectUri;
 
 @property (nonatomic, strong) NSString *state;
@@ -29,14 +29,17 @@
     return _sharedManager;
 }
 
-+ (void) startWithClientId:(NSString *)clientId IosClientId:(NSString *)iosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
++ (void) startWithClientId:(NSString *)clientId LegacyIosClientId:(NSString *)legacyIosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
     CLVOAuthManager *manager = [self sharedManager];
     manager.clientId = clientId;
     manager.alreadyMissedCode = NO;
-    manager.iosClientId = iosClientId;
+    manager.legacyIosClientId = legacyIosClientId;
     manager.redirectUri = redirectUri;
     manager.successHandler = successHandler;
     manager.failureHandler = failureHandler;
+}
++ (void)startWithClientId:(NSString *)clientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+  [self startWithClientId:clientId LegacyIosClientId:nil RedirectURI:redirectUri successHandler:successHandler failureHandler:failureHandler];
 }
 
 + (NSString *)generateRandomString:(int)length {
@@ -60,7 +63,9 @@
     CLVOAuthManager *manager = [self sharedManager];
     manager.state = [self generateRandomString:32];
 
-    NSString *iosRedirectURI = [NSString stringWithFormat:@"clever-%@://oauth", manager.iosClientId];
+    if (manager.legacyIosClientId != nil) {
+      NSString *legacyIosRedirectURI = [NSString stringWithFormat:@"clever-%@://oauth", manager.legacyIosClientId];
+    }
 
     NSString *districtIdString = districtId;
     if (districtId == nil) {
@@ -93,7 +98,7 @@
 + (BOOL)handleURL:(NSURL *)url {
     CLVOAuthManager *manager = [self sharedManager];
     if (!( // TODO add some path checking too maybe?
-        [url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", manager.iosClientId]] ||
+        [url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", manager.legacyIosClientId]] ||
           ([url.scheme isEqualToString:@"https"] && [url.host isEqualToString:@"clever.com"])
     )) {
         return NO;
