@@ -1,22 +1,48 @@
 version: 2
 jobs:
-  build:
+  test:
     macos:
       xcode: "10.1.0"
     working_directory: ~/Clever/ios-sdk
     steps:
       - checkout
       - run:
-          name: Fetch CocoaPods Specs
+          name: Fetch CocoaPods
           command: |
             curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
       - run:
           name: Install CocoaPods
           command: pod install --verbose
       - run:
-          name: Build and run tests
+          name: Run Tests
           command: fastlane scan
           environment:
             SCAN_DEVICE: iPhone XS
             SCAN_SCHEME: CleverSDK
             LANG: en_US.UTF-8
+  deploy:
+    macos:
+      xcode: "10.1.0"
+    working_directory: ~/Clever/ios-sdk
+    steps:
+      - checkout
+      - run:
+          name: Fetch CocoaPods
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - run:
+          name: Deploy
+          command: pod trunk push
+
+workflows:
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /.*/
