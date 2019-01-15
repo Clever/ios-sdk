@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */; };
+		262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */; };
+		262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */; };
+		262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */; };
+		262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */; };
+		262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */; };
+		2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2663BEB121ED880D00ED2BC1 /* Assets.xcassets */; };
+		2663BEB821ED880D00ED2BC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2663BEB721ED880D00ED2BC1 /* main.m */; };
 		268D08DA21ED781700DE2088 /* CLVApiRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D321ED781700DE2088 /* CLVApiRequest.h */; };
 		268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D421ED781700DE2088 /* CLVOAuthManager.h */; };
 		268D08DC21ED781700DE2088 /* CLVApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D521ED781700DE2088 /* CLVApiRequest.m */; };
@@ -16,7 +24,9 @@
 		268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D921ED781700DE2088 /* CLVCleverSDK.h */; };
 		26AF353121ED59B800263628 /* CleverSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF353021ED59B800263628 /* CleverSDKTests.m */; };
 		26AF353321ED59B800263628 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
+		26F13BCA21EDB9C600852ED1 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
 		2FD9B50F31FE408B616AABA6 /* libPods-CleverSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 662FD22070E12778772A2415 /* libPods-CleverSDK.a */; };
+		5A0114C63E09782CA7256755 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 054C6BA1F3D9B75317F5E19D /* libPods-Example.a */; };
 		75410E27E408B5EA13F604C9 /* libPods-CleverSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +42,21 @@
 
 /* Begin PBXFileReference section */
 		033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		054C6BA1F3D9B75317F5E19D /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		234F52C9664ABC5B6AD3DE57 /* Pods-CleverSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVAppDelegate.m; sourceTree = "<group>"; };
+		262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginViewController.m; sourceTree = "<group>"; };
+		262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVSuccessViewController.h; sourceTree = "<group>"; };
+		262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVAppDelegate.h; sourceTree = "<group>"; };
+		262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVSuccessViewController.m; sourceTree = "<group>"; };
+		262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVLoginViewController.xib; sourceTree = "<group>"; };
+		262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginViewController.h; sourceTree = "<group>"; };
+		262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVSuccessViewController.xib; sourceTree = "<group>"; };
+		2663BEA621ED880900ED2BC1 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2663BEB121ED880D00ED2BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2663BEB621ED880D00ED2BC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2663BEB721ED880D00ED2BC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		268D08D221ED780300DE2088 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		268D08D321ED781700DE2088 /* CLVApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVApiRequest.h; sourceTree = "<group>"; };
 		268D08D421ED781700DE2088 /* CLVOAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVOAuthManager.h; sourceTree = "<group>"; };
@@ -49,6 +73,8 @@
 		26BB6E9C21ED4F500005D165 /* CleverSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = CleverSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		26BB6E9D21ED50820005D165 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		26F9A8F421ED52C500ED1B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		662FD22070E12778772A2415 /* libPods-CleverSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CleverSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74F6929F444E04352A9A747A /* Pods-CleverSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CleverSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +82,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2663BEA321ED880900ED2BC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26F13BCA21EDB9C600852ED1 /* CleverSDK.framework in Frameworks */,
+				5A0114C63E09782CA7256755 /* libPods-Example.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26AF352B21ED59B800263628 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,6 +111,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2663BEA721ED880900ED2BC1 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */,
+				262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */,
+				262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */,
+				262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */,
+				262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */,
+				262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */,
+				262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */,
+				262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */,
+				2663BEB121ED880D00ED2BC1 /* Assets.xcassets */,
+				262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */,
+				2663BEB621ED880D00ED2BC1 /* Info.plist */,
+				2663BEB721ED880D00ED2BC1 /* main.m */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		26AF352F21ED59B800263628 /* CleverSDKTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +148,7 @@
 				26BB6E9D21ED50820005D165 /* Podfile */,
 				26BB6E7821ED23F50005D165 /* CleverSDK */,
 				26AF352F21ED59B800263628 /* CleverSDKTests */,
+				2663BEA721ED880900ED2BC1 /* Example */,
 				26BB6E7721ED23F50005D165 /* Products */,
 				BD0089461B7688D5F1C1F436 /* Pods */,
 				EACD93CAD66C48AC8CD0C404 /* Frameworks */,
@@ -105,6 +160,7 @@
 			children = (
 				26BB6E7621ED23F50005D165 /* CleverSDK.framework */,
 				26AF352E21ED59B800263628 /* CleverSDKTests.xctest */,
+				2663BEA621ED880900ED2BC1 /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,6 +187,8 @@
 				E1499ED7E5DD886299335537 /* Pods-CleverSDK.release.xcconfig */,
 				033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */,
 				74F6929F444E04352A9A747A /* Pods-CleverSDKTests.release.xcconfig */,
+				64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */,
+				2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -140,6 +198,7 @@
 			children = (
 				662FD22070E12778772A2415 /* libPods-CleverSDK.a */,
 				7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */,
+				054C6BA1F3D9B75317F5E19D /* libPods-Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,6 +220,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		2663BEA521ED880900ED2BC1 /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2663BEBB21ED880D00ED2BC1 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				F342E30368C017BF2A2695A6 /* [CP] Check Pods Manifest.lock */,
+				2663BEA321ED880900ED2BC1 /* Frameworks */,
+				2663BEA221ED880900ED2BC1 /* Sources */,
+				2663BEA421ED880900ED2BC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Example;
+			productName = Example;
+			productReference = 2663BEA621ED880900ED2BC1 /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
 		26AF352D21ED59B800263628 /* CleverSDKTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 26AF353621ED59B800263628 /* Build configuration list for PBXNativeTarget "CleverSDKTests" */;
@@ -169,7 +246,7 @@
 				26AF352A21ED59B800263628 /* Sources */,
 				26AF352B21ED59B800263628 /* Frameworks */,
 				26AF352C21ED59B800263628 /* Resources */,
-				1DCAC2FDCAF2C0DD17493B1A /* [CP] Copy Pods Resources */,
+				581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,7 +267,7 @@
 				26BB6E7221ED23F50005D165 /* Sources */,
 				26BB6E7321ED23F50005D165 /* Frameworks */,
 				26BB6E7421ED23F50005D165 /* Resources */,
-				200DF2EC2E7F6CF01FAA5902 /* [CP] Copy Pods Resources */,
+				8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -210,6 +287,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Clever;
 				TargetAttributes = {
+					2663BEA521ED880900ED2BC1 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					26AF352D21ED59B800263628 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -224,6 +304,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 26BB6E6C21ED23F40005D165;
 			productRefGroup = 26BB6E7721ED23F50005D165 /* Products */;
@@ -232,11 +313,23 @@
 			targets = (
 				26BB6E7521ED23F50005D165 /* CleverSDK */,
 				26AF352D21ED59B800263628 /* CleverSDKTests */,
+				2663BEA521ED880900ED2BC1 /* Example */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2663BEA421ED880900ED2BC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */,
+				262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */,
+				262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */,
+				2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26AF352C21ED59B800263628 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,50 +347,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1DCAC2FDCAF2C0DD17493B1A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh",
-				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		200DF2EC2E7F6CF01FAA5902 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh",
-				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2C4008117705B8C5835CAB2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -318,6 +367,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7855BD6DE5CC38056255DC39 /* [CP] Check Pods Manifest.lock */ = {
@@ -342,9 +413,64 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F342E30368C017BF2A2695A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2663BEA221ED880900ED2BC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */,
+				262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */,
+				262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */,
+				2663BEB821ED880D00ED2BC1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		26AF352A21ED59B800263628 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,6 +500,49 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2663BEB921ED880D00ED2BC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clever.SimpleLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+			};
+			name = Debug;
+		};
+		2663BEBA21ED880D00ED2BC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clever.SimpleLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+			};
+			name = Release;
+		};
 		26AF353721ED59B800263628 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */;
@@ -595,6 +764,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2663BEBB21ED880D00ED2BC1 /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2663BEB921ED880D00ED2BC1 /* Debug */,
+				2663BEBA21ED880D00ED2BC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		26AF353621ED59B800263628 /* Build configuration list for PBXNativeTarget "CleverSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
