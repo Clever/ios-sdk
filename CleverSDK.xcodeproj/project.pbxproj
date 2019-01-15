@@ -1,0 +1,806 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */; };
+		262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */; };
+		262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */; };
+		262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */; };
+		262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */; };
+		262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */; };
+		2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2663BEB121ED880D00ED2BC1 /* Assets.xcassets */; };
+		2663BEB821ED880D00ED2BC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2663BEB721ED880D00ED2BC1 /* main.m */; };
+		268D08DA21ED781700DE2088 /* CLVApiRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D321ED781700DE2088 /* CLVApiRequest.h */; };
+		268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D421ED781700DE2088 /* CLVOAuthManager.h */; };
+		268D08DC21ED781700DE2088 /* CLVApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D521ED781700DE2088 /* CLVApiRequest.m */; };
+		268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D621ED781700DE2088 /* CLVLoginButton.m */; };
+		268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D721ED781700DE2088 /* CLVOAuthManager.m */; };
+		268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D821ED781700DE2088 /* CLVLoginButton.h */; };
+		268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D921ED781700DE2088 /* CLVCleverSDK.h */; };
+		26AF353121ED59B800263628 /* CleverSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF353021ED59B800263628 /* CleverSDKTests.m */; };
+		26AF353321ED59B800263628 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
+		26F13BCA21EDB9C600852ED1 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
+		2FD9B50F31FE408B616AABA6 /* libPods-CleverSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 662FD22070E12778772A2415 /* libPods-CleverSDK.a */; };
+		5A0114C63E09782CA7256755 /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 054C6BA1F3D9B75317F5E19D /* libPods-Example.a */; };
+		75410E27E408B5EA13F604C9 /* libPods-CleverSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		26AF353421ED59B800263628 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26BB6E6D21ED23F40005D165 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26BB6E7521ED23F50005D165;
+			remoteInfo = CleverSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		054C6BA1F3D9B75317F5E19D /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		234F52C9664ABC5B6AD3DE57 /* Pods-CleverSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVAppDelegate.m; sourceTree = "<group>"; };
+		262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginViewController.m; sourceTree = "<group>"; };
+		262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVSuccessViewController.h; sourceTree = "<group>"; };
+		262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVAppDelegate.h; sourceTree = "<group>"; };
+		262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVSuccessViewController.m; sourceTree = "<group>"; };
+		262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVLoginViewController.xib; sourceTree = "<group>"; };
+		262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginViewController.h; sourceTree = "<group>"; };
+		262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVSuccessViewController.xib; sourceTree = "<group>"; };
+		2663BEA621ED880900ED2BC1 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2663BEB121ED880D00ED2BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2663BEB621ED880D00ED2BC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2663BEB721ED880D00ED2BC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		268D08D221ED780300DE2088 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		268D08D321ED781700DE2088 /* CLVApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVApiRequest.h; sourceTree = "<group>"; };
+		268D08D421ED781700DE2088 /* CLVOAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVOAuthManager.h; sourceTree = "<group>"; };
+		268D08D521ED781700DE2088 /* CLVApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVApiRequest.m; sourceTree = "<group>"; };
+		268D08D621ED781700DE2088 /* CLVLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginButton.m; sourceTree = "<group>"; };
+		268D08D721ED781700DE2088 /* CLVOAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVOAuthManager.m; sourceTree = "<group>"; };
+		268D08D821ED781700DE2088 /* CLVLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginButton.h; sourceTree = "<group>"; };
+		268D08D921ED781700DE2088 /* CLVCleverSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVCleverSDK.h; sourceTree = "<group>"; };
+		26AF352E21ED59B800263628 /* CleverSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CleverSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26AF353021ED59B800263628 /* CleverSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CleverSDKTests.m; sourceTree = "<group>"; };
+		26AF353221ED59B800263628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26AF353921ED5A3200263628 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		26BB6E7621ED23F50005D165 /* CleverSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleverSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26BB6E9C21ED4F500005D165 /* CleverSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = CleverSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		26BB6E9D21ED50820005D165 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		26F9A8F421ED52C500ED1B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		662FD22070E12778772A2415 /* libPods-CleverSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CleverSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74F6929F444E04352A9A747A /* Pods-CleverSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CleverSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1499ED7E5DD886299335537 /* Pods-CleverSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2663BEA321ED880900ED2BC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26F13BCA21EDB9C600852ED1 /* CleverSDK.framework in Frameworks */,
+				5A0114C63E09782CA7256755 /* libPods-Example.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26AF352B21ED59B800263628 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26AF353321ED59B800263628 /* CleverSDK.framework in Frameworks */,
+				75410E27E408B5EA13F604C9 /* libPods-CleverSDKTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26BB6E7321ED23F50005D165 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FD9B50F31FE408B616AABA6 /* libPods-CleverSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2663BEA721ED880900ED2BC1 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */,
+				262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */,
+				262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */,
+				262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */,
+				262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */,
+				262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */,
+				262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */,
+				262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */,
+				2663BEB121ED880D00ED2BC1 /* Assets.xcassets */,
+				262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */,
+				2663BEB621ED880D00ED2BC1 /* Info.plist */,
+				2663BEB721ED880D00ED2BC1 /* main.m */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		26AF352F21ED59B800263628 /* CleverSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				26AF353921ED5A3200263628 /* PrefixHeader.pch */,
+				26AF353021ED59B800263628 /* CleverSDKTests.m */,
+				26AF353221ED59B800263628 /* Info.plist */,
+			);
+			path = CleverSDKTests;
+			sourceTree = "<group>";
+		};
+		26BB6E6C21ED23F40005D165 = {
+			isa = PBXGroup;
+			children = (
+				268D08D221ED780300DE2088 /* README.md */,
+				26BB6E9C21ED4F500005D165 /* CleverSDK.podspec */,
+				26BB6E9D21ED50820005D165 /* Podfile */,
+				26BB6E7821ED23F50005D165 /* CleverSDK */,
+				26AF352F21ED59B800263628 /* CleverSDKTests */,
+				2663BEA721ED880900ED2BC1 /* Example */,
+				26BB6E7721ED23F50005D165 /* Products */,
+				BD0089461B7688D5F1C1F436 /* Pods */,
+				EACD93CAD66C48AC8CD0C404 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		26BB6E7721ED23F50005D165 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				26BB6E7621ED23F50005D165 /* CleverSDK.framework */,
+				26AF352E21ED59B800263628 /* CleverSDKTests.xctest */,
+				2663BEA621ED880900ED2BC1 /* Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26BB6E7821ED23F50005D165 /* CleverSDK */ = {
+			isa = PBXGroup;
+			children = (
+				26F9A8F421ED52C500ED1B6F /* Info.plist */,
+				268D08D321ED781700DE2088 /* CLVApiRequest.h */,
+				268D08D521ED781700DE2088 /* CLVApiRequest.m */,
+				268D08D921ED781700DE2088 /* CLVCleverSDK.h */,
+				268D08D821ED781700DE2088 /* CLVLoginButton.h */,
+				268D08D621ED781700DE2088 /* CLVLoginButton.m */,
+				268D08D421ED781700DE2088 /* CLVOAuthManager.h */,
+				268D08D721ED781700DE2088 /* CLVOAuthManager.m */,
+			);
+			path = CleverSDK;
+			sourceTree = "<group>";
+		};
+		BD0089461B7688D5F1C1F436 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				234F52C9664ABC5B6AD3DE57 /* Pods-CleverSDK.debug.xcconfig */,
+				E1499ED7E5DD886299335537 /* Pods-CleverSDK.release.xcconfig */,
+				033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */,
+				74F6929F444E04352A9A747A /* Pods-CleverSDKTests.release.xcconfig */,
+				64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */,
+				2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EACD93CAD66C48AC8CD0C404 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				662FD22070E12778772A2415 /* libPods-CleverSDK.a */,
+				7758C224972BFFC69ED43B3E /* libPods-CleverSDKTests.a */,
+				054C6BA1F3D9B75317F5E19D /* libPods-Example.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		26BB6E7121ED23F50005D165 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */,
+				268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */,
+				268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */,
+				268D08DA21ED781700DE2088 /* CLVApiRequest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2663BEA521ED880900ED2BC1 /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2663BEBB21ED880D00ED2BC1 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				F342E30368C017BF2A2695A6 /* [CP] Check Pods Manifest.lock */,
+				2663BEA321ED880900ED2BC1 /* Frameworks */,
+				2663BEA221ED880900ED2BC1 /* Sources */,
+				2663BEA421ED880900ED2BC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Example;
+			productName = Example;
+			productReference = 2663BEA621ED880900ED2BC1 /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		26AF352D21ED59B800263628 /* CleverSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26AF353621ED59B800263628 /* Build configuration list for PBXNativeTarget "CleverSDKTests" */;
+			buildPhases = (
+				7855BD6DE5CC38056255DC39 /* [CP] Check Pods Manifest.lock */,
+				26AF352A21ED59B800263628 /* Sources */,
+				26AF352B21ED59B800263628 /* Frameworks */,
+				26AF352C21ED59B800263628 /* Resources */,
+				581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26AF353521ED59B800263628 /* PBXTargetDependency */,
+			);
+			name = CleverSDKTests;
+			productName = CleverSDKTests;
+			productReference = 26AF352E21ED59B800263628 /* CleverSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		26BB6E7521ED23F50005D165 /* CleverSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26BB6E8A21ED23F50005D165 /* Build configuration list for PBXNativeTarget "CleverSDK" */;
+			buildPhases = (
+				2C4008117705B8C5835CAB2E /* [CP] Check Pods Manifest.lock */,
+				26BB6E7121ED23F50005D165 /* Headers */,
+				26BB6E7221ED23F50005D165 /* Sources */,
+				26BB6E7321ED23F50005D165 /* Frameworks */,
+				26BB6E7421ED23F50005D165 /* Resources */,
+				8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CleverSDK;
+			productName = CleverSDK;
+			productReference = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26BB6E6D21ED23F40005D165 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Clever;
+				TargetAttributes = {
+					2663BEA521ED880900ED2BC1 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					26AF352D21ED59B800263628 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					26BB6E7521ED23F50005D165 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 26BB6E7021ED23F40005D165 /* Build configuration list for PBXProject "CleverSDK" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 26BB6E6C21ED23F40005D165;
+			productRefGroup = 26BB6E7721ED23F50005D165 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26BB6E7521ED23F50005D165 /* CleverSDK */,
+				26AF352D21ED59B800263628 /* CleverSDKTests */,
+				2663BEA521ED880900ED2BC1 /* Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2663BEA421ED880900ED2BC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */,
+				262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */,
+				262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */,
+				2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26AF352C21ED59B800263628 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26BB6E7421ED23F50005D165 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2C4008117705B8C5835CAB2E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CleverSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7855BD6DE5CC38056255DC39 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CleverSDKTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F342E30368C017BF2A2695A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Example-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2663BEA221ED880900ED2BC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */,
+				262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */,
+				262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */,
+				2663BEB821ED880D00ED2BC1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26AF352A21ED59B800263628 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26AF353121ED59B800263628 /* CleverSDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26BB6E7221ED23F50005D165 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				268D08DC21ED781700DE2088 /* CLVApiRequest.m in Sources */,
+				268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */,
+				268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26AF353521ED59B800263628 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26BB6E7521ED23F50005D165 /* CleverSDK */;
+			targetProxy = 26AF353421ED59B800263628 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2663BEB921ED880D00ED2BC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clever.SimpleLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+			};
+			name = Debug;
+		};
+		2663BEBA21ED880D00ED2BC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.clever.SimpleLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+			};
+			name = Release;
+		};
+		26AF353721ED59B800263628 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 033B10ED60FD696608AFE5DF /* Pods-CleverSDKTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)Tests/PrefixHeader.pch";
+				INFOPLIST_FILE = CleverSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = clever.CleverSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		26AF353821ED59B800263628 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74F6929F444E04352A9A747A /* Pods-CleverSDKTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)Tests/PrefixHeader.pch";
+				INFOPLIST_FILE = CleverSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = clever.CleverSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26BB6E8821ED23F50005D165 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		26BB6E8921ED23F50005D165 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		26BB6E8B21ED23F50005D165 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 234F52C9664ABC5B6AD3DE57 /* Pods-CleverSDK.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = CleverSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = clever.CleverSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		26BB6E8C21ED23F50005D165 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1499ED7E5DD886299335537 /* Pods-CleverSDK.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = CleverSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = clever.CleverSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2663BEBB21ED880D00ED2BC1 /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2663BEB921ED880D00ED2BC1 /* Debug */,
+				2663BEBA21ED880D00ED2BC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26AF353621ED59B800263628 /* Build configuration list for PBXNativeTarget "CleverSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26AF353721ED59B800263628 /* Debug */,
+				26AF353821ED59B800263628 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26BB6E7021ED23F40005D165 /* Build configuration list for PBXProject "CleverSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26BB6E8821ED23F50005D165 /* Debug */,
+				26BB6E8921ED23F50005D165 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26BB6E8A21ED23F50005D165 /* Build configuration list for PBXNativeTarget "CleverSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26BB6E8B21ED23F50005D165 /* Debug */,
+				26BB6E8C21ED23F50005D165 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26BB6E6D21ED23F40005D165 /* Project object */;
+}

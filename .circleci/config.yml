@@ -1,0 +1,31 @@
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: "10.1.0"
+    working_directory: ~/Clever/ios-sdk
+    steps:
+      - checkout
+      - run:
+          name: Fetch CocoaPods
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+      - run:
+          command: cd $HOME && git clone --depth 1 -v https://github.com/Clever/ci-scripts.git && cd ci-scripts && git show --oneline -s
+          name: Clone ci-scripts
+      - run:
+          name: Install CocoaPods
+          command: pod install --verbose
+      - run:
+          name: Run Tests
+          command: fastlane scan
+          environment:
+            SCAN_DEVICE: iPhone XS
+            SCAN_SCHEME: CleverSDK
+            LANG: en_US.UTF-8
+      - run:
+          name: Publish github release
+          command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then $HOME/ci-scripts/circleci/github-release $GH_RELEASE_TOKEN; fi;
+      - run:
+          name: Publish CocoaPods release
+          command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then pod trunk push --allow-warnings; fi;
