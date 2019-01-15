@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Nikhil Pandit. All rights reserved.
 //
 
-#import <CleverSDK/CLVCleverSDK.h>
+#import "CLVCleverSDK.h"
 
 SpecBegin(InitialSpecs)
 
