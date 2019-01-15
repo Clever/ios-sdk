@@ -31,7 +31,13 @@ jobs:
           command: |
             curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
       - run:
-          name: Deploy
+        command: cd $HOME && git clone --depth 1 -v https://github.com/Clever/ci-scripts.git && cd ci-scripts && git show --oneline -s
+        name: Clone ci-scripts
+      - run:
+        name: Publish github release
+        command: $HOME/ci-scripts/circleci/github-release $GH_RELEASE_TOKEN release
+      - run:
+          name: Publish CocoaPods release
           command: pod trunk push
 
 workflows:
@@ -45,5 +51,3 @@ workflows:
           filters:
             branches:
               only: master
-            tags:
-              only: /.*/
