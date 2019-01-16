@@ -28,4 +28,4 @@ jobs:
           command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then $HOME/ci-scripts/circleci/github-release $GH_RELEASE_TOKEN; fi;
       - run:
           name: Publish CocoaPods release
-          command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then pod trunk push --allow-warnings; fi;
+          command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then pod trunk push; fi;

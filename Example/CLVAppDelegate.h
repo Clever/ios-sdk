@@ -1,18 +1,9 @@
-//
-//  CLVAppDelegate.h
-//  SimpleLogin
-//
-//  Created by Nikhil Pandit on 4/2/15.
-//  Copyright (c) 2015 Clever, Inc. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "CLVCleverSDK.h"
 
-@interface CLVAppDelegate : UIResponder <UIApplicationDelegate,CLVOauthDelegate>
+@interface CLVAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
 
 @end
 

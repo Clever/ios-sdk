@@ -15,9 +15,7 @@
 		262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */; };
 		2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2663BEB121ED880D00ED2BC1 /* Assets.xcassets */; };
 		2663BEB821ED880D00ED2BC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2663BEB721ED880D00ED2BC1 /* main.m */; };
-		268D08DA21ED781700DE2088 /* CLVApiRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D321ED781700DE2088 /* CLVApiRequest.h */; };
 		268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D421ED781700DE2088 /* CLVOAuthManager.h */; };
-		268D08DC21ED781700DE2088 /* CLVApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D521ED781700DE2088 /* CLVApiRequest.m */; };
 		268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D621ED781700DE2088 /* CLVLoginButton.m */; };
 		268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D721ED781700DE2088 /* CLVOAuthManager.m */; };
 		268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D821ED781700DE2088 /* CLVLoginButton.h */; };
@@ -58,9 +56,7 @@
 		2663BEB621ED880D00ED2BC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2663BEB721ED880D00ED2BC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		268D08D221ED780300DE2088 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		268D08D321ED781700DE2088 /* CLVApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVApiRequest.h; sourceTree = "<group>"; };
 		268D08D421ED781700DE2088 /* CLVOAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVOAuthManager.h; sourceTree = "<group>"; };
-		268D08D521ED781700DE2088 /* CLVApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVApiRequest.m; sourceTree = "<group>"; };
 		268D08D621ED781700DE2088 /* CLVLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginButton.m; sourceTree = "<group>"; };
 		268D08D721ED781700DE2088 /* CLVOAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVOAuthManager.m; sourceTree = "<group>"; };
 		268D08D821ED781700DE2088 /* CLVLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginButton.h; sourceTree = "<group>"; };
@@ -169,8 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				26F9A8F421ED52C500ED1B6F /* Info.plist */,
-				268D08D321ED781700DE2088 /* CLVApiRequest.h */,
-				268D08D521ED781700DE2088 /* CLVApiRequest.m */,
 				268D08D921ED781700DE2088 /* CLVCleverSDK.h */,
 				268D08D821ED781700DE2088 /* CLVLoginButton.h */,
 				268D08D621ED781700DE2088 /* CLVLoginButton.m */,
@@ -213,7 +207,6 @@
 				268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */,
 				268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */,
 				268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */,
-				268D08DA21ED781700DE2088 /* CLVApiRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +239,6 @@
 				26AF352A21ED59B800263628 /* Sources */,
 				26AF352B21ED59B800263628 /* Frameworks */,
 				26AF352C21ED59B800263628 /* Resources */,
-				581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,7 +259,6 @@
 				26BB6E7221ED23F50005D165 /* Sources */,
 				26BB6E7321ED23F50005D165 /* Frameworks */,
 				26BB6E7421ED23F50005D165 /* Resources */,
-				8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,6 +280,11 @@
 				TargetAttributes = {
 					2663BEA521ED880900ED2BC1 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 					26AF352D21ED59B800263628 = {
 						CreatedOnToolsVersion = 10.1;
@@ -369,28 +365,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		581604DF43A195E827F8E111 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh",
-				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDKTests/Pods-CleverSDKTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7855BD6DE5CC38056255DC39 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -411,28 +385,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B0741FC2ACA48151CFBF364 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh",
-				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F342E30368C017BF2A2695A6 /* [CP] Check Pods Manifest.lock */ = {
@@ -483,7 +435,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				268D08DC21ED781700DE2088 /* CLVApiRequest.m in Sources */,
 				268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */,
 				268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */,
 			);
@@ -509,7 +460,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -530,7 +481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -720,7 +671,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = CleverSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -748,7 +699,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = CleverSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
