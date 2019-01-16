@@ -43,7 +43,7 @@
     return [CleverSDK handleURL:url];
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity {
-    return [CleverSDK handleURL:userActivity.webpageURL];
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    return [CleverSDK handleURL:[userActivity webpageURL]];
 }
 @end
