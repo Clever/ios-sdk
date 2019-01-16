@@ -34,20 +34,20 @@ Once your application is configured to handle your primary redirect URI you can 
                 // At this point your application has a code, which it should send to your backend to exchange for whatever information
                 // is needed to complete the login into your application.
                 // Additionally you're given the "validState" param which indicates that the CleverSDK initiated the login and that the
-                // state param was validated. If this is false the login most likely came from the Clever Portal. 
-                // If your application needs extra guarantees that the user who is logging in is who they say they are
-                // you can kick off another login in the case that validState is false. This will result in a slower and
-                // more visually disruptive login experience (since users will be redirected back to Clever), but will
-                // provide an extra layer of security during the login flow. You can learn more about this here
+                // state param was validated. The Clever SDK generates and validates the state param when it initiates a login.
+                // However if the login comes from the Clever Portal it will not have a state param. If your application needs extra
+                // guarantees that the user who is logging in is who they say they are you can start another login in the case that 
+                validState is false. This will result in a slower and more disruptive login experience (since users will be redirected
+                // back to Clever), but will provide an extra layer of security during the login flow. You can learn more about this here
                 // https://dev.clever.com/docs/il-design#section-protecting-against-cross-site-request-forgery-csrf
             }
             failureHandler:^(NSString *errorMessage) {
-                // If an unexpected error happened during the login you'll recieve it here.
+                // If an unexpected error happened during the login you'll receive it here.
             }
 ];
 ```
 
-You'll also need to configure your application to call the `CleverSDK` when it recieves a universal link.
+You'll also need to configure your application to call the `CleverSDK` when it receives a universal link.
 This is done by implementing the `application:continueUserActivity:restorationHandler:` method of the AppDelegate:
 
 ```obj-C
@@ -87,7 +87,7 @@ You can update the width of the button by calling `setWidth:` method on the butt
 
 ### Supporting Legacy iOS Instant Login
 
-Before Clever released v2.0.0 of the `CleverSDK` Instant Login on iOS was powered using custom protocal urls (such as `com.clever://oauth/authorize`), not universal links.
+Before Clever released v2.0.0 of the `CleverSDK` Instant Login on iOS was powered using custom protocol urls (such as `com.clever://oauth/authorize`), not universal links.
 If your application made use of these custom urls (or the old version of the `CleverSDK`) v2.0.0 of the SDK has additional features you can use to stay backwards compatible.
 
 When you instantiate the SDK you should also provide the `LegacyIosClientId` client ID (this is the client ID you used specifically in your iOS app).
@@ -115,6 +115,10 @@ This is done by implementing the `application:openURL:sourceApplication:annotati
 You'll also need to add some information to your `Info.plist` to support the custom URI schemes.
 1. Add `com.clever` to your [LSApplicationQueriesSchemes](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14) so you can redirect directly to the Clever app.
 2. Add your custom clever redirect URI (should look like `clever-YOUR_CLIENT_ID`) to [URL types](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=objc), so the Clever app can open your application. 
+
+## Example
+
+The `CleverSDK` project comes with a simple example application to show usage of the SDK. You can view the code for this example in the [/Example](/tree/master/Example) directory, or you can open the project in Xcode and run the `Example` target.
 
 ## License
 

@@ -54,6 +54,7 @@
 		2663BEB121ED880D00ED2BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2663BEB621ED880D00ED2BC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2663BEB721ED880D00ED2BC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		267B719B21EFF9ED003A32A0 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		268D08D221ED780300DE2088 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		268D08D421ED781700DE2088 /* CleverSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleverSDK.h; sourceTree = "<group>"; };
 		268D08D621ED781700DE2088 /* CleverLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CleverLoginButton.m; sourceTree = "<group>"; };
@@ -108,6 +109,7 @@
 		2663BEA721ED880900ED2BC1 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				267B719B21EFF9ED003A32A0 /* Example.entitlements */,
 				262DC45C21EDAEE600FE5B20 /* AppDelegate.h */,
 				262DC45921EDAEE600FE5B20 /* AppDelegate.m */,
 				262DC45F21EDAEE600FE5B20 /* LoginViewController.h */,
@@ -278,7 +280,7 @@
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -452,6 +454,7 @@
 			baseConfigurationReference = 64E8BA1FCB6DF2477D8A9182 /* Pods-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
@@ -473,6 +476,7 @@
 			baseConfigurationReference = 2E76C922290D30329BE308FD /* Pods-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6D5FQ2E2ZU;
