@@ -93,10 +93,15 @@
 
 + (BOOL)handleURL:(NSURL *)url {
     CleverSDK *manager = [self sharedManager];
+
+    NSURL *redirectURL = [NSURL URLWithString:manager.redirectUri];
+
     if (!(
-        [url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", manager.legacyIosClientId]] ||
-        ([url.scheme isEqualToString:@"https"] && [url.host isEqualToString:@"clever.com"])
-    )) {
+        [url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", manager.legacyIosClientId]] || (
+            [url.scheme isEqualToString:redirectURL.scheme] &&
+            [url.host isEqualToString:redirectURL.host] &&
+            [url.path isEqualToString:redirectURL.path]
+    ))) {
         return NO;
     }
     
