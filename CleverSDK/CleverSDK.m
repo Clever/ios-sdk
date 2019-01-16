@@ -1,6 +1,4 @@
 #import "CleverSDK.h"
-#import <SafariServices/SafariServices.h>
-#import "CleverSDK.h"
 
 @interface CleverSDK ()
 

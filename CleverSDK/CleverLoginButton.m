@@ -1,4 +1,3 @@
-#import "CleverLoginButton.h"
 #import "CleverSDK.h"
 #import <PocketSVG/PocketSVG.h>
 
