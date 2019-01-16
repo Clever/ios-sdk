@@ -1,107 +1,120 @@
-# Clever iOS SDK
+# CleverSDK
 
 CleverSDK is a simple iOS library that makes it easy for iOS developers to integrate Clever Instant Login into their application.
-You can read more about integrating Clever Instant Login in your app [here](https://dev.clever.com/).
+You can read more about integrating Clever Instant Login in your app [here](https://dev.clever.com/docs/il-native-ios).
+
+## Installation
+
+CleverSDK is available through [CocoaPods](https://cocoapods.org/pods/CleverSDK).
+To install it, simply add the following line to your Podfile:
+
+```
+pod "CleverSDK"
+```
+
+to import the SDK into your codebase simply add the following header
+
+```obj-c
+#import <CleverSDK/CleverSDK.h>
+```
 
 ## Usage
 
-### Configure your Clever application to support the iOS redirect URL.
+The `CleverSDK` utilizes [universal links](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content) to open your application during the login flow.
+In order to use `CleverSDK` you will first have to configure your application to support universal links.
+Specifically you'll need to configure your application to handle your primary Clever redirect URI via universal links.
+This means that if your users are directed to your redirect URI during the login flow (either from the Clever Portal or a [Log in with Clever button](https://dev.clever.com/docs/identity-api#section-log-in-with-clever)) your application will open and can complete the login.
 
-You can create an iOS redirect URL by going to https://apps.clever.com/partner/applications and clicking View / Edit on your application.
+Once your application is configured to handle your primary redirect URI you can instantiate the `CleverSDK`.
 
-Click on the "Enable iOS Platform" button (contact Clever Support if option is not available).
-
-You will then get access to a client ID and redirect URI you can use for your iOS app.
-
-You can also set a "fallback URL" where users will be redirected if they don't have your app installed.
-
-### Configure your iOS app
-Once you have the custom redirect URL, add it to your application as a custom URL scheme.
-If you are not sure how to do so, follow the steps below:
-1. Open your app's `Info.plist` file.
-2. Look for a key named "URL types". If you don't see one, then add the key to `Info.plist`.
-3. Expand "URL types" and add a row called "URL Schemes" under "URL types".
-4. Expand "URL Schemes" and you will see a key called "Item 0" (if it doesn't exist, add a key named "Item 0"). Put the custom redirect URL as the value to this Key.
-
-For example, if your custom redirect URL is `clever-1234`, then the structure should look something like this:
-<img src="https://user-images.githubusercontent.com/59177/42003240-5071d51c-7a1f-11e8-83a0-88892c4e0c87.png" width=600 />
-
-Finally, add `com.clever` to your LSApplicationQueriesSchemes in your Info.plist, so you can redirect directly to the Clever app.
-More information on LSApplicationQueriesSchemes can be found [here](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14).
-
-### Sign in with Clever
-Once the app configuration has been updated, add the following code to the `application:didFinishLaunchingWithOptions:` method in AppDelegate.m:
 ```obj-C
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    // Start the CleverSDK with your client
-    // Do not forget to replace CLIENT_ID with your client_id
-    [CleverSDK startWithClientId:@"CLIENT_ID" successHandler:^(NSString * _Nonnull accessToken) {
-        NSLog(@"success");
-    } failureHandler:^(NSString * _Nonnull errorMessage) {
-        NSLog(@"failure");
-    }];
-    
-    // To support iOS 9/10, you must set the UIDelegate to the UIViewController 
-    // that will be displayed when the user is logging in.
-    MyLoginViewController *vc = [[MyLoginViewController alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = vc;
-    [CleverSDK setUIDelegate:vc]
-
-    // Alternatively, you can initialize CleverSDK without success/failure blocks and instead use the delegate pattern.
-    // See "Delegate Pattern" below for handling completion when using the delegate pattern
-    // [CleverSDK startWithClientId:@"CLIENT_ID"];
-    // [CleverSDK setDelegate:self];
-}]
+[CleverSDK startWithClientId:@"YOUR_CLIENT_ID" // Your Clever client ID
+            RedirectURI:@"http://example.com" // A valid Clever redirect URI (that your app is configured to open with universal links)
+            successHandler:^(NSString *code, BOOL validState) {
+                // At this point your application has a code, which it should send to your backend to exchange for whatever information
+                // is needed to complete the login into your application.
+                // Additionally you're given the "validState" param which indicates that the CleverSDK initiated the login and that the
+                // state param was validated. If this is false the login most likely came from the Clever Portal. 
+                // If your application needs extra guarantees that the user who is logging in is who they say they are
+                // you can kick off another login in the case that validState is false. This will result in a slower and
+                // more visually disruptive login experience (since users will be redirected back to Clever), but will
+                // provide an extra layer of security during the login flow. You can learn more about this here
+                // https://dev.clever.com/docs/il-design#section-protecting-against-cross-site-request-forgery-csrf
+            }
+            failureHandler:^(NSString *errorMessage) {
+                // If an unexpected error happened during the login you'll recieve it here.
+            }
+];
 ```
 
-Besides the above change, you also need to add some code to handle the iOS redirect URI.
-This is done by implementing the `application:openURL:sourceApplication:annotation:` method of the AppDelegate:
+You'll also need to configure your application to call the `CleverSDK` when it recieves a universal link.
+This is done by implementing the `application:continueUserActivity:restorationHandler:` method of the AppDelegate:
+
 ```obj-C
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // Clever's URL handler
-    return [CleverSDK handleURL:url sourceApplication:sourceApplication annotation:annotation];
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    // handleURL returns a boolean indicating if the url was handled by Clever. If your application has other universal links you
+    // can check to see if Clever handled the url with this boolean, and if it's false continue to handle the url in your application.
+    return [CleverSDK handleURL:[userActivity webpageURL]];
 }
 ```
 
-### Log in with Clever Button
-You can also set up a Log in with Clever Button. In the `UIViewController` set as the UIDelegate, add the following code to the `viewDidLoad` method:
+Once the `CleverSDK` is instantiated you can start a login by calling the `login` method.
+
 ```obj-C
-// Create a "Log in with Clever" button
+[CleverSDK login];
+```
+
+Alternatively if you know the Clever district ID of the user before the log in you can simplify their login experience by providing it when beginning the login.
+
+```obj-C
+[CleverSDK loginWithDistrictId:@"CLEVER_DISTRICT_ID"];
+```
+
+### Log in with Clever Button
+To render a [Log in with Clever Button](https://dev.clever.com/docs/identity-api#section-log-in-with-clever) you can use the provided `CleverLoginButton` class. 
+In a `UIViewController` simply add the following code to the `viewDidLoad` method:
+
+```obj-C
 loginButton = [CleverLoginButton createLoginButton];
 [self.view addSubview:loginButton];
 ```
 
 The button is instantiated with a particular width and height.
-You can update the width of the button by calling `setWidth:` method on the button:
+You can update the width of the button by calling `setWidth:` method on the button and the height will be adjusted automatically to preserve the design.
 ```obj-C
 [self.loginButton setWidth:300.0];
 ```
 
-#### Delegate Pattern
-If you are using the delegate pattern instead of completion blocks, add the following method to your AppDelegate.m:
+### Supporting Legacy iOS Instant Login
+
+Before Clever released v2.0.0 of the `CleverSDK` Instant Login on iOS was powered using custom protocal urls (such as `com.clever://oauth/authorize`), not universal links.
+If your application made use of these custom urls (or the old version of the `CleverSDK`) v2.0.0 of the SDK has additional features you can use to stay backwards compatible.
+
+When you instantiate the SDK you should also provide the `LegacyIosClientId` client ID (this is the client ID you used specifically in your iOS app).
 ```obj-C
-// If non-null blocks are provided, signInToClever:withError: will not be called
-- (void)signInToClever:(NSString *)accessToken withError:(NSString *)error {
-    if (error) {
-        // error
-    }
-    // success
+[CleverSDK startWithClientId:@"YOUR_CLIENT_ID" // Your Clever client ID
+            LegacyIosClientId:@"YOUR_IOS_SPECIFIC_LEGACY_CLIENT_ID"
+            RedirectURI:@"http://example.com" // A valid Clever redirect URI (that your app is configured to open with universal links)
+            successHandler:^(NSString *code, BOOL validState) {
+                // ...
+            }
+            failureHandler:^(NSString *errorMessage) {
+                // ...
+            }
+];
+```
+
+Besides the above change, you also need to add some code to handle the iOS redirect URI.
+This is done by implementing the `application:openURL:sourceApplication:annotation:` method of the AppDelegate:
+```obj-C
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [CleverSDK handleURL:url];
 }
 ```
 
-To run the example project, clone the repo, and run `pod install` from the Example/SimpleLogin directory first.
-
-## Installation
-
-CleverSDK is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```
-pod "CleverSDK"
-```
+You'll also need to add some information to your `Info.plist` to support the custom URI schemes.
+1. Add `com.clever` to your [LSApplicationQueriesSchemes](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW14) so you can redirect directly to the Clever app.
+2. Add your custom clever redirect URI (should look like `clever-YOUR_CLIENT_ID`) to [URL types](https://developer.apple.com/documentation/uikit/core_app/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=objc), so the Clever app can open your application. 
 
 ## License
 
