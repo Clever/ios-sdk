@@ -38,7 +38,7 @@ Once the app configuration has been updated, add the following code to the `appl
 
     // Start the CleverSDK with your client
     // Do not forget to replace CLIENT_ID with your client_id
-    [CLVOAuthManager startWithClientId:@"CLIENT_ID" successHandler:^(NSString * _Nonnull accessToken) {
+    [CleverSDK startWithClientId:@"CLIENT_ID" successHandler:^(NSString * _Nonnull accessToken) {
         NSLog(@"success");
     } failureHandler:^(NSString * _Nonnull errorMessage) {
         NSLog(@"failure");
@@ -48,12 +48,12 @@ Once the app configuration has been updated, add the following code to the `appl
     // that will be displayed when the user is logging in.
     MyLoginViewController *vc = [[MyLoginViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = vc;
-    [CLVOAuthManager setUIDelegate:vc]
+    [CleverSDK setUIDelegate:vc]
 
-    // Alternatively, you can initialize CLVOAuthManager without success/failure blocks and instead use the delegate pattern.
+    // Alternatively, you can initialize CleverSDK without success/failure blocks and instead use the delegate pattern.
     // See "Delegate Pattern" below for handling completion when using the delegate pattern
-    // [CLVOAuthManager startWithClientId:@"CLIENT_ID"];
-    // [CLVOAuthManager setDelegate:self];
+    // [CleverSDK startWithClientId:@"CLIENT_ID"];
+    // [CleverSDK setDelegate:self];
 }]
 ```
 
@@ -62,7 +62,7 @@ This is done by implementing the `application:openURL:sourceApplication:annotati
 ```obj-C
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // Clever's URL handler
-    return [CLVOAuthManager handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    return [CleverSDK handleURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 ```
 
@@ -70,7 +70,7 @@ This is done by implementing the `application:openURL:sourceApplication:annotati
 You can also set up a Log in with Clever Button. In the `UIViewController` set as the UIDelegate, add the following code to the `viewDidLoad` method:
 ```obj-C
 // Create a "Log in with Clever" button
-loginButton = [CLVLoginButton createLoginButton];
+loginButton = [CleverLoginButton createLoginButton];
 [self.view addSubview:loginButton];
 ```
 

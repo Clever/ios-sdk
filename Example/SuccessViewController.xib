@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CLVSuccessViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SuccessViewController">
             <connections>
                 <outlet property="codeLabel" destination="Yzu-66-23h" id="17K-bg-16K"/>
                 <outlet property="detailLabel" destination="ON6-i5-65F" id="dEp-sS-AJ2"/>

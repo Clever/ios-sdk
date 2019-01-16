@@ -1,14 +1,13 @@
-#import "CLVSuccessViewController.h"
-#import "CLVCleverSDK.h"
+#import "SuccessViewController.h"
 
-@interface CLVSuccessViewController ()
+@interface SuccessViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *codeLabel;
 @property (nonatomic, strong) NSString *code;
 
 @end
 
-@implementation CLVSuccessViewController
+@implementation SuccessViewController
 
 - (id)initWithCode:(NSString *)code {
     self = [self initWithNibName:nil bundle:nil];

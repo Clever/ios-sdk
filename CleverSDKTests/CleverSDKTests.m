@@ -1,13 +1,13 @@
-#import "CLVCleverSDK.h"
+#import "CleverSDK.h"
 
 SpecBegin(InitialSpecs)
 
-describe(@"CLVLoginButton", ^{
+describe(@"CleverLoginButton", ^{
     
-    __block CLVLoginButton *button;
+    __block CleverLoginButton *button;
     
     before(^{
-        button = [CLVLoginButton createLoginButton];
+        button = [CleverLoginButton createLoginButton];
     });
 
     it(@"can set origin", ^{

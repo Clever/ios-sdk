@@ -1,14 +1,13 @@
-#import "CLVLoginViewController.h"
-#import "CLVCleverSDK.h"
-#import "CLVSuccessViewController.h"
+#import "LoginViewController.h"
+#import "CleverSDK.h"
 
-@interface CLVLoginViewController ()
+@interface LoginViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *detailLabel;
 
 @end
 
-@implementation CLVLoginViewController
+@implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -16,7 +15,7 @@
     self.navigationController.navigationBar.translucent = NO;
     
     // Creates the "Log in with Clever" button
-    CLVLoginButton *loginButton = [CLVLoginButton createLoginButton];
+    CleverLoginButton *loginButton = [CleverLoginButton createLoginButton];
     
     CGRect frame = loginButton.frame;
     CGSize size = [UIScreen mainScreen].bounds.size;

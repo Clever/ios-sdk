@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface CLVSuccessViewController : UIViewController
+@interface SuccessViewController : UIViewController
 
 - (id)initWithCode:(NSString *)code;
 

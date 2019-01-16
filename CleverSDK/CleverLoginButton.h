@@ -1,8 +1,8 @@
 #import <UIKit/UIKit.h>
 
-@interface CLVLoginButton : UIButton
+@interface CleverLoginButton : UIButton
 
-+ (CLVLoginButton *)createLoginButton;
++ (CleverLoginButton *)createLoginButton;
 
 - (void)setOrigin:(CGPoint)origin;
 

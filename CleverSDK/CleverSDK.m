@@ -1,8 +1,8 @@
-#import "CLVOAuthManager.h"
+#import "CleverSDK.h"
 #import <SafariServices/SafariServices.h>
-#import "CLVCleverSDK.h"
+#import "CleverSDK.h"
 
-@interface CLVOAuthManager ()
+@interface CleverSDK ()
 
 @property (nonatomic, strong) NSString *clientId;
 @property (nonatomic, strong) NSString *legacyIosClientId;
@@ -18,10 +18,10 @@
 
 @end
 
-@implementation CLVOAuthManager
+@implementation CleverSDK
 
 + (instancetype)sharedManager {
-    static CLVOAuthManager *_sharedManager = nil;
+    static CleverSDK *_sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedManager = [[self alloc] init];
@@ -30,7 +30,7 @@
 }
 
 + (void) startWithClientId:(NSString *)clientId LegacyIosClientId:(NSString *)legacyIosClientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    CLVOAuthManager *manager = [self sharedManager];
+    CleverSDK *manager = [self sharedManager];
     manager.clientId = clientId;
     manager.alreadyMissedCode = NO;
     manager.legacyIosClientId = legacyIosClientId;
@@ -60,7 +60,7 @@
 }
 
 + (void)loginWithDistrictId:(NSString *)districtId {
-    CLVOAuthManager *manager = [self sharedManager];
+    CleverSDK *manager = [self sharedManager];
     manager.state = [self generateRandomString:32];
     
     NSString *legacyIosRedirectURI = nil;
@@ -94,7 +94,7 @@
 }
 
 + (BOOL)handleURL:(NSURL *)url {
-    CLVOAuthManager *manager = [self sharedManager];
+    CleverSDK *manager = [self sharedManager];
     if (!(
         [url.scheme isEqualToString:[NSString stringWithFormat:@"clever-%@", manager.legacyIosClientId]] ||
         ([url.scheme isEqualToString:@"https"] && [url.host isEqualToString:@"clever.com"])
@@ -113,7 +113,7 @@
     // if code is missing, then this is a Clever Portal initiated login, and we should kick off the Oauth flow
     NSString *code = kvpairs[@"code"];
     if (!code) {
-        CLVOAuthManager* manager = [self sharedManager];
+        CleverSDK* manager = [self sharedManager];
         if (manager.alreadyMissedCode) {
             manager.alreadyMissedCode = NO;
             manager.failureHandler([NSString localizedStringWithFormat:@"Authorization failed. Please try logging in again."]);

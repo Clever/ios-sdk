@@ -8,18 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */; };
-		262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */; };
-		262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */; };
-		262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */; };
-		262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */; };
-		262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */; };
+		262DC46121EDAEE700FE5B20 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45921EDAEE600FE5B20 /* AppDelegate.m */; };
+		262DC46221EDAEE700FE5B20 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45A21EDAEE600FE5B20 /* LoginViewController.m */; };
+		262DC46321EDAEE700FE5B20 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262DC45D21EDAEE600FE5B20 /* SuccessViewController.m */; };
+		262DC46421EDAEE700FE5B20 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC45E21EDAEE600FE5B20 /* LoginViewController.xib */; };
+		262DC46521EDAEE700FE5B20 /* SuccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262DC46021EDAEE700FE5B20 /* SuccessViewController.xib */; };
 		2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2663BEB121ED880D00ED2BC1 /* Assets.xcassets */; };
 		2663BEB821ED880D00ED2BC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2663BEB721ED880D00ED2BC1 /* main.m */; };
-		268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D421ED781700DE2088 /* CLVOAuthManager.h */; };
-		268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D621ED781700DE2088 /* CLVLoginButton.m */; };
-		268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D721ED781700DE2088 /* CLVOAuthManager.m */; };
-		268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D821ED781700DE2088 /* CLVLoginButton.h */; };
-		268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D921ED781700DE2088 /* CLVCleverSDK.h */; };
+		268D08DB21ED781700DE2088 /* CleverSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D421ED781700DE2088 /* CleverSDK.h */; };
+		268D08DD21ED781700DE2088 /* CleverLoginButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D621ED781700DE2088 /* CleverLoginButton.m */; };
+		268D08DE21ED781700DE2088 /* CleverSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 268D08D721ED781700DE2088 /* CleverSDK.m */; };
+		268D08DF21ED781700DE2088 /* CleverLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 268D08D821ED781700DE2088 /* CleverLoginButton.h */; };
 		26AF353121ED59B800263628 /* CleverSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF353021ED59B800263628 /* CleverSDKTests.m */; };
 		26AF353321ED59B800263628 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
 		26F13BCA21EDB9C600852ED1 /* CleverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BB6E7621ED23F50005D165 /* CleverSDK.framework */; };
@@ -43,24 +42,23 @@
 		054C6BA1F3D9B75317F5E19D /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		234F52C9664ABC5B6AD3DE57 /* Pods-CleverSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CleverSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CleverSDK/Pods-CleverSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVAppDelegate.m; sourceTree = "<group>"; };
-		262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginViewController.m; sourceTree = "<group>"; };
-		262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVSuccessViewController.h; sourceTree = "<group>"; };
-		262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVAppDelegate.h; sourceTree = "<group>"; };
-		262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVSuccessViewController.m; sourceTree = "<group>"; };
-		262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVLoginViewController.xib; sourceTree = "<group>"; };
-		262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginViewController.h; sourceTree = "<group>"; };
-		262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLVSuccessViewController.xib; sourceTree = "<group>"; };
+		262DC45921EDAEE600FE5B20 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		262DC45A21EDAEE600FE5B20 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		262DC45B21EDAEE600FE5B20 /* SuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
+		262DC45C21EDAEE600FE5B20 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		262DC45D21EDAEE600FE5B20 /* SuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
+		262DC45E21EDAEE600FE5B20 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		262DC45F21EDAEE600FE5B20 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		262DC46021EDAEE700FE5B20 /* SuccessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuccessViewController.xib; sourceTree = "<group>"; };
 		2663BEA621ED880900ED2BC1 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2663BEB121ED880D00ED2BC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2663BEB621ED880D00ED2BC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2663BEB721ED880D00ED2BC1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		268D08D221ED780300DE2088 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		268D08D421ED781700DE2088 /* CLVOAuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVOAuthManager.h; sourceTree = "<group>"; };
-		268D08D621ED781700DE2088 /* CLVLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVLoginButton.m; sourceTree = "<group>"; };
-		268D08D721ED781700DE2088 /* CLVOAuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLVOAuthManager.m; sourceTree = "<group>"; };
-		268D08D821ED781700DE2088 /* CLVLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVLoginButton.h; sourceTree = "<group>"; };
-		268D08D921ED781700DE2088 /* CLVCleverSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVCleverSDK.h; sourceTree = "<group>"; };
+		268D08D421ED781700DE2088 /* CleverSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleverSDK.h; sourceTree = "<group>"; };
+		268D08D621ED781700DE2088 /* CleverLoginButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CleverLoginButton.m; sourceTree = "<group>"; };
+		268D08D721ED781700DE2088 /* CleverSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CleverSDK.m; sourceTree = "<group>"; };
+		268D08D821ED781700DE2088 /* CleverLoginButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleverLoginButton.h; sourceTree = "<group>"; };
 		26AF352E21ED59B800263628 /* CleverSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CleverSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AF353021ED59B800263628 /* CleverSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CleverSDKTests.m; sourceTree = "<group>"; };
 		26AF353221ED59B800263628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,14 +108,14 @@
 		2663BEA721ED880900ED2BC1 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				262DC45C21EDAEE600FE5B20 /* CLVAppDelegate.h */,
-				262DC45921EDAEE600FE5B20 /* CLVAppDelegate.m */,
-				262DC45F21EDAEE600FE5B20 /* CLVLoginViewController.h */,
-				262DC45A21EDAEE600FE5B20 /* CLVLoginViewController.m */,
-				262DC45E21EDAEE600FE5B20 /* CLVLoginViewController.xib */,
-				262DC45B21EDAEE600FE5B20 /* CLVSuccessViewController.h */,
-				262DC45D21EDAEE600FE5B20 /* CLVSuccessViewController.m */,
-				262DC46021EDAEE700FE5B20 /* CLVSuccessViewController.xib */,
+				262DC45C21EDAEE600FE5B20 /* AppDelegate.h */,
+				262DC45921EDAEE600FE5B20 /* AppDelegate.m */,
+				262DC45F21EDAEE600FE5B20 /* LoginViewController.h */,
+				262DC45A21EDAEE600FE5B20 /* LoginViewController.m */,
+				262DC45E21EDAEE600FE5B20 /* LoginViewController.xib */,
+				262DC45B21EDAEE600FE5B20 /* SuccessViewController.h */,
+				262DC45D21EDAEE600FE5B20 /* SuccessViewController.m */,
+				262DC46021EDAEE700FE5B20 /* SuccessViewController.xib */,
 				2663BEB121ED880D00ED2BC1 /* Assets.xcassets */,
 				262DC45721ED8B0200FE5B20 /* LaunchScreen.xib */,
 				2663BEB621ED880D00ED2BC1 /* Info.plist */,
@@ -165,11 +163,10 @@
 			isa = PBXGroup;
 			children = (
 				26F9A8F421ED52C500ED1B6F /* Info.plist */,
-				268D08D921ED781700DE2088 /* CLVCleverSDK.h */,
-				268D08D821ED781700DE2088 /* CLVLoginButton.h */,
-				268D08D621ED781700DE2088 /* CLVLoginButton.m */,
-				268D08D421ED781700DE2088 /* CLVOAuthManager.h */,
-				268D08D721ED781700DE2088 /* CLVOAuthManager.m */,
+				268D08D821ED781700DE2088 /* CleverLoginButton.h */,
+				268D08D621ED781700DE2088 /* CleverLoginButton.m */,
+				268D08D421ED781700DE2088 /* CleverSDK.h */,
+				268D08D721ED781700DE2088 /* CleverSDK.m */,
 			);
 			path = CleverSDK;
 			sourceTree = "<group>";
@@ -204,9 +201,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				268D08E021ED781700DE2088 /* CLVCleverSDK.h in Headers */,
-				268D08DF21ED781700DE2088 /* CLVLoginButton.h in Headers */,
-				268D08DB21ED781700DE2088 /* CLVOAuthManager.h in Headers */,
+				268D08DF21ED781700DE2088 /* CleverLoginButton.h in Headers */,
+				268D08DB21ED781700DE2088 /* CleverSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,8 +316,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				262DC45821ED8B0200FE5B20 /* LaunchScreen.xib in Resources */,
-				262DC46421EDAEE700FE5B20 /* CLVLoginViewController.xib in Resources */,
-				262DC46521EDAEE700FE5B20 /* CLVSuccessViewController.xib in Resources */,
+				262DC46421EDAEE700FE5B20 /* LoginViewController.xib in Resources */,
+				262DC46521EDAEE700FE5B20 /* SuccessViewController.xib in Resources */,
 				2663BEB221ED880D00ED2BC1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,9 +412,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				262DC46321EDAEE700FE5B20 /* CLVSuccessViewController.m in Sources */,
-				262DC46121EDAEE700FE5B20 /* CLVAppDelegate.m in Sources */,
-				262DC46221EDAEE700FE5B20 /* CLVLoginViewController.m in Sources */,
+				262DC46321EDAEE700FE5B20 /* SuccessViewController.m in Sources */,
+				262DC46121EDAEE700FE5B20 /* AppDelegate.m in Sources */,
+				262DC46221EDAEE700FE5B20 /* LoginViewController.m in Sources */,
 				2663BEB821ED880D00ED2BC1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,8 +431,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				268D08DE21ED781700DE2088 /* CLVOAuthManager.m in Sources */,
-				268D08DD21ED781700DE2088 /* CLVLoginButton.m in Sources */,
+				268D08DE21ED781700DE2088 /* CleverSDK.m in Sources */,
+				268D08DD21ED781700DE2088 /* CleverLoginButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
