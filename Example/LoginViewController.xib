@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CLVLoginViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
                 <outlet property="detailLabel" destination="wdi-mE-Q1L" id="qlB-sS-FBO"/>
                 <outlet property="titleLabel" destination="ZcU-S9-VOO" id="DAp-IV-7RR"/>
