@@ -6,6 +6,8 @@
 @property (nonatomic, strong) NSString *legacyIosClientId;
 @property (nonatomic, strong) NSString *redirectUri;
 
+@property (nonatomic, strong) UIViewController *viewController;
+
 @property (nonatomic, strong) NSString *state;
 @property (atomic, assign) BOOL alreadyMissedCode;
 
@@ -36,8 +38,24 @@
     manager.successHandler = successHandler;
     manager.failureHandler = failureHandler;
 }
+
++ (void) startWithClientId:(NSString *)clientId LegacyIosClientId:(NSString *)legacyIosClientId RedirectURI:(NSString *)redirectUri ViewController:(UIViewController *)viewController successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+    CleverSDK *manager = [self sharedManager];
+    manager.clientId = clientId;
+    manager.alreadyMissedCode = NO;
+    manager.legacyIosClientId = legacyIosClientId;
+    manager.redirectUri = redirectUri;
+    manager.viewController = viewController;
+    manager.successHandler = successHandler;
+    manager.failureHandler = failureHandler;
+}
+
 + (void)startWithClientId:(NSString *)clientId RedirectURI:(NSString *)redirectUri successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
-    [self startWithClientId:clientId LegacyIosClientId:nil RedirectURI:redirectUri successHandler:successHandler failureHandler:failureHandler];
+    [self startWithClientId:clientId LegacyIosClientId:nil RedirectURI:redirectUri ViewController:nil successHandler:successHandler failureHandler:failureHandler];
+}
+
++ (void)startWithClientId:(NSString *)clientId RedirectURI:(NSString *)redirectUri ViewController:(UIViewController *)viewController successHandler:(void (^)(NSString *code, BOOL validState))successHandler failureHandler:(void (^)(NSString *errorMessage))failureHandler {
+    [self startWithClientId:clientId LegacyIosClientId:nil RedirectURI:redirectUri ViewController:viewController successHandler:successHandler failureHandler:failureHandler];
 }
 
 + (NSString *)generateRandomString:(int)length {
@@ -84,6 +102,14 @@
         return;
     }
     
+    // If a view controller parameter value was passed to this method, we want to present the safari view controller instead of opening the safari app.
+    if (manager.viewController) {
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:webURLString]];
+        [manager.viewController presentViewController:svc animated:YES completion:nil];
+        return;
+    }
+    
+    // Looks like the Clever app is not installed and a view controller value was not passed, we should do something...open the safari app.
     if (@available(iOS 10, *)) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webURLString] options:@{} completionHandler:nil];
     } else {
