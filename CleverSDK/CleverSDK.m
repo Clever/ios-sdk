@@ -42,14 +42,18 @@
 
 + (NSString *)generateRandomString:(int)length {
     NSAssert(length % 2 == 0, @"Must generate random string with even length");
+
     NSMutableData *data = [NSMutableData dataWithLength:length / 2];
-    NSAssert(SecRandomCopyBytes(kSecRandomDefault, length, [data mutableBytes]) == 0, @"Failure in SecRandomCopyBytes: %d", errno);
+    int errorCode __unused = SecRandomCopyBytes(kSecRandomDefault, length, [data mutableBytes]);
+    NSAssert(errorCode == 0, @"Failure in SecRandomCopyBytes: %d", errorCode);
+
     NSMutableString *hexString  = [NSMutableString stringWithCapacity:(length)];
     const unsigned char *dataBytes = [data bytes];
     for (int i = 0; i < length / 2; ++i)
     {
         [hexString appendFormat:@"%02x", (unsigned int)dataBytes[i]];
     }
+
     return [NSString stringWithString:hexString];
 }
 
