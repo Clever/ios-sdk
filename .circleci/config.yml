@@ -29,3 +29,4 @@ jobs:
       - run:
           name: Publish CocoaPods release
           command: if [ "${CIRCLE_BRANCH}" == "master" ] && ! pod trunk info CleverSDK | grep -q "$(cat VERSION)"; then pod trunk push; fi;
+      - run: $HOME/ci-scripts/circleci/catalog-sync $CATAPULT_URL $CATAPULT_USER $CATAPULT_PASS ios-sdk utility
