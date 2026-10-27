@@ -3,9 +3,9 @@ kind: Component
 metadata:
   name: ios-sdk
   description: Clever iOS SDK
-  owner: unknown
+  owner: eng-auth
 spec:
   type: unknown
   lifecycle: production
-  owner: unknown
+  owner: eng-auth
   system: Clever
