@@ -5,7 +5,7 @@ You can read more about integrating Clever Instant Login in your app [here](http
 
 ## Project Status
 
-This SDK is no longer maintained and will be unpublished at a later date. Please see our Developer Docs for the latest information on how to integrate your app with Clever on iOS: [https://dev.clever.com/docs/il-native-ios](https://dev.clever.com/docs/il-native-ios)
+This SDK is no longer maintained and will be unpublished at a later date. The last release (2.0.0) was published to CocoaPods Trunk in 2019; Trunk becomes read-only on December 2, 2026, so no further releases will be published. Please see our Developer Docs for the latest information on how to integrate your app with Clever on iOS: [https://dev.clever.com/docs/il-native-ios](https://dev.clever.com/docs/il-native-ios)
 
 ## Installation
 
